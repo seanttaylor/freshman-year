@@ -316,5 +316,232 @@ paths:
         in: path
         required: true
         description: Reference number for pending activation
+  /sponsors:
+    get:
+      summary: get_sponsors
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      operationId: get_sponsors
+      tags:
+        - sponsors
+      description: Get all sponsors registered on the platform
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: JWT Authorization
+          required: true
+    post:
+      summary: create_sponsor
+      operationId: create_sponsor
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        "201":
+          description: Created
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      description: Register a new sponsor on the platform
+      tags:
+        - sponsors
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: JWT Authorization
+          required: true
+  "/sponsors/{id}":
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: UUID of sponsor
+    get:
+      summary: get_sponsor_by_id
+      tags:
+        - sponsors
+      responses:
+        "200":
+          description: OK
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      operationId: get_sponsor_by_id
+      description: Get a specified sponsor on the platform
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: JWT Authorization
+          required: true
+    put:
+      summary: update_sponsor_by_id
+      operationId: update_sponsor_by_id
+      responses:
+        "200":
+          description: OK
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      tags:
+        - sponsors
+      description: Update a specified sponsor on the platform
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: JWT Authorization
+          required: true
+    delete:
+      summary: delete_sponsor_by_id
+      operationId: delete_sponsor_by_id
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      description: 'De-registers a sponsor from the platform, deletes a `sponsor` record. Implemented via a "soft" delete, sponsors can still be restored within a specified timeframe (TBD.)'''
+      tags:
+        - sponsors
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: JWT Authorization
+          required: true
+  "/sponsors/{id}/accounts":
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: UUID of sponsor
+    get:
+      summary: get_accounts_by_sponsor_id
+      tags:
+        - accounts
+        - sponsors
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      operationId: get_accounts_by_sponsor_id
+      description: Get list of accounts linked to a specifed sponsor
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: JWT Authorization
+          required: true
+  "/sponsors/{sponsor_id}/accounts/{account_id}":
+    parameters:
+      - schema:
+          type: string
+        name: sponsor_id
+        in: path
+        required: true
+        description: UUID of sponsor
+      - schema:
+          type: string
+        name: account_id
+        in: path
+        required: true
+        description: UUID of account
+    get:
+      summary: get_sponsor_account_by_id
+      tags:
+        - accounts
+        - sponsors
+      responses:
+        "200":
+          description: OK
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      operationId: get_sponsor_account_by_id
+      description: Get a specified sponsor account on the platform
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: JWT Authorization
+          required: true
 components:
   schemas: {}

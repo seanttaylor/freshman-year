@@ -1,0 +1,320 @@
+openapi: 3.0.0
+info:
+  title: api-freshman-yr
+  version: 0.0.1
+  description: A crowdsourced micro-funding platform for financing undergraduate tuition expenses.
+  contact:
+    name: Sean Travis Taylor
+    email: engineering@freshmanyr.io
+  termsOfService: api.freshmanyr.io/tos.md
+tags:
+  - name: accounts
+    description: Endpoints for accessing account management services.
+  - name: students
+    description: Endpoints for accessing `Students` business entities.
+  - name: sponsors
+    description: Endpoints for accessing `Sponsors` business entities.
+  - name: system
+    description: "Endpoints for accessing specified system features (e.g. WebSockets, Server-Sent Events, system status)."
+servers:
+  - url: "http://localhost:3000"
+    description: development
+paths:
+  "/students/{id}":
+    put:
+      summary: update_student_by_id
+      operationId: update_student_by_id
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      description: Update a `student` record on the platform.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: "JWT Authorization "
+          required: true
+      tags:
+        - students
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        description: UUID of student
+        required: true
+    delete:
+      summary: delete_student_by_id
+      operationId: delete_student_by_id
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      description: 'De-registers a student from the platform, deletes a `student` record. Implemented via a "soft" delete, students can still be restored within a specified timeframe (TBD.)'
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: JWT Authorization
+          required: true
+      tags:
+        - students
+    get:
+      summary: get_student_by_id
+      operationId: get_student_by_id
+      responses:
+        "200":
+          description: OK
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      description: Get a specified `student` record on the platform
+      tags:
+        - students
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: JWT Authorization
+          required: true
+  "/students/{id}/sponsors":
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: UUID of student
+    get:
+      summary: get_student_sponsors
+      tags:
+        - students
+        - sponsors
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      operationId: get_student_id_sponsors
+      description: Get all sponsors linked with a specified student on the platform
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: JWT Authorization
+          required: true
+    post:
+      summary: create_student_sponsor
+      operationId: create_student_sponsor
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      description: Attaches an existing sponsor to an existing student
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: JWT Authorization
+          required: true
+      tags:
+        - students
+        - sponsors
+  /students:
+    get:
+      summary: get_students
+      tags:
+        - students
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      operationId: get_students
+      description: Get all students registered on the platform
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: JWT Authorization
+          required: true
+  "/students/{student_id}/sponsors/{sponsor_id}":
+    parameters:
+      - schema:
+          type: string
+        name: student_id
+        in: path
+        required: true
+        description: UUID of student
+      - schema:
+          type: string
+        name: sponsor_id
+        in: path
+        required: true
+        description: UUID of sponsor
+    get:
+      summary: get_student_sponsor_by_id
+      tags:
+        - students
+        - sponsors
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      operationId: get_student_sponsor_by_id
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: JWT Authorization
+          required: true
+      description: Get a specified student sponsor on the platform
+  /status:
+    get:
+      summary: get_system_status
+      tags:
+        - system
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        "503":
+          description: Service Unavailable
+      operationId: get-status
+      description: Get system status
+  /sse:
+    get:
+      summary: bootstrap_sse_connection
+      tags:
+        - system
+      responses:
+        "200":
+          description: OK
+        "503":
+          description: Service Unavailable
+        "":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      operationId: bootstrap_sse_connection
+      description: Initializes persistent connection for Server-Sent Events
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: JWT Authorization
+          required: true
+  "/accounts/activate/{ref}":
+    post:
+      summary: activate _account
+      responses:
+        "200":
+          description: OK
+      operationId: activate_account
+      tags:
+        - accounts
+      description: Activate a new user account
+    parameters:
+      - schema:
+          type: string
+        name: ref
+        in: path
+        required: true
+        description: Reference number for pending activation
+components:
+  schemas: {}

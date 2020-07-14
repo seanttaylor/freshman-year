@@ -1,0 +1,11 @@
+{
+  "name": "freshman-year",
+  "version": "0.0.1",
+  "description": "A crowdsourced micro-funding platform for financing undergraduate tuition expenses.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sean T Taylor",
+  "license": "ISC"
+}

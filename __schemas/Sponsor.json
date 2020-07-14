@@ -1,0 +1,217 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The Sponsor Schema",
+    "description": "The Sponsor schema comprises the entire JSON document.",
+    "default": {},
+    "examples": [
+        {
+            "firstName": "Bruce",
+            "lastName": "Banner",
+            "dateOfBirth": "02/02/1970",
+            "emailAddress": "bbanner@avengers.io",
+            "createdAt": "2020-07-14T01:11:46.569Z",
+            "lastModifiedAt": null,
+            "profileImageURL": "https://placeholder.com/300",
+            "students": [
+                "e3a5cbec-cd3f-41ac-a321-fecf1a1a3eb6"
+            ],
+            "entity": {
+                "name": "sponsor ",
+                "version": "0.0.1"
+            },
+            "status": "awaiting-account-activation",
+            "isAccountActivated": false,
+            "_id": "2520bf4c-7dd8-460c-a007-d6da3ba3ef83"
+        }
+    ],
+    "required": [
+        "firstName",
+        "lastName",
+        "dateOfBirth",
+        "emailAddress",
+        "createdAt",
+        "lastModifiedAt",
+        "profileImageURL",
+        "students",
+        "entity",
+        "status"
+    ],
+    "additionalProperties": true,
+    "properties": {
+        "firstName": {
+            "$id": "#/properties/firstName",
+            "type": "string",
+            "title": "The firstName schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "Bruce"
+            ]
+        },
+        "lastName": {
+            "$id": "#/properties/lastName",
+            "type": "string",
+            "title": "The lastName schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "Banner"
+            ]
+        },
+        "dateOfBirth": {
+            "$id": "#/properties/dateOfBirth",
+            "type": "string",
+            "title": "The dateOfBirth schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "02/02/1970"
+            ]
+        },
+        "emailAddress": {
+            "$id": "#/properties/emailAddress",
+            "type": "string",
+            "title": "The emailAddress schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "bbanner@avengers.io"
+            ]
+        },
+        "createdAt": {
+            "$id": "#/properties/createdAt",
+            "type": "string",
+            "title": "The createdAt schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "2020-07-14T01:11:46.569Z"
+            ],
+            "readOnly": "true"
+        },
+        "lastModifiedAt": {
+            "$id": "#/properties/lastModifiedAt",
+            "type": "null",
+            "title": "The lastModifiedAt schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": null,
+            "examples": [
+                null
+            ],
+            "readOnly": "true"
+        },
+        "profileImageURL": {
+            "$id": "#/properties/profileImageURL",
+            "type": "string",
+            "title": "The profileImageURL schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "https://placeholder.com/300"
+            ]
+        },
+        "students": {
+            "$id": "#/properties/students",
+            "type": "array",
+            "title": "The students schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "examples": [
+                [
+                    "e3a5cbec-cd3f-41ac-a321-fecf1a1a3eb6"
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "anyOf": [
+                    {
+                        "$id": "#/properties/students/items/anyOf/0",
+                        "type": "string",
+                        "title": "The first anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "examples": [
+                            "e3a5cbec-cd3f-41ac-a321-fecf1a1a3eb6"
+                        ]
+                    }
+                ],
+                "$id": "#/properties/students/items"
+            }
+        },
+        "entity": {
+            "$id": "#/properties/entity",
+            "type": "object",
+            "title": "The entity schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "name": "sponsor ",
+                    "version": "0.0.1"
+                }
+            ],
+            "required": [
+                "name",
+                "version"
+            ],
+            "additionalProperties": true,
+            "properties": {
+                "name": {
+                    "$id": "#/properties/entity/properties/name",
+                    "type": "string",
+                    "title": "The name schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "sponsor "
+                    ]
+                },
+                "version": {
+                    "$id": "#/properties/entity/properties/version",
+                    "type": "string",
+                    "title": "The version schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "0.0.1"
+                    ]
+                }
+            }
+        },
+        "status": {
+            "$id": "#/properties/status",
+            "type": "string",
+            "title": "The status schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "awaiting-account-activation"
+            ]
+        },
+        "isAccountActivated": {
+            "$id": "#/properties/isAccountActivated",
+            "type": "boolean",
+            "title": "The isAccountActivated schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": false,
+            "examples": [
+                false
+            ],
+            "readOnly": "true"
+        },
+        "_id": {
+            "$id": "#/properties/_id",
+            "type": "string",
+            "title": "The _id schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "2520bf4c-7dd8-460c-a007-d6da3ba3ef83"
+            ],
+            "readOnly": "true"
+        }
+    },
+    "readOnly": "true"
+}

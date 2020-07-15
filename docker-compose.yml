@@ -28,6 +28,8 @@ services:
   #app_service:
   #  depends_on:
   #    - data_service
+  #  volumes:
+  #    - ./src:/app
   #  image: api-freshman-yr:0.0.1
   #  command: npm start
   #  networks:

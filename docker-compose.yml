@@ -25,16 +25,16 @@ services:
       - shared_network
     ports:
       - "3000:3000"
-  #app_service:
-  #  depends_on:
-  #    - data_service
-  #  volumes:
-  #    - ./src:/app
-  #  image: api-freshman-yr:0.0.1
-  #  command: npm start
-  #  networks:
-  #    - shared_network
-  # ports:
-  #    - "3001:3001"
+  edge_service_proxy:
+    depends_on:
+      - data_service
+    volumes:
+      - ./:/app
+    image: api-freshman-yr:0.0.1
+    command: npm start
+    networks:
+      - shared_network
+    ports:
+      - "3001:3001"
 networks:
   shared_network:

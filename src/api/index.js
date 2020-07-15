@@ -1,14 +1,16 @@
 const http = require('http');
 const express = require('express');
-const httpProxy = require('express-http-proxy');
+const proxy = require('express-http-proxy');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 const requestContext = require('../lib/middleware/request-context.middleware.js');
+const proxyResolver = require('../lib/middleware/proxy-resolver.middleware');
 const app = express();
 const serverPort = process.env.SERVER_PORT || 3001;
+const PROXY_DATA_SERVICE_URL = process.env.PROXY_DATA_SERVICE_URL || 'http://data_service:3000';
 
 app.use(helmet());
 app.use(cors());
@@ -17,6 +19,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(requestContext);
+
+/*Append data service URL prefix to request URL; if
+* omitted data service returns 404 on inbound requests
+*/
+app.use('/api/edge-proxy', proxy(PROXY_DATA_SERVICE_URL, {
+    proxyReqPathResolver: (req) => '/api' + `${req.url}`
+}));
 
 /*
  * Routes
@@ -40,7 +49,7 @@ app.use((err, req, res, next) => {
 
 http.createServer(app).listen(serverPort, () => {
     console.info(
-        "Edge Proxy service is listening on port %d (http://localhost:%d)",
+        "Edge Service proxy is listening on port %d (http://localhost:%d)",
         serverPort,
         serverPort
     );

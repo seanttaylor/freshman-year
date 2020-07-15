@@ -1,6 +1,6 @@
 FROM node:12-alpine
 
-COPY ./src /app
+COPY . /app
 
 RUN chown node -R /app
 

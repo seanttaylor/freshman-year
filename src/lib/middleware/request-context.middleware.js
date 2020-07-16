@@ -8,7 +8,7 @@
 */
 
 module.exports = function requestContext(req, res, next) {
-    Object.defineProperty(res.locals, 'CONTEXT', {
+    Object.defineProperty(res.locals, '__context', {
         value: Object.defineProperty({}, 'permissions', {
             value: {},
             configurable: false,

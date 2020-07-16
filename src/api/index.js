@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 const requestContext = require('../lib/middleware/request-context.middleware.js');
-const proxyResolver = require('../lib/middleware/proxy-resolver.middleware');
+//const proxyConfiguration = require('../lib/middleware/proxy-resolver.middleware');
 const app = express();
 const serverPort = process.env.SERVER_PORT || 3001;
 const PROXY_DATA_SERVICE_URL = process.env.PROXY_DATA_SERVICE_URL || 'http://data_service:3000';
@@ -20,12 +20,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(requestContext);
 
-/*Append data service URL prefix to request URL; if
-* omitted data service returns 404 on inbound requests
-*/
-app.use('/api/edge-proxy', proxy(PROXY_DATA_SERVICE_URL, {
-    proxyReqPathResolver: (req) => '/api' + `${req.url}`
-}));
+app.use('/api/sponsors', require('./routes/sponsors.route.js'));
+app.use(proxy(PROXY_DATA_SERVICE_URL));
 
 /*
  * Routes

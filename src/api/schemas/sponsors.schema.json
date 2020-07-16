@@ -11,33 +11,20 @@
             "lastName": "Banner",
             "dateOfBirth": "02/02/1970",
             "emailAddress": "bbanner@avengers.io",
-            "createdAt": "2020-07-14T01:11:46.569Z",
-            "lastModifiedAt": null,
             "profileImageURL": "https://placeholder.com/300",
-            "students": [
-                "e3a5cbec-cd3f-41ac-a321-fecf1a1a3eb6"
-            ],
             "entity": {
                 "name": "sponsor ",
                 "version": "0.0.1",
                 "schema": "/api/schemas/sponsor/v0.0.1.json"
             },
             "status": "awaiting-account-activation",
-            "isAccountActivated": false,
-            "_id": "2520bf4c-7dd8-460c-a007-d6da3ba3ef83"
+            "isAccountActivated": false
         }
     ],
     "required": [
         "firstName",
         "lastName",
-        "dateOfBirth",
-        "emailAddress",
-        "createdAt",
-        "lastModifiedAt",
-        "profileImageURL",
-        "students",
-        "entity",
-        "status"
+        "emailAddress"
     ],
     "additionalProperties": true,
     "properties": {
@@ -90,7 +77,7 @@
             "examples": [
                 "2020-07-14T01:11:46.569Z"
             ],
-            "readOnly": "true"
+            "readOnly": true
         },
         "lastModifiedAt": {
             "$id": "#/properties/lastModifiedAt",
@@ -101,7 +88,7 @@
             "examples": [
                 null
             ],
-            "readOnly": "true"
+            "readOnly": true
         },
         "profileImageURL": {
             "$id": "#/properties/profileImageURL",
@@ -201,7 +188,8 @@
             "default": "",
             "examples": [
                 "awaiting-account-activation"
-            ]
+            ],
+            "readOnly": true
         },
         "isAccountActivated": {
             "$id": "#/properties/isAccountActivated",
@@ -213,18 +201,6 @@
                 false
             ],
             "readOnly": true
-        },
-        "_id": {
-            "$id": "#/properties/_id",
-            "type": "string",
-            "title": "The _id schema",
-            "description": "An explanation about the purpose of this instance.",
-            "default": "",
-            "examples": [
-                "2520bf4c-7dd8-460c-a007-d6da3ba3ef83"
-            ],
-            "readOnly": true
         }
-    },
-    "readOnly": true
+    }
 }

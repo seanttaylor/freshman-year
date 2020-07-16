@@ -11,7 +11,6 @@
             "status": null,
             "amount": "0.53",
             "createdAt": "2020-07-14T01:11:46.569Z",
-            "lastModified": "2020-06-14T01:11:46.569Z",
             "card": {
                 "number": 1987,
                 "type": "visa",

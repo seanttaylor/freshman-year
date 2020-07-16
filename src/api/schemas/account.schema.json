@@ -18,7 +18,7 @@
             "entity": {
                 "name": "account",
                 "version": "0.0.1",
-                "schema": "/api/schemas/accounts/0.0.1"
+                "schema": "/api/schemas/account/v0.0.1.json"
             }
         }
     ],
@@ -125,7 +125,7 @@
                 {
                     "name": "account",
                     "version": "0.0.1",
-                    "schema": "/api/schemas/accounts/0.0.1"
+                    "schema": "/api/schemas/account/v0.0.1.json"
                 }
             ],
             "required": [
@@ -162,7 +162,7 @@
                     "description": "Link to the JSON Schema for the entity.",
                     "default": "",
                     "examples": [
-                        "/api/schemas/accounts/0.0.1"
+                        "/api/schemas/account/v0.0.1.json"
                     ]
                 }
             }

@@ -19,7 +19,8 @@
             ],
             "entity": {
                 "name": "sponsor ",
-                "version": "0.0.1"
+                "version": "0.0.1",
+                "schema": "/api/schemas/sponsor/v0.0.1.json"
             },
             "status": "awaiting-account-activation",
             "isAccountActivated": false,
@@ -149,14 +150,16 @@
             "examples": [
                 {
                     "name": "sponsor ",
-                    "version": "0.0.1"
+                    "version": "0.0.1",
+                    "schema": "/api/schemas/sponsor/v0.0.1.json"
                 }
             ],
             "required": [
                 "name",
-                "version"
+                "version",
+                "schema"
             ],
-            "additionalProperties": true,
+            "additionalProperties": false,
             "properties": {
                 "name": {
                     "$id": "#/properties/entity/properties/name",
@@ -176,6 +179,16 @@
                     "default": "",
                     "examples": [
                         "0.0.1"
+                    ]
+                },
+                "schema": {
+                    "$id": "#/properties/entity/properties/schema",
+                    "type": "string",
+                    "title": "The schema schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "/api/schemas/sponsor/v0.0.1.json"
                     ]
                 }
             }
@@ -199,7 +212,7 @@
             "examples": [
                 false
             ],
-            "readOnly": "true"
+            "readOnly": true
         },
         "_id": {
             "$id": "#/properties/_id",
@@ -210,8 +223,8 @@
             "examples": [
                 "2520bf4c-7dd8-460c-a007-d6da3ba3ef83"
             ],
-            "readOnly": "true"
+            "readOnly": true
         }
     },
-    "readOnly": "true"
+    "readOnly": true
 }

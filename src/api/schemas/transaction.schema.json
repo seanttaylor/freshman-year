@@ -20,7 +20,7 @@
             "entity": {
                 "name": "transaction",
                 "version": "0.0.1",
-                "schema": "/api/schemas/transactions/0.0.1"
+                "schema": "/api/schemas/transactions/v0.0.1.json"
             }
         }
     ],
@@ -138,7 +138,7 @@
                 {
                     "name": "transaction",
                     "version": "0.0.1",
-                    "schema": "/api/schemas/transactions/0.0.1"
+                    "schema": "/api/schemas/transactions/v0.0.1.json"
                 }
             ],
             "required": [
@@ -175,7 +175,7 @@
                     "description": "Link to the full JSON Schema for this entity",
                     "default": "",
                     "examples": [
-                        "/api/schemas/transactions/0.0.1"
+                        "/api/schemas/transactions/v0.0.1.json"
                     ]
                 }
             }

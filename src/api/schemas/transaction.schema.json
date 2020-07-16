@@ -1,0 +1,184 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The Transaction schema comprises the entire JSON document.",
+    "default": {},
+    "examples": [
+        {
+            "account_id": "c7d63189-07f8-4ea8-9a62-37a7b8cfe973",
+            "status": null,
+            "amount": "0.53",
+            "createdAt": "2020-07-14T01:11:46.569Z",
+            "lastModified": "2020-06-14T01:11:46.569Z",
+            "card": {
+                "number": 1987,
+                "type": "visa",
+                "expiryDate": "07/24"
+            },
+            "entity": {
+                "name": "transaction",
+                "version": "0.0.1",
+                "schema": "/api/schemas/transactions/0.0.1"
+            }
+        }
+    ],
+    "required": [
+        "account_id",
+        "status",
+        "amount",
+        "createdAt",
+        "card",
+        "entity"
+    ],
+    "additionalProperties": true,
+    "properties": {
+        "account_id": {
+            "$id": "#/properties/account_id",
+            "type": "string",
+            "title": "The account_id schema",
+            "description": "The account related to this transaction",
+            "default": "",
+            "examples": [
+                "c7d63189-07f8-4ea8-9a62-37a7b8cfe973"
+            ]
+        },
+        "status": {
+            "$id": "#/properties/status",
+            "type": "null",
+            "title": "The status schema",
+            "description": "The status of the transaction",
+            "default": null,
+            "examples": [
+                null
+            ]
+        },
+        "amount": {
+            "$id": "#/properties/amount",
+            "type": "string",
+            "title": "The amount schema",
+            "description": "The transaction amount",
+            "default": "",
+            "examples": [
+                "0.53"
+            ]
+        },
+        "createdAt": {
+            "$id": "#/properties/createdAt",
+            "type": "string",
+            "title": "The createdAt schema",
+            "description": "Date the transaction was created",
+            "default": "",
+            "examples": [
+                "2020-07-14T01:11:46.569Z"
+            ]
+        },
+        "card": {
+            "$id": "#/properties/card",
+            "type": "object",
+            "title": "The card schema",
+            "description": "Metadata related to the card the transaction was processed against",
+            "default": {},
+            "examples": [
+                {
+                    "number": 1987,
+                    "type": "visa",
+                    "expiryDate": "07/24"
+                }
+            ],
+            "required": [
+                "number",
+                "type",
+                "expiryDate"
+            ],
+            "additionalProperties": true,
+            "properties": {
+                "number": {
+                    "$id": "#/properties/card/properties/number",
+                    "type": "integer",
+                    "title": "The number schema",
+                    "description": "The last four digits of the credit/debit card the transaction was processed against",
+                    "default": 0,
+                    "examples": [
+                        1987
+                    ],
+                    "maxLength": 4,
+                    "minLength": 4
+                },
+                "type": {
+                    "$id": "#/properties/card/properties/type",
+                    "type": "string",
+                    "title": "The type schema",
+                    "description": "The type of the credit/debit card",
+                    "default": "",
+                    "examples": [
+                        "visa"
+                    ]
+                },
+                "expiryDate": {
+                    "$id": "#/properties/card/properties/expiryDate",
+                    "type": "string",
+                    "title": "The expiryDate schema",
+                    "description": "Date the credit/debit card expires",
+                    "default": "",
+                    "examples": [
+                        "07/24"
+                    ]
+                }
+            }
+        },
+        "entity": {
+            "$id": "#/properties/entity",
+            "type": "object",
+            "title": "The entity schema",
+            "description": "Metadata related to the entity type",
+            "default": {},
+            "examples": [
+                {
+                    "name": "transaction",
+                    "version": "0.0.1",
+                    "schema": "/api/schemas/transactions/0.0.1"
+                }
+            ],
+            "required": [
+                "name",
+                "version",
+                "schema"
+            ],
+            "additionalProperties": true,
+            "properties": {
+                "name": {
+                    "$id": "#/properties/entity/properties/name",
+                    "type": "string",
+                    "title": "The name schema",
+                    "description": "The entity name",
+                    "default": "",
+                    "examples": [
+                        "transaction"
+                    ]
+                },
+                "version": {
+                    "$id": "#/properties/entity/properties/version",
+                    "type": "string",
+                    "title": "The version schema",
+                    "description": "The entity version. Maps to the JSON Schema version",
+                    "default": "",
+                    "examples": [
+                        "0.0.1"
+                    ]
+                },
+                "schema": {
+                    "$id": "#/properties/entity/properties/schema",
+                    "type": "string",
+                    "title": "The schema schema",
+                    "description": "Link to the full JSON Schema for this entity",
+                    "default": "",
+                    "examples": [
+                        "/api/schemas/transactions/0.0.1"
+                    ]
+                }
+            }
+        }
+    }
+}

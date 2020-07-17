@@ -1,14 +1,12 @@
 const express = require('express');
 const schema = require('../schemas/sponsors.schema.json');
-const Sponsor = require('../services/sponsors.service.js');
+const SponsorService = require('../services/sponsors.service');
 const validateRequestBySchema = require('../../lib/middleware/validate.middleware.js');
+const proxy = require('../../lib/middleware/proxy');
 const router = new express.Router();
-//Applied to all routes by default. Use the validateRequestBySchema middleware to validate incoming [POST] and [PUT] requests where appropriate.
-//router.use(validateRequestBySchema(schema));
-
 
 /**
- * Create new sponsor entity.
+ * Create new Sponsor entity.
  */
 router.post('/', validateRequestBySchema(schema), async (req, res, next) => {
     const options = {
@@ -16,8 +14,7 @@ router.post('/', validateRequestBySchema(schema), async (req, res, next) => {
     };
 
     try {
-        req.body = Object.assign({}, new Sponsor(options.body).toJSON());
-        //req.__useDefaultProxyBasePath = false;
+        req.body = SponsorService.create(options.body);
         next();
     } catch (err) {
         next(err);
@@ -25,19 +22,7 @@ router.post('/', validateRequestBySchema(schema), async (req, res, next) => {
 });
 
 /**
- * Get all Sponsor entities from the data store.
- */
-router.get('/', async (req, res, next) => {
-
-    try {
-        next();
-    } catch (err) {
-        next(err);
-    }
-});
-
-/**
- * Update an existing post.
+ * Update an existing Sponsor entity.
  */
 router.put('/:id', async (req, res, next) => {
     const options = {
@@ -46,8 +31,13 @@ router.put('/:id', async (req, res, next) => {
     };
 
     try {
-        const result = await posts.updatePost(options);
-        res.status(200).send(result.data);
+        req.body = Object.assign({
+            lastModifiedAt: new Date().toISOString(),
+        }, new Entity({
+            name: 'sponsor',
+            data: options.body
+        }));
+        next();
     } catch (err) {
         next(err);
     }

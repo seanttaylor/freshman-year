@@ -1,13 +1,12 @@
 const http = require('http');
 const express = require('express');
-const proxy = require('express-http-proxy');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 const requestContext = require('../lib/middleware/request-context.middleware.js');
-//const proxyConfiguration = require('../lib/middleware/proxy-resolver.middleware');
+const proxy = require('../lib/middleware/proxy');
 const app = express();
 const serverPort = process.env.SERVER_PORT || 3001;
 const PROXY_DATA_SERVICE_URL = process.env.PROXY_DATA_SERVICE_URL || 'http://data_service:3000';
@@ -21,7 +20,7 @@ app.use(cookieParser());
 app.use(requestContext);
 
 app.use('/api/sponsors', require('./routes/sponsors.route.js'));
-app.use(proxy(PROXY_DATA_SERVICE_URL));
+app.use(proxy.configuration(PROXY_DATA_SERVICE_URL));
 
 /*
  * Routes

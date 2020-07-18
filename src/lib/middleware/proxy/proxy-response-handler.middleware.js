@@ -1,5 +1,5 @@
 /**
- * The methods below applying formatting to records returned from the data service.
+ * The methods below apply formatting to records returned from the data service.
  * This logic is located here because the structure of the `express-http-proxy` package does
  * not allow for easy post-processing of responses from proxied API requests. The sole 
  * facility for achieving post-processing is through the user-configured `userResDecorator` 
@@ -16,50 +16,45 @@
 * @param {Object} userRes - original Express response object
 */
 
+function onEntityCollection(proxyRes, proxyResData, userReq, userRes) {
+    return {
+        entries: proxyResData.length,
+        data: proxyResData
+    }
+}
+
+function onEntityInstance(proxyRes, proxyResData, userReq, userRes) {
+    return {
+        entries: 1,
+        data: [
+            ...proxyResData
+        ]
+    }
+}
+
+function onCreateEntityInstance(proxyRes, proxyResData, userReq, userRes) {
+    return {
+        entries: 1,
+        data: [{
+            ...userReq.body
+        }]
+    }
+}
+
+
+
 module.exports = {
     //Sponsors
-    "get:/api/sponsors": function (proxyRes, proxyResData, userReq, userRes) {
-        return {
-            entries: proxyResData.length,
-            data: proxyResData
-        }
-    },
-    "post:/api/sponsors": function (proxyRes, proxyResData, userReq, userRes) {
-        return {
-            entries: 1,
-            data: [{
-                ...userReq.body
-            }]
-        }
-    },
+    "get:/api/sponsors": onEntityCollection,
+    "get:/api/sponsors/:id": onEntityInstance,
+    "post:/api/sponsors": onCreateEntityInstance,
     //Accounts
-    "get:/api/accounts": function (proxyRes, proxyResData, userReq, userRes) {
-        return {
-            entries: proxyResData.length,
-            data: proxyResData
-        }
-    },
+    "get:/api/accounts": onEntityCollection,
+    "get:/api/accounts/:id": onEntityInstance,
     //Students
-    "get:/api/students": function (proxyRes, proxyResData, userReq, userRes) {
-        return {
-            entries: proxyResData.length,
-            data: proxyResData
-        }
-    },
-    "get:/api/students/:id": function (proxyRes, proxyResData, userReq, userRes) {
-        return {
-            entries: 1,
-            data: [
-                ...proxyResData
-            ]
-        }
-    },
+    "get:/api/students": onEntityCollection,
+    "get:/api/students/:id": onEntityInstance,
     //Transactions
-    "get:/api/transactions": function (proxyRes, proxyResData, userReq, userRes) {
-        return {
-            entries: proxyResData.length,
-            data: proxyResData
-        }
-    }
-
+    "get:/api/transactions": onEntityCollection,
+    "get:/api/transactions/:id": onEntityInstance
 }

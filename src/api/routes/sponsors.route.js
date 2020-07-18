@@ -43,21 +43,6 @@ router.put('/:id', async (req, res, next) => {
     }
 });
 
-/**
- * Find a single post document by its UUID.
- */
-router.get('/:id', async (req, res, next) => {
-    const options = {
-        id: req.params['id']
-    };
-
-    try {
-        const result = await posts.findPostById(options);
-        res.status(result.status || 200).send(result.data);
-    } catch (err) {
-        next(err);
-    }
-});
 
 /**
  * Delete an existing post.

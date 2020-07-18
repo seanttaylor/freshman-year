@@ -65,6 +65,7 @@ module.exports = {
     //Students
     "get:/api/students": onEntityCollection,
     "get:/api/students/:id": onEntityInstance,
+    "patch:/api/students/:id": onUpateEntityInstance,
     //Transactions
     "get:/api/transactions": onEntityCollection,
     "get:/api/transactions/:id": onEntityInstance

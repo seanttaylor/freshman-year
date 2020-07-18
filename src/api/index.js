@@ -20,6 +20,7 @@ app.use(cookieParser());
 app.use(requestContext);
 
 app.use('/api/sponsors', require('./routes/sponsors.route.js'));
+app.use('/api/students', require('./routes/students.route.js'));
 app.use(proxy.configuration(PROXY_DATA_SERVICE_URL));
 
 /*

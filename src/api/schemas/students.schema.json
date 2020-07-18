@@ -15,14 +15,9 @@
             "lastModifiedAt": null,
             "profileImageURL": "https://placeholder.com/300",
             "anticipatedGraduationDate": "05/25/2024",
-            "sponsors": [
-                ""
-            ],
             "enrolledAt": "P.S. 118",
-            "entity": {
-                "name": "student ",
-                "version": "0.0.1"
-            },
+            "entityName": "student",
+            "entityVersion": "0.0.1",
             "status": "awaiting-account-activation",
             "isAccountActivated": false,
             "id": "e3a5cbec-cd3f-41ac-a321-fecf1a1a3eb6"
@@ -33,18 +28,10 @@
         "lastName",
         "dateOfBirth",
         "emailAddress",
-        "createdAt",
-        "lastModifiedAt",
-        "profileImageURL",
         "anticipatedGraduationDate",
-        "sponsors",
-        "enrolledAt",
-        "entity",
-        "status",
-        "isAccountActivated",
-        "_id"
+        "enrolledAt"
     ],
-    "additionalProperties": true,
+    "additionalProperties": false,
     "properties": {
         "firstName": {
             "$id": "#/properties/firstName",
@@ -129,34 +116,6 @@
                 "05/25/2024"
             ]
         },
-        "sponsors": {
-            "$id": "#/properties/sponsors",
-            "type": "array",
-            "title": "The sponsors schema",
-            "description": "An explanation about the purpose of this instance.",
-            "default": [],
-            "examples": [
-                [
-                    ""
-                ]
-            ],
-            "additionalItems": true,
-            "items": {
-                "anyOf": [
-                    {
-                        "$id": "#/properties/sponsors/items/anyOf/0",
-                        "type": "string",
-                        "title": "The first anyOf schema",
-                        "description": "An explanation about the purpose of this instance.",
-                        "default": "",
-                        "examples": [
-                            ""
-                        ]
-                    }
-                ],
-                "$id": "#/properties/sponsors/items"
-            }
-        },
         "enrolledAt": {
             "$id": "#/properties/enrolledAt",
             "type": "string",
@@ -167,45 +126,38 @@
                 "P.S. 118"
             ]
         },
-        "entity": {
-            "$id": "#/properties/entity",
-            "type": "object",
-            "title": "The entity schema",
+        "entityName": {
+            "$id": "#/properties/entityName",
+            "type": "string",
+            "title": "The entityName schema",
             "description": "An explanation about the purpose of this instance.",
-            "default": {},
+            "default": "",
             "examples": [
-                {
-                    "name": "student ",
-                    "version": "0.0.1"
-                }
+                "student "
             ],
-            "required": [
-                "name",
-                "version"
+            "readOnly": true
+        },
+        "version": {
+            "$id": "#/properties/version",
+            "type": "string",
+            "title": "The version schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "0.0.1"
             ],
-            "additionalProperties": true,
-            "properties": {
-                "name": {
-                    "$id": "#/properties/entity/properties/name",
-                    "type": "string",
-                    "title": "The name schema",
-                    "description": "An explanation about the purpose of this instance.",
-                    "default": "",
-                    "examples": [
-                        "student "
-                    ]
-                },
-                "version": {
-                    "$id": "#/properties/entity/properties/version",
-                    "type": "string",
-                    "title": "The version schema",
-                    "description": "An explanation about the purpose of this instance.",
-                    "default": "",
-                    "examples": [
-                        "0.0.1"
-                    ]
-                }
-            }
+            "readOnly": true
+        },
+        "entitySchema": {
+            "$id": "#/properties/version",
+            "type": "string",
+            "title": "The version schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "0.0.1"
+            ],
+            "readOnly": true
         },
         "status": {
             "$id": "#/properties/status",

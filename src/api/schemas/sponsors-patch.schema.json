@@ -1,0 +1,97 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/sponsor-patch.json",
+    "type": "object",
+    "title": "The Sponsor [PATCH] Schema",
+    "description": "This schema is used to validate HTTP [PATCH] operations.",
+    "default": {},
+    "examples": [
+        {
+            "firstName": "Bruce",
+            "lastName": "Banner",
+            "dateOfBirth": "02/02/1970",
+            "emailAddress": "bbanner@avengers.io",
+            "profileImageURL": "https://placeholder.com/300"
+        }
+    ],
+    "anyOf": [
+        {
+            "required": [
+                "firstName"
+            ]
+        },
+        {
+            "required": [
+                "lastName"
+            ]
+        },
+        {
+            "required": [
+                "dateOfBirth"
+            ]
+        },
+        {
+            "required": [
+                "emailAddress"
+            ]
+        },
+        {
+            "required": [
+                "profileImageURL"
+            ]
+        }
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "firstName": {
+            "$id": "#/properties/firstName",
+            "type": "string",
+            "title": "The firstName schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "Bruce"
+            ]
+        },
+        "lastName": {
+            "$id": "#/properties/lastName",
+            "type": "string",
+            "title": "The lastName schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "Banner"
+            ]
+        },
+        "dateOfBirth": {
+            "$id": "#/properties/dateOfBirth",
+            "type": "string",
+            "title": "The dateOfBirth schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "02/02/1970"
+            ]
+        },
+        "emailAddress": {
+            "$id": "#/properties/emailAddress",
+            "type": "string",
+            "title": "The emailAddress schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "bbanner@avengers.io"
+            ]
+        },
+        "profileImageURL": {
+            "$id": "#/properties/profileImageURL",
+            "type": "string",
+            "title": "The profileImageURL schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "https://placeholder.com/300"
+            ]
+        }
+    }
+}

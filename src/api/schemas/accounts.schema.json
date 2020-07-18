@@ -7,7 +7,7 @@
     "default": {},
     "examples": [
         {
-            "student_id": "1d2b3f93-804b-4e02-94ad-2eec6b90997d",
+            "id": "1d2b3f93-804b-4e02-94ad-2eec6b90997d",
             "status": null,
             "balance": {
                 "value": "1,024.64",
@@ -23,19 +23,15 @@
         }
     ],
     "required": [
-        "student_id",
-        "status",
-        "balance",
-        "createdAt",
-        "entity"
+        "balance"
     ],
     "additionalProperties": false,
     "properties": {
-        "student_id": {
-            "$id": "#/properties/student_id",
+        "id": {
+            "$id": "#/properties/id",
             "type": "string",
-            "title": "The student_id schema",
-            "description": "The student profile id associated with the account",
+            "title": "The id schema",
+            "description": "The UUID of the account",
             "default": "",
             "examples": [
                 "1d2b3f93-804b-4e02-94ad-2eec6b90997d"
@@ -44,7 +40,7 @@
         },
         "status": {
             "$id": "#/properties/status",
-            "type": "null",
+            "type": "string",
             "title": "The status schema",
             "description": "The status of the account",
             "default": null,

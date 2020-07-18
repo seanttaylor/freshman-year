@@ -25,7 +25,7 @@
             },
             "status": "awaiting-account-activation",
             "isAccountActivated": false,
-            "_id": "e3a5cbec-cd3f-41ac-a321-fecf1a1a3eb6"
+            "id": "e3a5cbec-cd3f-41ac-a321-fecf1a1a3eb6"
         }
     ],
     "required": [
@@ -95,7 +95,7 @@
             "examples": [
                 "2020-07-14T01:11:46.569Z"
             ],
-            "readOnly": "true"
+            "readOnly": true
         },
         "lastModifiedAt": {
             "$id": "#/properties/lastModifiedAt",
@@ -104,9 +104,10 @@
             "description": "An explanation about the purpose of this instance.",
             "default": null,
             "examples": [
-                null
+                null,
+                "2020-07-14T01:11:46.569Z"
             ],
-            "readOnly": "true"
+            "readOnly": true
         },
         "profileImageURL": {
             "$id": "#/properties/profileImageURL",
@@ -211,10 +212,11 @@
             "type": "string",
             "title": "The status schema",
             "description": "An explanation about the purpose of this instance.",
-            "default": "",
+            "default": null,
             "examples": [
                 "awaiting-account-activation"
-            ]
+            ],
+            "readOnly": true
         },
         "isAccountActivated": {
             "$id": "#/properties/isAccountActivated",
@@ -225,18 +227,18 @@
             "examples": [
                 false
             ],
-            "readOnly": "true"
+            "readOnly": true
         },
-        "_id": {
-            "$id": "#/properties/_id",
+        "id": {
+            "$id": "#/properties/id",
             "type": "string",
-            "title": "The _id schema",
-            "description": "An explanation about the purpose of this instance.",
+            "title": "The id schema",
+            "description": "The UUID of the student",
             "default": "",
             "examples": [
                 "e3a5cbec-cd3f-41ac-a321-fecf1a1a3eb6"
             ],
-            "readOnly": "true"
+            "readOnly": true
         }
     }
 }

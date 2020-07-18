@@ -1,12 +1,13 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "http://example.com/example.json",
+    "$id": "http://example.com/sponsor.json",
     "type": "object",
     "title": "The Sponsor Schema",
     "description": "The Sponsor schema comprises the entire JSON document.",
     "default": {},
     "examples": [
         {
+            "id": "024962a9-3a74-4c01-972a-01162eb75bc6",
             "firstName": "Bruce",
             "lastName": "Banner",
             "dateOfBirth": "02/02/1970",
@@ -26,8 +27,19 @@
         "lastName",
         "emailAddress"
     ],
-    "additionalProperties": true,
+    "additionalProperties": false,
     "properties": {
+        "id": {
+            "$id": "#/properties/id",
+            "type": "string",
+            "title": "The id schema",
+            "description": "The UUID of the sponsor",
+            "default": "",
+            "examples": [
+                "024962a9-3a74-4c01-972a-01162eb75bc6"
+            ],
+            "readOnly": true
+        },
         "firstName": {
             "$id": "#/properties/firstName",
             "type": "string",

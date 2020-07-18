@@ -41,12 +41,23 @@ function onCreateEntityInstance(proxyRes, proxyResData, userReq, userRes) {
     }
 }
 
+function onUpateEntityInstance(proxyRes, proxyResData, userReq, userRes) {
+    return {
+        entries: 1,
+        data: [{
+            id: userReq.url.slice(userReq.url.lastIndexOf('/') + 1),
+            href: userReq.url
+        }]
+    }
+}
+
 
 
 module.exports = {
     //Sponsors
     "get:/api/sponsors": onEntityCollection,
     "get:/api/sponsors/:id": onEntityInstance,
+    "patch:/api/sponsors/:id": onUpateEntityInstance,
     "post:/api/sponsors": onCreateEntityInstance,
     //Accounts
     "get:/api/accounts": onEntityCollection,

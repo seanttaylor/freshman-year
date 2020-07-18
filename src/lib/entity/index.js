@@ -15,7 +15,7 @@ function Entity({ name, version = '0.0.1', data }) {
         id: uuid(),
         entityName: name,
         entityVersion: version,
-        entitySchema: `/api/schemas/v${version}.json`,
+        entitySchema: `/api/schemas/${name}/v${version}.json`,
         createdAt: new Date().toISOString(),
         lastModifiedAt: null,
         status: null

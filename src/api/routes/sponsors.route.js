@@ -1,5 +1,6 @@
 const express = require('express');
 const schema = require('../schemas/sponsors.schema.json');
+const patchSchema = require('../schemas/sponsors-patch.schema.json');
 const SponsorService = require('../services/sponsors.service');
 const validateRequestBySchema = require('../../lib/middleware/validate.middleware.js');
 const proxy = require('../../lib/middleware/proxy');
@@ -24,19 +25,16 @@ router.post('/', validateRequestBySchema(schema), async (req, res, next) => {
 /**
  * Update an existing Sponsor entity.
  */
-router.put('/:id', async (req, res, next) => {
+router.patch('/:id', validateRequestBySchema(patchSchema), async (req, res, next) => {
     const options = {
         body: req.body,
-        id: req.params['id']
     };
 
     try {
         req.body = Object.assign({
             lastModifiedAt: new Date().toISOString(),
-        }, new Entity({
-            name: 'sponsor',
-            data: options.body
-        }));
+        }, req.body);
+
         next();
     } catch (err) {
         next(err);

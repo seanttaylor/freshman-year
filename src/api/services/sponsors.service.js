@@ -2,7 +2,7 @@ const ServerError = require('../../lib/error.lib');
 const Entity = require('../../lib/entity');
 const entityName = 'sponsor';
 
-function create(data, version = '0.0.1') {
+function create(data) {
     return Object.assign({
         isAccountActivated: false,
         status: 'awaiting-account-activation'
@@ -13,5 +13,5 @@ function create(data, version = '0.0.1') {
 }
 
 module.exports = {
-    create
+    create,
 };

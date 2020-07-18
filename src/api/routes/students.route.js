@@ -3,18 +3,24 @@ const schema = require('../schemas/students.schema.json');
 const patchSchema = require('../schemas/students-patch.schema.json');
 const StudentService = require('../services/students.service');
 const validateRequestBySchema = require('../../lib/middleware/validate.middleware.js');
+const Entity = require('../../lib/entity');
 const router = new express.Router();
+const entityName = 'student';
+
 
 /**
  * Create new Student entity.
  */
 router.post('/', validateRequestBySchema(schema), async (req, res, next) => {
-    const options = {
-        body: req.body
-    };
 
     try {
-        req.body = StudentService.create(options.body);
+        req.body = Object.assign({
+            isAccountActivated: false,
+            status: 'awaiting-account-activation'
+        }, new Entity({
+            name: entityName,
+            data: req.body
+        }));
         next();
     } catch (err) {
         next(err);

@@ -1,0 +1,1182 @@
+{
+	"info": {
+		"_postman_id": "e8fee0e6-724d-4327-87bc-3403961cbc08",
+		"name": "api_freshmanyr",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "students",
+			"item": [
+				{
+					"name": "get_student_by_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e60a23eb-9dbe-41ec-9ffc-ab67fdd9e1fa",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/students/{{api_freshmanyr_student_id}}",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"students",
+								"{{api_freshmanyr_student_id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get_student_by_id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_freshmanyr_host}}/api/students/{{api_freshmanyr_student_id}}",
+									"host": [
+										"{{api_freshmanyr_host}}"
+									],
+									"path": [
+										"api",
+										"students",
+										"{{api_freshmanyr_student_id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "504"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"1e3-mTxCLkFt5NyqtDV0To4meAKB6JM\""
+								},
+								{
+									"key": "date",
+									"value": "Fri, 17 Jul 2020 21:01:58 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"entries\": 1,\n    \"data\": [\n        {\n            \"id\": \"1d2b3f93-804b-4e02-94ad-2eec6b90997d\",\n            \"firstName\": \"Tony\",\n            \"lastName\": \"Stark\",\n            \"dateOfBirth\": \"1000-01-01T00:00:00.000Z\",\n            \"emailAddress\": \"tstark@avengers.io\",\n            \"createdAt\": \"1000-01-01 00:00:00\",\n            \"lastModifiedAt\": null,\n            \"profileImageURL\": \"https://via.placeholder.com/150\",\n            \"anticipatedGraduationDate\": \"1004-05-30T00:00:00.000Z\",\n            \"enrolledAt\": \"P.S. 118\",\n            \"isAccountActivated\": 0,\n            \"entityName\": \"student\",\n            \"entityVersion\": \"0.0.1\",\n            \"entitySchema\": \"/api/schemas/student/v0.0.1.json\",\n            \"status\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "get_students",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "afb3293f-0842-406d-95b1-f1662b9a8bda",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/students",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"students"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get_students",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_freshmanyr_host}}/api/students",
+									"host": [
+										"{{api_freshmanyr_host}}"
+									],
+									"path": [
+										"api",
+										"students"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "989"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"3c8-DPg8uGL41AkHpBSiLKGxeeGj4lU\""
+								},
+								{
+									"key": "date",
+									"value": "Fri, 17 Jul 2020 18:23:30 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"entries\": 2,\n    \"data\": [\n        {\n            \"id\": \"1d2b3f93-804b-4e02-94ad-2eec6b90997d\",\n            \"firstName\": \"Tony\",\n            \"lastName\": \"Stark\",\n            \"dateOfBirth\": \"1000-01-01T00:00:00.000Z\",\n            \"emailAddress\": \"tstark@avengers.io\",\n            \"createdAt\": \"1000-01-01 00:00:00\",\n            \"lastModifiedAt\": null,\n            \"profileImageURL\": \"https://via.placeholder.com/150\",\n            \"anticipatedGraduationDate\": \"1004-05-30T00:00:00.000Z\",\n            \"enrolledAt\": \"P.S. 118\",\n            \"isAccountActivated\": 0,\n            \"entityName\": \"student\",\n            \"entityVersion\": \"0.0.1\",\n            \"entitySchema\": \"/api/schemas/student/v0.0.1.json\",\n            \"status\": null\n        },\n        {\n            \"id\": \"2294a21b-ba63-4e5e-b537-d61ba40e4a65\",\n            \"firstName\": \"Peter\",\n            \"lastName\": \"Parker\",\n            \"dateOfBirth\": \"1000-01-01T00:00:00.000Z\",\n            \"emailAddress\": \"pparker@avengers.io\",\n            \"createdAt\": \"1000-01-01 00:00:00\",\n            \"lastModifiedAt\": null,\n            \"profileImageURL\": \"https://via.placeholder.com/150\",\n            \"anticipatedGraduationDate\": \"1004-05-30T00:00:00.000Z\",\n            \"enrolledAt\": \"P.S. 118\",\n            \"isAccountActivated\": 0,\n            \"entityName\": \"student\",\n            \"entityVersion\": \"0.0.1\",\n            \"entitySchema\": \"/api/schemas/student/v0.0.1.json\",\n            \"status\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "update_student_by_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c0e19cb6-1c71-43c0-b9e3-eab15bb6ea6c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Anthony\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/students/{{api_freshmanyr_student_id}}",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"students",
+								"{{api_freshmanyr_student_id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "update_student_by_id",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\": \"Tony\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_freshmanyr_host}}/api/students/{{api_freshmanyr_student_id}}",
+									"host": [
+										"{{api_freshmanyr_host}}"
+									],
+									"path": [
+										"api",
+										"students",
+										"{{api_freshmanyr_student_id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "128"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"a8-A6aUB2OZrEICcuz3kHgDb+GNysg\""
+								},
+								{
+									"key": "date",
+									"value": "Sat, 18 Jul 2020 21:17:24 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"entries\": 1,\n    \"data\": [\n        {\n            \"id\": \"1d2b3f93-804b-4e02-94ad-2eec6b90997d\",\n            \"href\": \"/api/students/1d2b3f93-804b-4e02-94ad-2eec6b90997d\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "sponsors",
+			"item": [
+				{
+					"name": "get_sponsors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6693f676-0b8f-4af3-a770-b7a9c4138c7b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/sponsors",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"sponsors"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get_sponsors",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_freshmanyr_data_service_host}}/api/sponsors",
+									"host": [
+										"{{api_freshmanyr_data_service_host}}"
+									],
+									"path": [
+										"api",
+										"sponsors"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "967"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3c7-UysMJRh7Sa5SPhhKcEckWQ0YwQM\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 15 Jul 2020 16:04:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"2a1acb10-8d2b-4248-a74e-a8418f941dd9\",\n        \"firstName\": \"Steve\",\n        \"lastName\": \"Rogers\",\n        \"emailAddress\": \"srogers@avengers.io\",\n        \"createdAt\": \"1000-01-01T00:00:00.000Z\",\n        \"lastModifiedAt\": null,\n        \"profileImageURL\": \"https://via.placeholder.com/150\",\n        \"entityName\": \"sponsor\",\n        \"entityVersion\": \"0.0.1\",\n        \"isAccountActivated\": 0,\n        \"status\": null\n    },\n    {\n        \"id\": \"f50ef714-5a51-4a0b-a3e5-99529ba41fce\",\n        \"firstName\": \"Natasha\",\n        \"lastName\": \"Romanoff\",\n        \"emailAddress\": \"nromanoff@avengers.io\",\n        \"createdAt\": \"1000-01-01T00:00:00.000Z\",\n        \"lastModifiedAt\": null,\n        \"profileImageURL\": \"https://via.placeholder.com/150\",\n        \"entityName\": \"sponsor\",\n        \"entityVersion\": \"0.0.1\",\n        \"isAccountActivated\": 0,\n        \"status\": null\n    },\n    {\n        \"id\": \"b20cdf59-b121-4b00-9e43-d2c48e2cf98f\",\n        \"firstName\": \"Bruce\",\n        \"lastName\": \"Banner\",\n        \"emailAddress\": \"bbanner@avengers.io\",\n        \"createdAt\": \"1000-01-01T00:00:00.000Z\",\n        \"lastModifiedAt\": null,\n        \"profileImageURL\": \"https://via.placeholder.com/150\",\n        \"entityName\": \"sponsor\",\n        \"entityVersion\": \"0.0.1\",\n        \"isAccountActivated\": 0,\n        \"status\": null\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "create_sponsor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b60a40be-c7e5-4ea5-a772-f18e9e2556b3",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Nick\",\n    \"lastName\": \"Fury\",\n    \"emailAddress\": \"nfury@shield.gov\",\n    \"profileImageURL\": \"https://placeholder.com/300\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/sponsors",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"sponsors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_sponsor_by_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ab7c7e6e-be10-4bc6-af52-f03f7d453b40",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/sponsors/{{api_freshmanyr_sponsor_id}}",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"sponsors",
+								"{{api_freshmanyr_sponsor_id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get_sponsor_by_id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_freshmanyr_host}}/api/sponsors/{{api_freshmanyr_sponsor_id}}",
+									"host": [
+										"{{api_freshmanyr_host}}"
+									],
+									"path": [
+										"api",
+										"sponsors",
+										"{{api_freshmanyr_sponsor_id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "387"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"16e-D4p6w/WUyG9qolfm5TvgyaOQd+A\""
+								},
+								{
+									"key": "date",
+									"value": "Sat, 18 Jul 2020 17:53:18 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"entries\": 1,\n    \"data\": [\n        {\n            \"id\": \"2a1acb10-8d2b-4248-a74e-a8418f941dd9\",\n            \"firstName\": \"Steve\",\n            \"lastName\": \"Rogers\",\n            \"emailAddress\": \"srogers@avengers.io\",\n            \"createdAt\": \"1000-01-01 00:00:00\",\n            \"lastModifiedAt\": null,\n            \"profileImageURL\": \"https://via.placeholder.com/150\",\n            \"isAccountActivated\": 0,\n            \"entityName\": \"sponsor\",\n            \"entityVersion\": \"0.0.1\",\n            \"entitySchema\": \"/api/schemas/sponsor/v0.0.1.json\",\n            \"status\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "update_sponsor_by_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dde172ae-1c1a-4bdb-918b-6640bdf42ebb",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Stephen\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/sponsors/{{api_freshmanyr_sponsor_id}}",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"sponsors",
+								"{{api_freshmanyr_sponsor_id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "update_sponsor_by_id",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\": \"Steve\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_freshmanyr_host}}/api/sponsors/{{api_freshmanyr_sponsor_id}}",
+									"host": [
+										"{{api_freshmanyr_host}}"
+									],
+									"path": [
+										"api",
+										"sponsors",
+										"{{api_freshmanyr_sponsor_id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "128"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"a8-A6aUB2OZrEICcuz3kHgDb+GNysg\""
+								},
+								{
+									"key": "date",
+									"value": "Sat, 18 Jul 2020 20:50:47 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"entries\": 1,\n    \"data\": [\n        {\n            \"id\": \"2a1acb10-8d2b-4248-a74e-a8418f941dd9\",\n            \"href\": \"/api/sponsors/2a1acb10-8d2b-4248-a74e-a8418f941dd9\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "transactions",
+			"item": [
+				{
+					"name": "get_transactions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "79356793-b6b4-4dd9-9ab9-d5c8bb082d30",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/transactions",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"transactions"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get_transactions",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_freshmanyr_host}}/api/{{api_freshmanyr_proxy_path}}/transactions",
+									"host": [
+										"{{api_freshmanyr_host}}"
+									],
+									"path": [
+										"api",
+										"{{api_freshmanyr_proxy_path}}",
+										"transactions"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "content-length",
+									"value": "321"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"141-o5Iq5hUnCqyMT5715V7iM8uLUE8\""
+								},
+								{
+									"key": "date",
+									"value": "Thu, 16 Jul 2020 18:24:40 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"a71169e0-9d70-4aaa-a639-d9d04fbb11bf\",\n        \"amount\": 0.53,\n        \"createdAt\": \"1000-01-01T00:00:00.000Z\",\n        \"cardNumber\": 1987,\n        \"cardType\": \"visa\",\n        \"cardExpiryDate\": \"07/24\"\n    },\n    {\n        \"id\": \"6c2f3e3d-2fe1-4acb-8033-6356eb4f64bb\",\n        \"amount\": 0.47,\n        \"createdAt\": \"1000-01-01T00:00:00.000Z\",\n        \"cardNumber\": 1987,\n        \"cardType\": \"visa\",\n        \"cardExpiryDate\": \"07/24\"\n    }\n]"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "accounts",
+			"item": [
+				{
+					"name": "get_accounts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1a217f58-0edb-4f4b-9e3b-f0123ed17202",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/accounts",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"accounts"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get_accounts",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_freshmanyr_host}}/api/accounts",
+									"host": [
+										"{{api_freshmanyr_host}}"
+									],
+									"path": [
+										"api",
+										"accounts"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "246"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"e1-ubTlfn2ZMB9oA5BnpVRbUm8zbb4\""
+								},
+								{
+									"key": "date",
+									"value": "Fri, 17 Jul 2020 18:21:23 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"entries\": 1,\n    \"data\": [\n        {\n            \"id\": \"c7d63189-07f8-4ea8-9a62-37a7b8cfe973\",\n            \"value\": 1024.64,\n            \"currency\": \"USD\",\n            \"createdAt\": \"1000-01-01 00:00:00\",\n            \"entityName\": \"account\",\n            \"entityVersion\": \"0.0.1\",\n            \"entitySchema\": \"/api/schemas/account/v0.0.1.json\",\n            \"status\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "get_account_by_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2671faad-0741-4cd4-8c86-72332a25d476",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/accounts/{{api_freshmanyr_account_id}}",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"accounts",
+								"{{api_freshmanyr_account_id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get_account_by_id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_freshmanyr_host}}/api/accounts/{{api_freshmanyr_account_id}}",
+									"host": [
+										"{{api_freshmanyr_host}}"
+									],
+									"path": [
+										"api",
+										"accounts",
+										"{{api_freshmanyr_account_id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "246"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"e1-ubTlfn2ZMB9oA5BnpVRbUm8zbb4\""
+								},
+								{
+									"key": "date",
+									"value": "Sat, 18 Jul 2020 17:45:12 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"entries\": 1,\n    \"data\": [\n        {\n            \"id\": \"c7d63189-07f8-4ea8-9a62-37a7b8cfe973\",\n            \"value\": 1024.64,\n            \"currency\": \"USD\",\n            \"createdAt\": \"1000-01-01 00:00:00\",\n            \"entityName\": \"account\",\n            \"entityVersion\": \"0.0.1\",\n            \"entitySchema\": \"/api/schemas/account/v0.0.1.json\",\n            \"status\": null\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "get_status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "084176d3-d08c-4ff2-acb5-c96cedd2f1de",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_freshmanyr_host}}/status",
+					"host": [
+						"{{api_freshmanyr_host}}"
+					],
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get_edge_service_status",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_freshmanyr_edge_service_host}}/status",
+							"host": [
+								"{{api_freshmanyr_edge_service_host}}"
+							],
+							"path": [
+								"status"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-DNS-Prefetch-Control",
+							"value": "off"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; includeSubDomains"
+						},
+						{
+							"key": "X-Download-Options",
+							"value": "noopen"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "15"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"f-HkB0MKfQe1zoDIHbTTJjUG9Tgn8\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 15 Jul 2020 19:51:21 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"STATUS\": \"OK\"\n}"
+				}
+			]
+		}
+	],
+	"protocolProfileBehavior": {}
+}

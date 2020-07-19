@@ -356,6 +356,133 @@
 							"body": "{\n    \"entries\": 1,\n    \"data\": [\n        {\n            \"id\": \"1d2b3f93-804b-4e02-94ad-2eec6b90997d\",\n            \"href\": \"/api/students/1d2b3f93-804b-4e02-94ad-2eec6b90997d\"\n        }\n    ]\n}"
 						}
 					]
+				},
+				{
+					"name": "create_student",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8dc9fd2b-dabf-43b1-ba34-2a3f78d80103",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Jean\",\n    \"lastName\": \"Grey\",\n    \"dateOfBirth\": \"05/05/1970\",\n    \"emailAddress\": \"jgrey@marvel.io\",\n    \"profileImageURL\": \"https://placeholder.com/300\",\n    \"anticipatedGraduationDate\": \"05/25/2028\",\n    \"enrolledAt\": \"P.S. 124\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/students",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"students"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "create_student",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\": \"Jean\",\n    \"lastName\": \"Grey\",\n    \"dateOfBirth\": \"05/05/1970\",\n    \"emailAddress\": \"jgrey@marvel.io\",\n    \"profileImageURL\": \"https://placeholder.com/300\",\n    \"anticipatedGraduationDate\": \"05/25/2028\",\n    \"enrolledAt\": \"P.S. 124\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_freshmanyr_host}}/api/students",
+									"host": [
+										"{{api_freshmanyr_host}}"
+									],
+									"path": [
+										"api",
+										"students"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "477"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"2bf-ygYQARqc7VKdmXCI3VlS1oLS4Fw\""
+								},
+								{
+									"key": "date",
+									"value": "Sun, 19 Jul 2020 19:39:54 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"entries\": 1,\n    \"data\": [\n        {\n            \"isAccountActivated\": false,\n            \"status\": null,\n            \"firstName\": \"Jean\",\n            \"lastName\": \"Grey\",\n            \"dateOfBirth\": \"05/05/1970\",\n            \"emailAddress\": \"jgrey@marvel.io\",\n            \"profileImageURL\": \"https://placeholder.com/300\",\n            \"anticipatedGraduationDate\": \"05/25/2028\",\n            \"enrolledAt\": \"P.S. 124\",\n            \"id\": \"bd1143f6-b9d0-4ef9-a9b1-878df7512335\",\n            \"entityName\": \"student\",\n            \"entityVersion\": \"0.0.1\",\n            \"entitySchema\": \"/api/schemas/student/v0.0.1.json\",\n            \"createdAt\": \"2020-07-19T19:39:54.744Z\",\n            \"lastModifiedAt\": null\n        }\n    ]\n}"
+						}
+					]
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -469,7 +596,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Nick\",\n    \"lastName\": \"Fury\",\n    \"emailAddress\": \"nfury@shield.gov\",\n    \"profileImageURL\": \"https://placeholder.com/300\"\n}",
+							"raw": "{\n    \"firstName\": \"Warren\",\n    \"lastName\": \"Worthington III\",\n    \"emailAddress\": \"wworthington@marvel.io\",\n    \"profileImageURL\": \"https://placeholder.com/300\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -487,7 +614,93 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "create_sponsor",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\": \"Warren\",\n    \"lastName\": \"Worthington III\",\n    \"emailAddress\": \"wworthington@marvel.io\",\n    \"profileImageURL\": \"https://placeholder.com/300\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_freshmanyr_host}}/api/sponsors",
+									"host": [
+										"{{api_freshmanyr_host}}"
+									],
+									"path": [
+										"api",
+										"sponsors"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "405"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"7f-r8bKvcfQJxHfmO4yrVRF/uUE37I\""
+								},
+								{
+									"key": "date",
+									"value": "Sun, 19 Jul 2020 18:50:47 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"entries\": 1,\n    \"data\": [\n        {\n            \"isAccountActivated\": false,\n            \"status\": null,\n            \"firstName\": \"Warren\",\n            \"lastName\": \"Worthington III\",\n            \"emailAddress\": \"wworthington@marvel.io\",\n            \"profileImageURL\": \"https://placeholder.com/300\",\n            \"id\": \"23e5c12b-1eca-4e2d-97b9-299292fb5c45\",\n            \"entityName\": \"sponsor\",\n            \"entityVersion\": \"0.0.1\",\n            \"entitySchema\": \"/api/schemas/sponsor/v0.0.1.json\",\n            \"createdAt\": \"2020-07-19T18:50:47.166Z\",\n            \"lastModifiedAt\": null\n        }\n    ]\n}"
+						}
+					]
 				},
 				{
 					"name": "get_sponsor_by_id",
@@ -621,7 +834,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Stephen\"\n}",
+							"raw": "{\n    \"firstName\": \"Steve\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

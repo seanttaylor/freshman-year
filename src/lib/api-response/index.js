@@ -34,7 +34,6 @@ function onEntityInstance({ proxyRes, proxyResData, userReq, userRes }) {
 }
 
 function onCreateEntityInstance({ proxyRes, proxyResData, userReq, userRes }) {
-    console.log('onCreateEntityInstance')
     return {
         entries: 1,
         data: [{

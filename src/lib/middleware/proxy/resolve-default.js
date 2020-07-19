@@ -10,7 +10,7 @@ const apiResponse = require('../../api-response')
 
 function resolveDefault({ proxyResData, userReq }) {
     if (Array.isArray(proxyResData)) {
-        //The data service always returns an array for [GET] requests
+        //The data service always returns an array for all [GET] requests
         return apiResponse.onEntityCollection(...arguments);
     }
     /* The data service returns plain objects on [POST] and [PATCH] requests.

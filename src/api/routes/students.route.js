@@ -3,7 +3,7 @@ const schema = require('../schemas/students.schema.json');
 const patchSchema = require('../schemas/students-patch.schema.json');
 const StudentService = require('../services/students.service');
 const validateRequestBySchema = require('../../lib/middleware/validate.middleware.js');
-const Entity = require('../../lib/entity');
+const Profile = require('../../lib/profile');
 const proxy = require('../../lib/middleware/proxy');
 const router = new express.Router();
 const entityName = 'student';
@@ -15,13 +15,7 @@ proxy.addRoutes(StudentService);
 router.post('/', validateRequestBySchema(schema), async (req, res, next) => {
 
     try {
-        req.body = Object.assign({
-            isAccountActivated: false,
-            status: 'awaiting-account-activation'
-        }, new Entity({
-            name: entityName,
-            data: req.body
-        }));
+        req.body = new Profile({ name: entityName, data: req.body });
         next();
     } catch (err) {
         next(err);

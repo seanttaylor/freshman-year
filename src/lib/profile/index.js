@@ -18,6 +18,9 @@ function Profile({ name, version = '0.0.1', data }) {
         entitySchema: `/api/schemas/${name}/v${version}.json`,
         createdAt: new Date().toISOString(),
         lastModifiedAt: null,
-        status: null
+        isAccountActivated: false,
+        status: 'awaiting-account-activation'
     }
 }
+
+module.exports = Profile;

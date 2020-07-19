@@ -3,7 +3,7 @@ const schema = require('../schemas/sponsors.schema.json');
 const patchSchema = require('../schemas/sponsors-patch.schema.json');
 const SponsorService = require('../services/sponsors.service');
 const validateRequestBySchema = require('../../lib/middleware/validate.middleware.js');
-const Entity = require('../../lib/entity');
+const Profile = require('../../lib/profile');
 const proxy = require('../../lib/middleware/proxy');
 const router = new express.Router();
 const entityName = 'sponsor';
@@ -19,13 +19,7 @@ router.post('/', validateRequestBySchema(schema), async (req, res, next) => {
     };
 
     try {
-        req.body = Object.assign({
-            isAccountActivated: false,
-            status: 'awaiting-account-activation'
-        }, new Entity({
-            name: entityName,
-            data: req.body
-        }));
+        req.body = new Profile({ name: entityName, data: req.body });
         next();
     } catch (err) {
         next(err);

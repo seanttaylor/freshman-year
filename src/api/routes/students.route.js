@@ -4,9 +4,10 @@ const patchSchema = require('../schemas/students-patch.schema.json');
 const StudentService = require('../services/students.service');
 const validateRequestBySchema = require('../../lib/middleware/validate.middleware.js');
 const Entity = require('../../lib/entity');
+const proxy = require('../../lib/middleware/proxy');
 const router = new express.Router();
 const entityName = 'student';
-
+proxy.addRoutes(StudentService);
 
 /**
  * Create new Student entity.

@@ -9,7 +9,7 @@ const requestContext = require('../lib/middleware/request-context.middleware.js'
 const proxy = require('../lib/middleware/proxy');
 const app = express();
 const serverPort = process.env.SERVER_PORT || 3001;
-const PROXY_DATA_SERVICE_URL = process.env.PROXY_DATA_SERVICE_URL || 'http://data_service:3000';
+const DATA_SERVICE_URL = process.env.PROXY_DATA_SERVICE_URL || 'http://data_service:3000';
 
 app.use(helmet());
 app.use(cors());
@@ -26,7 +26,7 @@ app.use('/status', require('./routes/status.route.js'));
 
 app.use('/api/sponsors', require('./routes/sponsors.route.js'));
 app.use('/api/students', require('./routes/students.route.js'));
-app.use(proxy.configuration(PROXY_DATA_SERVICE_URL));
+app.use(proxy.configuration(DATA_SERVICE_URL, proxy));
 
 // catch 404
 app.use((req, res, next) => {

@@ -16,14 +16,15 @@
 * @param {Object} userRes - original Express response object
 */
 
-function onEntityCollection(proxyRes, proxyResData, userReq, userRes) {
+
+function onEntityCollection({ proxyRes, proxyResData, userReq, userRes }) {
     return {
         entries: proxyResData.length,
         data: proxyResData
     }
 }
 
-function onEntityInstance(proxyRes, proxyResData, userReq, userRes) {
+function onEntityInstance({ proxyRes, proxyResData, userReq, userRes }) {
     return {
         entries: 1,
         data: [
@@ -32,7 +33,8 @@ function onEntityInstance(proxyRes, proxyResData, userReq, userRes) {
     }
 }
 
-function onCreateEntityInstance(proxyRes, proxyResData, userReq, userRes) {
+function onCreateEntityInstance({ proxyRes, proxyResData, userReq, userRes }) {
+    console.log('onCreateEntityInstance')
     return {
         entries: 1,
         data: [{
@@ -41,7 +43,7 @@ function onCreateEntityInstance(proxyRes, proxyResData, userReq, userRes) {
     }
 }
 
-function onUpateEntityInstance(proxyRes, proxyResData, userReq, userRes) {
+function onUpdateEntityInstance({ proxyRes, proxyResData, userReq, userRes }) {
     return {
         entries: 1,
         data: [{
@@ -51,22 +53,9 @@ function onUpateEntityInstance(proxyRes, proxyResData, userReq, userRes) {
     }
 }
 
-
-
 module.exports = {
-    //Sponsors
-    "get:/api/sponsors": onEntityCollection,
-    "get:/api/sponsors/:id": onEntityInstance,
-    "patch:/api/sponsors/:id": onUpateEntityInstance,
-    "post:/api/sponsors": onCreateEntityInstance,
-    //Accounts
-    //"get:/api/accounts": onEntityCollection,
-    //"get:/api/accounts/:id": onEntityInstance,
-    //Students
-    "get:/api/students": onEntityCollection,
-    "get:/api/students/:id": onEntityInstance,
-    "patch:/api/students/:id": onUpateEntityInstance,
-    //Transactions
-    //"get:/api/transactions": onEntityCollection,
-    //"get:/api/transactions/:id": onEntityInstance
+    onEntityCollection,
+    onEntityInstance,
+    onUpdateEntityInstance,
+    onCreateEntityInstance
 }

@@ -4,8 +4,10 @@ const patchSchema = require('../schemas/sponsors-patch.schema.json');
 const SponsorService = require('../services/sponsors.service');
 const validateRequestBySchema = require('../../lib/middleware/validate.middleware.js');
 const Entity = require('../../lib/entity');
+const proxy = require('../../lib/middleware/proxy');
 const router = new express.Router();
 const entityName = 'sponsor';
+proxy.addRoutes(SponsorService);
 
 
 /**

@@ -11,6 +11,7 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+
 /**
 * An configuration object for send emails via the Mailable interface.
 * @typedef {Object} EmailMessageConfiguration
@@ -29,18 +30,19 @@ const transporter = nodemailer.createTransport({
 async function send({ from, to, bcc, subject }) {
     this.__message = Object.assign(this.__message, {
         from,
-        to: to.join(', '), // Nodemailer API requires single comma-separated string of addresses
+        to: to.join(', '), // Nodemailer API requires a single comma-separated string of addresses
         subject
     });
 
-    /*const outboundMessage = await transporter.sendMail(this.__message);*/
-    /*const message = await transporter.sendMail({
-        from: 'FreshmanYr Support <support@freshmanyr.io>', // sender address
-        to: to.join(' '), // Nodemailer API requires single comma-separated string of addresses
-        subject,
-        text: "Hello world?", // plain text body
-        html: "<b>Hello world?</b>", // html body
-    });*/
+    try {
+        const outboundMessage = await transporter.sendMail(this.__message);
+        console.log({
+            messageId: outboundMessage.messageId,
+            messagePreviewURL: nodemailer.getTestMessageUrl(outboundMessage)
+        });
+    } catch (e) {
+        console.error(e);
+    }
 }
 
 function addAttachments() {

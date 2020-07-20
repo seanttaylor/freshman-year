@@ -10,7 +10,7 @@ const sponsorWelcomeEmail = '/app/src/lib/mailable/templates/test.ejs';
 //const ServiceResponse = require('../../lib/service-response'); 
 
 /**
- * The methods below apply formatting to records returned from the data service.
+ * The methods below apply formatting to records RETURNED from the data service.
  * The `express-http-proxy` package does not allow for easy post-processing of responses from
  * proxied API requests. The sole facility for achieving post-processing is through 
  * the user-configured `userResDecorator` method (see middleware/proxy/proxy-resolve.)

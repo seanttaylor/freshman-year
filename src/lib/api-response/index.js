@@ -1,6 +1,6 @@
 /**
  * The methods below apply formatting to records returned from the data service.
- * This logic is located here because the structure of the `express-http-proxy` package does
+ * This library is necessary because the structure of the `express-http-proxy` package does
  * not allow for easy post-processing of responses from proxied API requests. The sole 
  * facility for achieving post-processing is through the user-configured `userResDecorator` 
  * method (see proxy-resolve.middleware)

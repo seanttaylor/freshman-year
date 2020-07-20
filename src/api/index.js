@@ -26,7 +26,7 @@ app.use('/status', require('./routes/status.route.js'));
 
 app.use('/api/sponsors', require('./routes/sponsors.route.js'));
 app.use('/api/students', require('./routes/students.route.js'));
-app.use(proxy.configuration(DATA_SERVICE_URL, proxy));
+app.use(proxy.configuration(DATA_SERVICE_URL));
 
 // catch 404
 app.use((req, res, next) => {

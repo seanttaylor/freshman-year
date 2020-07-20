@@ -1,4 +1,3 @@
-const ServerError = require('../../lib/error.lib');
 const apiResponse = require('../../lib/api-response');
 
 /**

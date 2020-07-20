@@ -51,7 +51,9 @@ function userResDecorator(proxyRes, proxyResData, userReq, userRes) {
             userRes
         })
     } catch (e) {
-        //console.info("Using default resolve method.");
+        //TODO: Switch default route resolution to be a conditional
+        console.error(e);
+        console.info("Using default resolve method.");
         return this.resolveDefault({
             proxyRes,
             proxyResData: data,

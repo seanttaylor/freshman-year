@@ -1,0 +1,29 @@
+/**
+* An object having the Templatable API; a set of methods for creating arbitrary 
+* templated objects.
+* @typedef {Object} TemplatableAPI
+* @property {Function} of - create a new templated object
+*/
+
+/**
+* The Templatable interfaace
+* @param {TemplatableAPI} myImpl - Object containing methods implementing the Templatable API
+* @returns
+*/
+
+function ITemplatable(myImpl) {
+    function required() {
+        throw Error("Missing implementation");
+    }
+
+    /**
+      * Creates a new Templatable instance exposing the Templatable API
+      * @param {Object} - a POJO containing data for use by the Chargeable
+      * @returns {Object} - having a `stamp` method for creating rendered templates 
+      */
+    this.of = myImpl.of || required;
+
+    return;
+}
+
+module.exports = ITemplatable;

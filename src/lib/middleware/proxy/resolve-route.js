@@ -16,13 +16,15 @@ function resolve(userReq) {
     * request. The matching logic is very liberal and matches the most general 
     * path in comparsion operations first. 
     */
-    const route = Object.keys(this.routeMap).find((r) => {
+    const result = Object.keys(this.routeMap).find((r, i) => {
         let _route = r.slice(r.indexOf(":") + 1);
         let result = matchPattern(_route, url);
         return result && !result.remainingPathname;
     });
 
-    return `${method.toLowerCase()}:${route.slice(route.indexOf(':') + 1)}`;
+    const matchedRoute = result || "";
+
+    return `${method.toLowerCase()}:${matchedRoute.slice(matchedRoute.indexOf(':') + 1)}`;
 }
 
 module.exports = resolve;

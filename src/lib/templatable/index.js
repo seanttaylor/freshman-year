@@ -21,10 +21,10 @@ function of(templatePath, templateData) {
 }
 
 /**
- * Renders a template.
+ * Renders a template into a string.
  * @param {String} templatePath - file path to a template
  * @param {Object} templateData - data used in the rendered template
- * @returns {Object}
+ * @returns {String}
  */
 
 async function stamp() {

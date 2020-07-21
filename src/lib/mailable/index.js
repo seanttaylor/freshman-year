@@ -34,15 +34,11 @@ async function send({ from, to, bcc, subject }) {
         subject
     });
 
-    try {
-        const outboundMessage = await transporter.sendMail(this.__message);
-        console.log({
-            messageId: outboundMessage.messageId,
-            messagePreviewURL: nodemailer.getTestMessageUrl(outboundMessage)
-        });
-    } catch (e) {
-        console.error(e);
-    }
+    const outboundMessage = await transporter.sendMail(this.__message);
+    console.log({
+        messageId: outboundMessage.messageId,
+        messagePreviewURL: nodemailer.getTestMessageUrl(outboundMessage)
+    });
 }
 
 function addAttachments() {

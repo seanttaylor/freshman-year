@@ -42,25 +42,24 @@ function proxyErrorHandler(err, res, next) {
 
 function userResDecorator(proxyRes, proxyResData, userReq, userRes) {
     const data = JSON.parse(proxyResData.toString('utf8'));
-    try {
-        const route = this.resolve(userReq);
+    const route = this.resolve(userReq);
+
+    if (this.routeMap[route]) {
         return this.routeMap[route]({
-            proxyRes,
-            proxyResData: data,
-            userReq,
-            userRes
-        })
-    } catch (e) {
-        //TODO: Switch default route resolution to be a conditional
-        console.error(e);
-        console.info("Using default resolve method.");
-        return this.resolveDefault({
             proxyRes,
             proxyResData: data,
             userReq,
             userRes
         });
     }
+
+    console.info(`Using default resolve method for route: ${userReq.url}`);
+    return this.resolveDefault({
+        proxyRes,
+        proxyResData: data,
+        userReq,
+        userRes
+    });
 }
 
 module.exports = myReverseProxy;

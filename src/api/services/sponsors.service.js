@@ -5,8 +5,10 @@ const libMailable = require('../../lib/mailable');
 const libTemplatable = require('../../lib/templatable');
 const myMailer = new Mailable(libMailable);
 const template = new Templatable(libTemplatable);
+const { shortUUID } = require('../../lib/utilities');
 //const newSponsorWelcomeEmail = '../../lib/mailable/templates/sponsor-welcome.ejs';
 const sponsorWelcomeEmail = '/app/src/lib/mailable/templates/test.ejs';
+const DEFAULT_CACHE_TTL = 300000;
 //const ServiceResponse = require('../../lib/service-response'); 
 
 /**
@@ -28,16 +30,28 @@ const sponsorWelcomeEmail = '/app/src/lib/mailable/templates/test.ejs';
 */
 
 async function onCreateSponsor({ proxyRes, proxyResData, userReq, userRes }) {
+    const csrf = shortUUID();
+    const cache = userReq.app.cache;
     const myEmailTemplate = await template.of(sponsorWelcomeEmail, {
-        data: { ...userReq.body }
+        data: {
+            ...userReq.body,
+            csrf
+        }
     }).stamp();
     myMailer.useTemplate(myEmailTemplate);
 
-    myMailer.send({
-        from: 'FreshmanYr Support <support@freshmanyr.io>',
-        to: [userReq.body.emailAddress],
-        subject: 'Welcome to FreshmanYR!'
-    });
+    try {
+        await myMailer.send({
+            from: 'FreshmanYr Support <support@freshmanyr.io>',
+            to: [userReq.body.emailAddress],
+            subject: 'Welcome to FreshmanYR!'
+        });
+        cache.set({ key: csrf, ttl: DEFAULT_CACHE_TTL });
+        console.log(cache.isExpired(csrf));
+
+    } catch (e) {
+        console.error(e);
+    }
     //new ServiceResponse(...arguments).onCreateEntityInstance();
     return apiResponse.onCreateEntityInstance({ proxyRes, proxyResData, userReq, userRes });
 }

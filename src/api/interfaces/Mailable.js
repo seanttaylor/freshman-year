@@ -8,8 +8,8 @@
 
 /**
 * The Mailable interfaace
-* @param {MailableAPI} myImpl - Object containing methods implementing the MailableAPI
-* @returns
+* @param {MailableAPI} myImpl - Object containing methods implementing the Mailable API
+* @returns 
 */
 
 function IMailable(myImpl) {

@@ -12,18 +12,19 @@
 */
 
 function ITemplatable(myImpl) {
-    function required() {
-        throw Error("Missing implementation");
-    }
+  function required() {
+    throw Error("Missing implementation");
+  }
 
-    /**
-      * Creates a new Templatable instance exposing the Templatable API
-      * @param {Object} - a POJO containing data for use by the Chargeable
-      * @returns {Object} - having a `stamp` method for creating rendered templates 
-      */
-    this.of = myImpl.of || required;
+  /**
+    * Creates a new Templatable instance exposing the Templatable API
+    * @param {String} templatePath - the path to a template
+    * @param {Object} data - a POJO containing data for use by the Templatable
+    * @returns {Object} - an object having a `stamp` method for creating rendered templates 
+    */
+  this.of = myImpl.of || required;
 
-    return;
+  return;
 }
 
 module.exports = ITemplatable;

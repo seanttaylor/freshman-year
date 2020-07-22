@@ -6,6 +6,7 @@ const validateRequestBySchema = require('../../lib/middleware/validate.middlewar
 const Entity = require('../../api/interfaces/Entity');
 const proxy = require('../../lib/middleware/proxy');
 const router = new express.Router();
+const myValidationPipeline = [checkEmailExists, validateRequestBySchema(schema)];
 const entityName = 'student';
 proxy.addRoutes(ProfileService);
 

@@ -6,6 +6,7 @@ const Entity = require('../../api/interfaces/Entity');
 const ProfileService = require('../services/profiles.service');
 const proxy = require('../../lib/middleware/proxy');
 const router = new express.Router();
+const myValidationPipeline = [checkEmailExists, validateRequestBySchema(schema)];
 const entityName = 'sponsor';
 proxy.addRoutes(ProfileService);
 
@@ -34,9 +35,6 @@ async function checkEmailExists(req, res, next) {
  * Create new Sponsor entity.
  */
 router.post('/', checkEmailExists, validateRequestBySchema(schema), async (req, res, next) => {
-    const options = {
-        body: req.body
-    };
 
     try {
         req.body = new Entity({ name: entityName, data: req.body });
@@ -50,9 +48,6 @@ router.post('/', checkEmailExists, validateRequestBySchema(schema), async (req, 
  * Update an existing Sponsor entity.
  */
 router.patch('/:id', checkEmailExists, validateRequestBySchema(patchSchema), async (req, res, next) => {
-    const options = {
-        body: req.body,
-    };
 
     try {
         req.body = Object.assign({

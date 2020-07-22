@@ -1,0 +1,342 @@
+{
+	"info": {
+		"_postman_id": "dc6b6449-d1b0-4be6-bb4b-ed696ce2ee1b",
+		"name": "api_freshmanyr_integration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create_user_profile",
+			"item": [
+				{
+					"name": "create_sponsor",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "df5cfc63-777d-4a45-b6f0-a1b77107fb0f",
+								"exec": [
+									"const randString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);",
+									"",
+									"pm.environment.set('api_freshmanyr_inbound_dev_email',`${randString}@email.com`);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "4e59dee7-19c6-4da1-b530-82c38a338c3a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"API response contains an `entries` property\", function () {",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(Object.keys(responseData).includes('entries')).to.eql(true);",
+									"});",
+									"",
+									"pm.test(\"API response contains `data` property\", function () {",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(Object.keys(responseData).includes('data')).to.eql(true);",
+									"    pm.expect(Array.isArray(responseData.data)).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Warren\",\n    \"lastName\": \"Worthington III\",\n    \"emailAddress\": \"{{api_freshmanyr_inbound_dev_email}}\",\n    \"profileImageURL\": \"https://placeholder.com/300\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/sponsors",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"sponsors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create_sponsor_with_unavailable_email",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "7e0d4d9b-91e6-4890-94a9-f8ae6ad11d05",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "28139c67-c801-41a8-93fb-c8a8bce508f9",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"API response contains a `message` property indicating email unavailable\", function () {",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(Object.keys(responseData).includes('message')).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Warren\",\n    \"lastName\": \"Worthington III\",\n    \"emailAddress\": \"{{api_freshmanyr_inbound_dev_email}}\",\n    \"profileImageURL\": \"https://placeholder.com/300\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/sponsors",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"sponsors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create_student",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "da28bf41-e5d8-46b5-af21-59da8e63f270",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"API response contains an `entries` property\", function () {",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(Object.keys(responseData).includes('entries')).to.eql(true);",
+									"});",
+									"",
+									"pm.test(\"API response contains `data` property\", function () {",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(Object.keys(responseData).includes('data')).to.eql(true);",
+									"    pm.expect(Array.isArray(responseData.data)).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b20e845b-8d70-4043-ba34-8fa0d195fe91",
+								"exec": [
+									"const randString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);",
+									"",
+									"pm.environment.set('api_freshmanyr_inbound_dev_email',`${randString}@email.com`);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Jean\",\n    \"lastName\": \"Grey\",\n    \"dateOfBirth\": \"05/05/1970\",\n    \"emailAddress\": \"{{api_freshmanyr_inbound_dev_email}}\",\n    \"profileImageURL\": \"https://placeholder.com/300\",\n    \"anticipatedGraduationDate\": \"05/25/2028\",\n    \"enrolledAt\": \"P.S. 124\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/students",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"students"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "create_student",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\": \"Jean\",\n    \"lastName\": \"Grey\",\n    \"dateOfBirth\": \"05/05/1970\",\n    \"emailAddress\": \"jgrey@marvel.io\",\n    \"profileImageURL\": \"https://placeholder.com/300\",\n    \"anticipatedGraduationDate\": \"05/25/2028\",\n    \"enrolledAt\": \"P.S. 124\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_freshmanyr_host}}/api/students",
+									"host": [
+										"{{api_freshmanyr_host}}"
+									],
+									"path": [
+										"api",
+										"students"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "477"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"2bf-ygYQARqc7VKdmXCI3VlS1oLS4Fw\""
+								},
+								{
+									"key": "date",
+									"value": "Sun, 19 Jul 2020 19:39:54 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"entries\": 1,\n    \"data\": [\n        {\n            \"isAccountActivated\": false,\n            \"status\": null,\n            \"firstName\": \"Jean\",\n            \"lastName\": \"Grey\",\n            \"dateOfBirth\": \"05/05/1970\",\n            \"emailAddress\": \"jgrey@marvel.io\",\n            \"profileImageURL\": \"https://placeholder.com/300\",\n            \"anticipatedGraduationDate\": \"05/25/2028\",\n            \"enrolledAt\": \"P.S. 124\",\n            \"id\": \"bd1143f6-b9d0-4ef9-a9b1-878df7512335\",\n            \"entityName\": \"student\",\n            \"entityVersion\": \"0.0.1\",\n            \"entitySchema\": \"/api/schemas/student/v0.0.1.json\",\n            \"createdAt\": \"2020-07-19T19:39:54.744Z\",\n            \"lastModifiedAt\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "create_student_with_unavailable_email",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2455983f-6958-46c1-90d2-2726d54a32b6",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "7301c9c6-6ebd-4766-b7f0-98841948d2fc",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"API response contains a `message` property indicating email unavailable\", function () {",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(Object.keys(responseData).includes('message')).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Jean\",\n    \"lastName\": \"Grey\",\n    \"dateOfBirth\": \"05/05/1970\",\n    \"emailAddress\": \"{{api_freshmanyr_inbound_dev_email}}\",\n    \"profileImageURL\": \"https://placeholder.com/300\",\n    \"anticipatedGraduationDate\": \"05/25/2028\",\n    \"enrolledAt\": \"P.S. 124\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/sponsors",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"sponsors"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

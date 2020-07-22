@@ -1,25 +1,45 @@
 const express = require('express');
 const schema = require('../schemas/sponsors.schema.json');
 const patchSchema = require('../schemas/sponsors-patch.schema.json');
-const SponsorService = require('../services/sponsors.service');
 const validateRequestBySchema = require('../../lib/middleware/validate.middleware.js');
-const Profile = require('../../lib/profile');
+const Entity = require('../../api/interfaces/Entity');
+const ProfileService = require('../services/profiles.service');
 const proxy = require('../../lib/middleware/proxy');
 const router = new express.Router();
 const entityName = 'sponsor';
-proxy.addRoutes(SponsorService);
+proxy.addRoutes(ProfileService);
 
+
+/**
+ * Confirm an account email address is available for use
+ * @param {Object} req - Express Request object
+ * @param {Object} res - Express Response object
+ * @param {Function} next - Express `next` function
+ */
+
+async function checkEmailExists(req, res, next) {
+    try {
+        const addressAvailable = await ProfileService.isEmailAddressAvailable(req.body.emailAddress);
+        if (!addressAvailable) {
+            res.status(400).send({ message: 'Email already exists' });
+            return;
+        }
+        next();
+    } catch (err) {
+        next(err);
+    }
+}
 
 /**
  * Create new Sponsor entity.
  */
-router.post('/', validateRequestBySchema(schema), async (req, res, next) => {
+router.post('/', checkEmailExists, validateRequestBySchema(schema), async (req, res, next) => {
     const options = {
         body: req.body
     };
 
     try {
-        req.body = new Profile({ name: entityName, data: req.body });
+        req.body = new Entity({ name: entityName, data: req.body });
         next();
     } catch (err) {
         next(err);
@@ -29,7 +49,7 @@ router.post('/', validateRequestBySchema(schema), async (req, res, next) => {
 /**
  * Update an existing Sponsor entity.
  */
-router.patch('/:id', validateRequestBySchema(patchSchema), async (req, res, next) => {
+router.patch('/:id', checkEmailExists, validateRequestBySchema(patchSchema), async (req, res, next) => {
     const options = {
         body: req.body,
     };
@@ -47,7 +67,7 @@ router.patch('/:id', validateRequestBySchema(patchSchema), async (req, res, next
 
 
 /**
- * Delete an existing post.
+ * Delete an existing sponsor.
  */
 router.delete('/:id', async (req, res, next) => {
     const options = {
@@ -55,8 +75,7 @@ router.delete('/:id', async (req, res, next) => {
     };
 
     try {
-        const result = await posts.deletePost(options);
-        res.status(200).send(result.data);
+        res.status(405).send();
     } catch (err) {
         next(err);
     }

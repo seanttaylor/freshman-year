@@ -5,12 +5,11 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
-const cache = require('../lib/middleware/cache.middleware');
 const requestContext = require('../lib/middleware/request-context.middleware');
 const proxy = require('../lib/middleware/proxy');
 const app = express();
 const serverPort = process.env.SERVER_PORT || 3001;
-const DATA_SERVICE_URL = process.env.PROXY_DATA_SERVICE_URL || 'http://data_service:3000';
+const DATA_SERVICE_URL = process.env.DATA_SERVICE_URL || 'http://data_service:3000';
 
 app.use(helmet());
 app.use(cors());
@@ -19,15 +18,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(requestContext);
-app.use(cache);
 
 /*
  * Routes
  */
-app.use('/status', require('./routes/status.route.js'));
-
-app.use('/api/sponsors', require('./routes/sponsors.route.js'));
-app.use('/api/students', require('./routes/students.route.js'));
+app.use('/status', require('./routes/status.route'));
+app.use('/api/activations', require('./routes/activations.route'));
+app.use('/api/sponsors', require('./routes/sponsors.route'));
+app.use('/api/students', require('./routes/students.route'));
 app.use(proxy.configuration(DATA_SERVICE_URL));
 
 // catch 404

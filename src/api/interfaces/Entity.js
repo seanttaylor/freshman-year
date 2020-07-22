@@ -1,7 +1,7 @@
 const { uuid } = require('uuidv4');
 
 /**
-    * Creates a new user profile entity.
+    * Creates a new data entity 
     * @param {String} name - one of an enumerated set of types for an entity
     * @param {String} version - version number of the entity, maps to the JSON 
     * Schema version the entity validates against
@@ -9,7 +9,7 @@ const { uuid } = require('uuidv4');
     * 
    */
 
-function Profile({ name, version = '0.0.1', data }) {
+function Entity({ name, version = '0.0.1', data }) {
     return {
         ...data,
         id: uuid(),
@@ -23,4 +23,4 @@ function Profile({ name, version = '0.0.1', data }) {
     }
 }
 
-module.exports = Profile;
+module.exports = Entity;

@@ -1,5 +1,7 @@
 /* Implements the Cacheable interface */
 const memoryCache = require('memory-cache');
+const DEFAULT_TTL = 300000;
+
 
 /**
 * An object having the Mailable API; a set of methods for sending emails.
@@ -14,7 +16,7 @@ const memoryCache = require('memory-cache');
 * @param {CacheEntry} entry - A new entry to introduce into the cache
 */
 
-function set({ key, value, ttl }) {
+function set({ key, value, ttl = DEFAULT_TTL }) {
     memoryCache.put(key, value, ttl);
 }
 
@@ -25,7 +27,7 @@ function set({ key, value, ttl }) {
 */
 
 function get(key) {
-    memoryCache.get(key);
+    return memoryCache.get(key);
 }
 
 /**
@@ -34,7 +36,7 @@ function get(key) {
 */
 
 function _delete(key) {
-    memoryCache.delete(key);
+    memoryCache.del(key);
 }
 
 /**
@@ -51,8 +53,8 @@ function clear() {
 * @returns {Boolean} 
 */
 
-function isExpired(key) {
-    return !memoryCache.keys().includes(key);
+function has(key) {
+    return memoryCache.keys().includes(key);
 }
 
 module.exports = {
@@ -60,5 +62,5 @@ module.exports = {
     get,
     delete: _delete,
     clear,
-    isExpired
+    has
 }

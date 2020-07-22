@@ -371,6 +371,18 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ba00efe1-f5ad-4b8d-85c2-6a6626961ccb",
+								"exec": [
+									"const randString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);",
+									"",
+									"pm.environment.set('api_freshmanyr_inbound_dev_email',`${randString}@email.com`);"
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
@@ -378,7 +390,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Jean\",\n    \"lastName\": \"Grey\",\n    \"dateOfBirth\": \"05/05/1970\",\n    \"emailAddress\": \"jgrey@marvel.io\",\n    \"profileImageURL\": \"https://placeholder.com/300\",\n    \"anticipatedGraduationDate\": \"05/25/2028\",\n    \"enrolledAt\": \"P.S. 124\"\n}",
+							"raw": "{\n    \"firstName\": \"Jean\",\n    \"lastName\": \"Grey\",\n    \"dateOfBirth\": \"05/05/1970\",\n    \"emailAddress\": \"{{api_freshmanyr_inbound_dev_email}}\",\n    \"profileImageURL\": \"https://placeholder.com/300\",\n    \"anticipatedGraduationDate\": \"05/25/2028\",\n    \"enrolledAt\": \"P.S. 124\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -589,6 +601,18 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "766cac45-b7dc-4560-a151-f090138c75c1",
+								"exec": [
+									"const randString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);",
+									"",
+									"pm.environment.set('api_freshmanyr_inbound_dev_email',`${randString}@email.com`);"
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
@@ -596,7 +620,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Warren\",\n    \"lastName\": \"Worthington III\",\n    \"emailAddress\": \"wworthington@marvel.io\",\n    \"profileImageURL\": \"https://placeholder.com/300\"\n}",
+							"raw": "{\n    \"firstName\": \"Warren\",\n    \"lastName\": \"Worthington III\",\n    \"emailAddress\": \"{{api_freshmanyr_inbound_dev_email}}\",\n    \"profileImageURL\": \"https://placeholder.com/300\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -722,14 +746,20 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{api_freshmanyr_host}}/api/sponsors/{{api_freshmanyr_sponsor_id}}",
+							"raw": "{{api_freshmanyr_host}}/api/sponsors/:id",
 							"host": [
 								"{{api_freshmanyr_host}}"
 							],
 							"path": [
 								"api",
 								"sponsors",
-								"{{api_freshmanyr_sponsor_id}}"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{api_freshmanyr_sponsor_id}}"
+								}
 							]
 						}
 					},
@@ -1281,6 +1311,105 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"entries\": 1,\n    \"data\": [\n        {\n            \"id\": \"c7d63189-07f8-4ea8-9a62-37a7b8cfe973\",\n            \"value\": 1024.64,\n            \"currency\": \"USD\",\n            \"createdAt\": \"1000-01-01 00:00:00\",\n            \"entityName\": \"account\",\n            \"entityVersion\": \"0.0.1\",\n            \"entitySchema\": \"/api/schemas/account/v0.0.1.json\",\n            \"status\": null\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "activations",
+			"item": [
+				{
+					"name": "activate_sponsor_account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/activations/:id",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"activations",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{api_freshmanyr_activation_csrf_token}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "activate_sponsor_account",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{api_freshmanyr_host}}/api/activations/:id",
+									"host": [
+										"{{api_freshmanyr_host}}"
+									],
+									"path": [
+										"api",
+										"activations",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "-MCnEkTawcTB-jK4K8Eu"
+										}
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 21 Jul 2020 21:19:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
 						}
 					]
 				}

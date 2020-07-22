@@ -1,3 +1,6 @@
 module.exports = {
-    shortUUID: require('./short-uuid')
+    shortUUID: require('./short-uuid'),
+    profiles: {
+        findOneByEmail: require('./profiles')
+    }
 }

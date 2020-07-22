@@ -25,7 +25,7 @@ function ICacheable(myImpl) {
 
     this.delete = myImpl.delete || required;
 
-    this.isExpired = myImpl.isExpired || required;
+    this.has = myImpl.has || required;
 
     return;
 }

@@ -3,8 +3,9 @@ const defaultHTTPHeaders = {
     'Content-Type': 'application/json'
 };
 
-async function connect(connectionURI) {
-    this.__config.connectionURI = connectionURI;
+async function connect({ host, defaultPath }) {
+    this.__config.connectionURI = `${host}${defaultPath}`;
+    this.__config.host = host;
 }
 
 async function addOne(doc) {
@@ -25,6 +26,12 @@ async function findAll(collectionName) {
 
 async function findOne(_id) {
     const response = await fetch(`${this.__config.connectionURI}/${_id}`);
+    const data = await response.json();
+    return data;
+}
+
+async function findOneByEmail(emailAddress) {
+    const response = await fetch(`${this.__config.connectionURI}/findOne?_where=(emailAddress,eq,${emailAddress})`);
     const data = await response.json();
     return data;
 }
@@ -53,5 +60,6 @@ module.exports = {
     removeOne,
     findAll,
     findOne,
+    findOneByEmail,
     updateOne
 };

@@ -6,6 +6,7 @@ const defaultHTTPHeaders = {
 async function connect({ host, defaultPath }) {
     this.__config.connectionURI = `${host}${defaultPath}`;
     this.__config.host = host;
+    this.__config.fetch = fetch;
 }
 
 async function addOne(doc) {
@@ -60,6 +61,5 @@ module.exports = {
     removeOne,
     findAll,
     findOne,
-    findOneByEmail,
     updateOne
 };

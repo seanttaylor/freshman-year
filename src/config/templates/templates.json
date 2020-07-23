@@ -1,0 +1,11 @@
+{
+    "__comments": "Map of all application email templates",
+    "sponsor": {
+        "welcomeEmail": "/app/src/lib/mailable/templates/sponsor-welcome.ejs",
+        "newStudentSponsorship": "/app/src/lib/mailable/templates/new-student-sponsorship.ejs"
+    },
+    "student": {
+        "welcomeEmail": "/app/src/lib/mailable/templates/student-welcome.ejs",
+        "newStudentSponsorship": "/app/src/lib/mailable/templates/new-sponsor.ejs"
+    }
+}

@@ -21,7 +21,7 @@ function IRepository(myImpl) {
       throw Error("Missing implementation");
    }
 
-   this.__config = {};
+   //this.__config = {};
 
    /**
       * Connect to the datasource.

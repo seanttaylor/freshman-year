@@ -2,6 +2,7 @@ const express = require('express');
 const schema = require('../schemas/students.schema.json');
 const patchSchema = require('../schemas/students-patch.schema.json');
 const ProfileService = require('../services/profiles.service');
+const StudentService = require('../services/students.service');
 const validateRequestBySchema = require('../../lib/middleware/validate.middleware.js');
 const Entity = require('../../api/interfaces/Entity');
 const proxy = require('../../lib/middleware/proxy');
@@ -53,6 +54,22 @@ router.patch('/:id', checkEmailExists, validateRequestBySchema(patchSchema), asy
         }, req.body);
 
         next();
+    } catch (err) {
+        next(err);
+    }
+});
+
+/**
+ * Add a Sponsor for an existing Student
+ */
+router.post('/:id/sponsors', async (req, res, next) => {
+    const studentId = req.params.id;
+    const sponsorId = req.body.sponsorId;
+
+    try {
+        await StudentService.addSponsor({ studentId, sponsorId });
+        res.status(201).send();
+
     } catch (err) {
         next(err);
     }

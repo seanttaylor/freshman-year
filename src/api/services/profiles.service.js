@@ -10,8 +10,8 @@ const template = new Templatable(libTemplatable);
 const { shortUUID, profiles } = require('../../lib/utilities');
 const eventEmitter = require('../../lib/events');
 const cache = require('../../lib/cache');
-const sponsorWelcomeEmail = '/app/src/lib/mailable/templates/test.ejs';
-const studentWelcomeEmail = '/app/src/lib/mailable/templates/test-1.ejs';
+const sponsorWelcomeEmail = '/app/src/lib/mailable/templates/sponsor-welcome.ejs';
+const studentWelcomeEmail = '/app/src/lib/mailable/templates/student-welcome.ejs';
 
 //const ServiceResponse = require('../../lib/service-response'); 
 const findOneByEmail = profiles.findOneByEmail;
@@ -28,8 +28,8 @@ const activationsMap = {
 };
 
 const welcomeEmailsMap = {
-    'sponsor': '/app/src/lib/mailable/templates/test.ejs',
-    'student': '/app/src/lib/mailable/templates/test-1.ejs'
+    'sponsor': sponsorWelcomeEmail,
+    'student': studentWelcomeEmail
 };
 
 /**

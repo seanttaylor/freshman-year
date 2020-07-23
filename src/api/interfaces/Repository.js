@@ -36,7 +36,6 @@ function IRepository(myImpl) {
       * A a document to the datasource.
       * @param {String} data - document to add to the datasource.
       * @param {String} collectionName - Name of collection to add to.
-      * @param {String} customId - An optional custom id to use for document lookup. 
       * @returns {Object}
       */
    this.addOne = myImpl.addOne || required;

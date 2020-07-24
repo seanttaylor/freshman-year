@@ -11,52 +11,49 @@ const emailTemplateMap = require('../../config/templates/templates.json');
 const { shortUUID, profiles } = require('../../lib/utilities');
 const eventEmitter = require('../../lib/events');
 const cache = require('../../lib/cache');
-//const ServiceResponse = require('../../lib/service-response'); 
 const findOneByEmail = profiles.findOneByEmail;
 const profilesRepo = Object.assign(new Repository(libRepository), { findOneByEmail });
-const sponsorsURI = 'http://data_service:3000/api/sponsors';
-const studentsURI = 'http://data_service:3000/api/students';
+const entityURIMap = {
+    'sponsor': 'http://data_service:3000/api/sponsors',
+    'student': 'http://data_service:3000/api/students'
+};
 const activationsMap = {
-    'sponsor': profilesRepo.updateOne.bind({ connectionURI: sponsorsURI }),
-    'student': profilesRepo.updateOne.bind({ connectionURI: studentsURI })
+    'sponsor': profilesRepo.updateOne.bind({ connectionURI: entityURIMap['sponsor'] }),
+    'student': profilesRepo.updateOne.bind({ connectionURI: entityURIMap['student'] })
 };
 eventEmitter.on('activations.request-received', onActivationRequest);
 
 
-/**
- * The methods below apply formatting to records RETURNED from the data service.
- * The `express-http-proxy` package does not allow for easy post-processing of responses from
- * proxied API requests. The sole facility for achieving post-processing is through 
- * the user-configured `userResDecorator` method (see middleware/proxy/proxy-resolve.)
+/** 
+ * @param {Object} profile - profile object containing user data
+ * 
  */
 
+async function createProfile(profile) {
+    const connectionURI = entityURIMap[profile.entityName];
+    await profilesRepo.addOne.call({ connectionURI }, profile);
+    onCreateWelcomeEmail(profile);
+    const data = await profilesRepo.findOne.call({ connectionURI }, profile.id);
+    return data;
+}
 
 /**
-* Returns a specified entity according to the JSON Schema specfication in 
-* the /schemas folder.
-* @param {Object} proxyRes - proxied service's Express response object
-* @param {Object} proxyResData - proxied service's Express response data *only*
-* @param {Object} userReq - original Express request object
-* @param {Object} userRes - original Express response object
+* @param {Object} profile - all user profile data
 * @returns {Object}
 */
 
-async function onCreateProfile({ proxyRes, proxyResData, userReq, userRes }) {
+async function onCreateWelcomeEmail(profile) {
     const csrf = shortUUID();
-    const { entityName, id } = userReq.body;
+    const { entityName, id } = profile;
+    const data = { ...profile, csrf };
     const welcomeEmail = emailTemplateMap[entityName]['welcomeEmail'];
-    const myEmailTemplate = await template.of(welcomeEmail, {
-        data: {
-            ...userReq.body,
-            csrf
-        }
-    }).stamp();
+    const myEmailTemplate = await template.of(welcomeEmail, { data }).stamp();
     myMailer.useTemplate(myEmailTemplate);
 
     try {
         await myMailer.send({
             from: 'FreshmanYr Support <support@freshmanyr.io>',
-            to: [userReq.body.emailAddress],
+            to: [profile.emailAddress],
             subject: 'Welcome to FreshmanYR!'
         });
         cache.set({
@@ -67,9 +64,8 @@ async function onCreateProfile({ proxyRes, proxyResData, userReq, userRes }) {
     } catch (e) {
         console.error(e);
     }
-    //new ServiceResponse(...arguments).onCreateEntityInstance();
-    return apiResponse.onCreateEntityInstance({ proxyRes, proxyResData, userReq, userRes });
 }
+
 
 /**
 * Updates the profile's activation status on the `activations.request-received` event
@@ -90,16 +86,15 @@ async function onActivationRequest({ entityName, csrf, id }) {
  */
 async function isEmailAddressAvailable(emailAddress) {
     const sponsorEmails = await profilesRepo.findOneByEmail.call({
-        connectionURI: sponsorsURI
+        connectionURI: entityURIMap['sponsor']
     }, emailAddress);
     const studentEmails = await profilesRepo.findOneByEmail.call({
-        connectionURI: studentsURI
+        connectionURI: entityURIMap['student']
     }, emailAddress);
     return sponsorEmails.length === 0 && studentEmails.length === 0;
 }
 
 module.exports = {
     isEmailAddressAvailable,
-    "post:/api/sponsors": onCreateProfile,
-    "post:/api/students": onCreateProfile,
+    createProfile
 } 

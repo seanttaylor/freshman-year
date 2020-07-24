@@ -4,11 +4,9 @@ const patchSchema = require('../schemas/sponsors-patch.schema.json');
 const validateRequestBySchema = require('../../lib/middleware/validate.middleware.js');
 const Entity = require('../../api/interfaces/Entity');
 const ProfileService = require('../services/profiles.service');
-const proxy = require('../../lib/middleware/proxy');
 const router = new express.Router();
 const myValidationPipeline = [checkEmailExists, validateRequestBySchema(schema)];
 const entityName = 'sponsor';
-proxy.addRoutes(ProfileService);
 
 
 /**
@@ -37,8 +35,12 @@ async function checkEmailExists(req, res, next) {
 router.post('/', checkEmailExists, validateRequestBySchema(schema), async (req, res, next) => {
 
     try {
-        req.body = new Entity({ name: entityName, data: req.body });
-        next();
+        const myProfile = new Entity({ name: entityName, data: req.body });
+        const data = await ProfileService.createProfile(myProfile);
+        res.status(201).send({
+            entries: data.length,
+            data
+        });
     } catch (err) {
         next(err);
     }

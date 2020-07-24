@@ -5,11 +5,8 @@ const ProfileService = require('../services/profiles.service');
 const StudentService = require('../services/students.service');
 const validateRequestBySchema = require('../../lib/middleware/validate.middleware.js');
 const Entity = require('../../api/interfaces/Entity');
-const proxy = require('../../lib/middleware/proxy');
 const router = new express.Router();
-const myValidationPipeline = [checkEmailExists, validateRequestBySchema(schema)];
 const entityName = 'student';
-proxy.addRoutes(ProfileService);
 
 /**
  * Confirm an account email address is available for use
@@ -36,8 +33,12 @@ async function checkEmailExists(req, res, next) {
  */
 router.post('/', checkEmailExists, validateRequestBySchema(schema), async (req, res, next) => {
     try {
-        req.body = new Entity({ name: entityName, data: req.body });
-        next();
+        const myProfile = new Entity({ name: entityName, data: req.body });
+        const data = await ProfileService.createProfile(myProfile);
+        res.status(201).send({
+            entries: data.length,
+            data
+        });
     } catch (err) {
         next(err);
     }
@@ -68,7 +69,10 @@ router.post('/:id/sponsors', async (req, res, next) => {
 
     try {
         await StudentService.addSponsor({ studentId, sponsorId });
-        res.status(201).send();
+        res.status(201).send({
+            entries: 0,
+            data: []
+        });
 
     } catch (err) {
         next(err);

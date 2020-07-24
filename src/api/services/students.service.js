@@ -23,7 +23,15 @@ studentSponsorsRepo.connect({
  */
 
 async function addSponsor({ studentId, sponsorId }) {
-    await studentSponsorsRepo.addOne({ student_id: studentId, sponsor_id: sponsorId });
+    const sponsorAddedOk = await studentSponsorsRepo.addOne({
+        student_id: studentId,
+        sponsor_id: sponsorId
+    });
+
+    if (!sponsorAddedOk) {
+        throw 'Sponsor registration [FAILED]. See `data_service` logs for details.'
+    }
+
     const [student] = await studentSponsorsRepo.findOne.call({
         connectionURI: 'http://data_service:3000/api/students'
     }, studentId);

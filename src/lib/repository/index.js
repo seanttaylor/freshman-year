@@ -1,6 +1,8 @@
 const fetch = require("node-fetch");
-const defaultHTTPHeaders = {
-    'Content-Type': 'application/json'
+const config = {
+    defaultHTTPHeaders: {
+        'Content-Type': 'application/json'
+    }
 };
 
 async function connect({ host, defaultPath }) {
@@ -11,12 +13,11 @@ async function connect({ host, defaultPath }) {
 
 async function addOne(doc) {
     const response = await fetch(`${this.connectionURI}`, {
-        headers: defaultHTTPHeaders,
+        headers: config.defaultHTTPHeaders,
         method: 'POST',
         body: JSON.stringify(doc),
     });
-    const data = await response.json();
-    return data;
+    return response.ok;
 }
 
 async function findAll(collectionName) {

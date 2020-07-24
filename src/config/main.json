@@ -1,0 +1,13 @@
+{
+    "__comments": "Non-secret general application configuration",
+    "entityURI": {
+        "sponsor": "/api/sponsors",
+        "student": "/api/students",
+        "student_sponsor": "/api/student_sponsors"
+    },
+    "defaults": {
+        "host": {
+            "development": "http://data_service:3000"
+        }
+    }
+}

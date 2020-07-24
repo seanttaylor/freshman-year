@@ -39,7 +39,7 @@ async function findOneByEmail(emailAddress) {
 
 async function updateOne(_id, doc) {
     const response = await fetch(`${this.connectionURI}/${_id}`, {
-        headers: defaultHTTPHeaders,
+        headers: config.defaultHTTPHeaders,
         method: "PATCH",
         body: JSON.stringify(Object.assign(doc, { lastModifiedAt: new Date().toISOString() }))
     });

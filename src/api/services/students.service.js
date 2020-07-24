@@ -1,4 +1,3 @@
-const apiResponse = require('../../lib/api-response');
 const Mailable = require('../interfaces/Mailable');
 const Templatable = require('../interfaces/Templatable');
 const Repository = require('../interfaces/Repository');
@@ -6,14 +5,17 @@ const libMailable = require('../../lib/mailable');
 const libTemplatable = require('../../lib/templatable');
 const libRepository = require('../../lib/repository');
 const emailTemplateMap = require('../../config/templates/templates.json');
+const { entityURI, defaults } = require('../../config/main.json');
 const newSponsorshipTemplate = emailTemplateMap['sponsor']['newStudentSponsorship'];
 const { profiles } = require('../../lib/utilities');
 const myMailer = new Mailable(libMailable);
 const template = new Templatable(libTemplatable);
-const studentSponsorsRepo = new Repository(libRepository);
-studentSponsorsRepo.connect({
+const repo = new Repository(libRepository);
+const studentsURI = `${defaults.host.development}${entityURI['student']}`;
+const sponsorsURI = `${defaults.host.development}${entityURI['sponsor']}`;
+repo.connect({
     host: 'http://data_service:3000',
-    defaultPath: '/api/student_sponsors'
+    defaultPath: entityURI['student_sponsor']
 });
 
 /** Creates a new student sponsorship
@@ -23,7 +25,7 @@ studentSponsorsRepo.connect({
  */
 
 async function addSponsor({ studentId, sponsorId }) {
-    const sponsorAddedOk = await studentSponsorsRepo.addOne({
+    const sponsorAddedOk = await repo.addOne({
         student_id: studentId,
         sponsor_id: sponsorId
     });
@@ -32,13 +34,8 @@ async function addSponsor({ studentId, sponsorId }) {
         throw 'Sponsor registration [FAILED]. See `data_service` logs for details.'
     }
 
-    const [student] = await studentSponsorsRepo.findOne.call({
-        connectionURI: 'http://data_service:3000/api/students'
-    }, studentId);
-    const [sponsor] = await studentSponsorsRepo.findOne.call({
-        connectionURI: 'http://data_service:3000/api/sponsors'
-    }, sponsorId);
-
+    const [student] = await repo.findOne.call({ connectionURI: studentsURI }, studentId);
+    const [sponsor] = await repo.findOne.call({ connectionURI: sponsorsURI }, sponsorId);
     const myEmailTemplate = await template.of(newSponsorshipTemplate, {
         data: { student, sponsor }
     }).stamp();
@@ -53,6 +50,19 @@ async function addSponsor({ studentId, sponsorId }) {
     //eventEmitter.emit('students.newSponsorAdded', student);
 }
 
+
+/** Update an existing `student` entity
+ * @param {String} id - uuid of the student to update
+ * @param {Object} update - fields to update on the `student` entity
+ * @return {Object}
+ */
+
+async function updateStudent(id, update) {
+    await repo.updateOne.call({ connectionURI: studentsURI }, id, update);
+    return [{ id, href: `${studentsURI}/${id}` }]
+}
+
 module.exports = {
-    addSponsor
+    addSponsor,
+    updateStudent
 }

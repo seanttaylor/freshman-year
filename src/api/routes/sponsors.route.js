@@ -4,10 +4,9 @@ const patchSchema = require('../schemas/sponsors-patch.schema.json');
 const validateRequestBySchema = require('../../lib/middleware/validate.middleware.js');
 const Entity = require('../../api/interfaces/Entity');
 const ProfileService = require('../services/profiles.service');
+const SponsorService = require('../services/sponsors.service');
 const router = new express.Router();
-const myValidationPipeline = [checkEmailExists, validateRequestBySchema(schema)];
 const entityName = 'sponsor';
-
 
 /**
  * Confirm an account email address is available for use
@@ -51,28 +50,17 @@ router.post('/', checkEmailExists, validateRequestBySchema(schema), async (req, 
  */
 router.patch('/:id', checkEmailExists, validateRequestBySchema(patchSchema), async (req, res, next) => {
 
-    try {
-        req.body = Object.assign({
-            lastModifiedAt: new Date().toISOString(),
-        }, req.body);
-
-        next();
-    } catch (err) {
-        next(err);
-    }
-});
-
-
-/**
- * Delete an existing sponsor.
- */
-router.delete('/:id', async (req, res, next) => {
-    const options = {
-        id: req.params['id']
-    };
+    const { id } = req.params;
+    const myUpdate = Object.assign({
+        lastModifiedAt: new Date().toISOString(),
+    }, req.body);
 
     try {
-        res.status(405).send();
+        const data = await SponsorService.updateSponsor(id, myUpdate);
+        res.status(200).send({
+            entries: data.length,
+            data
+        });
     } catch (err) {
         next(err);
     }

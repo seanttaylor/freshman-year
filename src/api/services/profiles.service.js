@@ -8,38 +8,38 @@ const libRepository = require('../../lib/repository');
 const myMailer = new Mailable(libMailable);
 const template = new Templatable(libTemplatable);
 const emailTemplateMap = require('../../config/templates/templates.json');
+const { entityURI, defaults } = require('../../config/main.json');
 const { shortUUID, profiles } = require('../../lib/utilities');
 const eventEmitter = require('../../lib/events');
 const cache = require('../../lib/cache');
 const findOneByEmail = profiles.findOneByEmail;
-const profilesRepo = Object.assign(new Repository(libRepository), { findOneByEmail });
-const entityURIMap = {
-    'sponsor': 'http://data_service:3000/api/sponsors',
-    'student': 'http://data_service:3000/api/students'
-};
+const repo = Object.assign(new Repository(libRepository), { findOneByEmail });
+const studentsURI = `${defaults.host.development}${entityURI['student']}`;
+const sponsorsURI = `${defaults.host.development}${entityURI['sponsor']}`;
 const activationsMap = {
-    'sponsor': profilesRepo.updateOne.bind({ connectionURI: entityURIMap['sponsor'] }),
-    'student': profilesRepo.updateOne.bind({ connectionURI: entityURIMap['student'] })
+    'sponsor': repo.updateOne.bind({ connectionURI: sponsorsURI }),
+    'student': repo.updateOne.bind({ connectionURI: studentsURI })
 };
 eventEmitter.on('activations.request-received', onActivationRequest);
 
 
 /** 
+ * Create a new user profile
  * @param {Object} profile - profile object containing user data
- * 
  */
 
 async function createProfile(profile) {
-    const connectionURI = entityURIMap[profile.entityName];
-    await profilesRepo.addOne.call({ connectionURI }, profile);
+    const connectionURI = `${defaults.host.development}${entityURI[profile.entityName]}`;
+    await repo.addOne.call({ connectionURI }, profile);
     onCreateWelcomeEmail(profile);
-    const data = await profilesRepo.findOne.call({ connectionURI }, profile.id);
+    const data = await repo.findOne.call({ connectionURI }, profile.id);
     return data;
 }
 
 /**
-* @param {Object} profile - all user profile data
-* @returns {Object}
+ * Send a newly created user a welcome email
+ * @param {Object} profile - all user profile data
+ *
 */
 
 async function onCreateWelcomeEmail(profile) {
@@ -81,15 +81,15 @@ async function onActivationRequest({ entityName, csrf, id }) {
 
 /**
  * Checks for an existing emailAddress
- * @param {String} emailAddress 
+ * @param {String} emailAddress - an email address
  * @returns {Boolean}
  */
 async function isEmailAddressAvailable(emailAddress) {
-    const sponsorEmails = await profilesRepo.findOneByEmail.call({
-        connectionURI: entityURIMap['sponsor']
+    const sponsorEmails = await repo.findOneByEmail.call({
+        connectionURI: sponsorsURI
     }, emailAddress);
-    const studentEmails = await profilesRepo.findOneByEmail.call({
-        connectionURI: entityURIMap['student']
+    const studentEmails = await repo.findOneByEmail.call({
+        connectionURI: studentsURI
     }, emailAddress);
     return sponsorEmails.length === 0 && studentEmails.length === 0;
 }

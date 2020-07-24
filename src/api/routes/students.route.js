@@ -48,13 +48,18 @@ router.post('/', checkEmailExists, validateRequestBySchema(schema), async (req, 
  * Update an existing Student entity.
  */
 router.patch('/:id', checkEmailExists, validateRequestBySchema(patchSchema), async (req, res, next) => {
+    const { id } = req.params;
+    const myUpdate = Object.assign({
+        lastModifiedAt: new Date().toISOString(),
+    }, req.body);
 
     try {
-        req.body = Object.assign({
-            lastModifiedAt: new Date().toISOString(),
-        }, req.body);
+        const data = await StudentService.updateStudent(id, myUpdate);
+        res.status(200).send({
+            entries: data.length,
+            data
+        });
 
-        next();
     } catch (err) {
         next(err);
     }
@@ -80,20 +85,5 @@ router.post('/:id/sponsors', async (req, res, next) => {
 });
 
 
-/**
- * Delete an existing post.
- */
-router.delete('/:id', async (req, res, next) => {
-    const options = {
-        id: req.params['id']
-    };
-
-    try {
-        const result = await posts.deletePost(options);
-        res.status(200).send(result.data);
-    } catch (err) {
-        next(err);
-    }
-});
 
 module.exports = router;

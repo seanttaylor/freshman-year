@@ -8,7 +8,6 @@ const config = {
 async function connect({ host, defaultPath }) {
     this.connectionURI = `${host}${defaultPath}`;
     this.host = host;
-    this.fetch = fetch;
 }
 
 async function addOne(doc) {

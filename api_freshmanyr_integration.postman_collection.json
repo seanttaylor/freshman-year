@@ -41,6 +41,10 @@
 									"    const responseData = pm.response.json();",
 									"    pm.expect(Object.keys(responseData).includes('data')).to.eql(true);",
 									"    pm.expect(Array.isArray(responseData.data)).to.eql(true);",
+									"",
+									"    //Set `sponsor_id` for remainder of test run ",
+									"    const [record] = responseData.data;",
+									"    pm.environment.set(\"api_freshmanyr_integration_test_sponsor_id\", record.id);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -129,6 +133,69 @@
 					"response": []
 				},
 				{
+					"name": "update_sponsor_with_unavailable_email",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4b0bf041-b911-49dc-9f35-9f47dd64170e",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "31a27ce7-da12-4a84-9ddf-e8eaad01e2ca",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"API response contains a `message` property indicating email unavailable\", function () {",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(Object.keys(responseData).includes('message')).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"emailAddress\": \"{{api_freshmanyr_inbound_dev_email}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/sponsors/:id",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"sponsors",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{api_freshmanyr_integration_test_sponsor_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "create_student",
 					"event": [
 						{
@@ -149,6 +216,10 @@
 									"    const responseData = pm.response.json();",
 									"    pm.expect(Object.keys(responseData).includes('data')).to.eql(true);",
 									"    pm.expect(Array.isArray(responseData.data)).to.eql(true);",
+									"",
+									"    //Set `student_id` for remainder of test run ",
+									"    const [record] = responseData.data;",
+									"    pm.environment.set(\"api_freshmanyr_integration_test_student_id\", record.id);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -328,6 +399,229 @@
 							],
 							"path": [
 								"api",
+								"sponsors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_student_with_unavailable_email",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3e54c2b2-ee9e-4f89-84bd-ac977311c4af",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "b91ac476-f2cd-4a55-ba1e-652b040575e3",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"API response contains a `message` property indicating email unavailable\", function () {",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(Object.keys(responseData).includes('message')).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"emailAddress\": \"{{api_freshmanyr_inbound_dev_email}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/students/:id",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"students",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{api_freshmanyr_integration_test_student_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "add_student_sponsor",
+			"item": [
+				{
+					"name": "create_new_student_sponsor",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "00e1bbbb-4d09-45df-b1a6-c7fcb515cd87",
+								"exec": [
+									"const randString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);",
+									"",
+									"pm.environment.set('api_freshmanyr_inbound_dev_email',`${randString}@email.com`);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "8ffbda10-1566-42c1-9d59-66b6330cfc8b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"API response contains an `entries` property\", function () {",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(Object.keys(responseData).includes('entries')).to.eql(true);",
+									"});",
+									"",
+									"pm.test(\"API response contains `data` property\", function () {",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(Object.keys(responseData).includes('data')).to.eql(true);",
+									"    pm.expect(Array.isArray(responseData.data)).to.eql(true);",
+									"",
+									"    //Set `sponsor_id` for remainder of test run ",
+									"    const [record] = responseData.data;",
+									"    pm.environment.set(\"api_freshmanyr_integration_test_sponsor_id\", record.id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Warren\",\n    \"lastName\": \"Worthington III\",\n    \"emailAddress\": \"{{api_freshmanyr_inbound_dev_email}}\",\n    \"profileImageURL\": \"https://placeholder.com/300\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/sponsors",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"sponsors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add_student_sponsor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b27dc530-15c6-4448-8a01-e36b4394501f",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"sponsorId\": \"{{api_freshmanyr_integration_test_sponsor_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/students/{{api_freshmanyr_student_id}}/sponsors",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"students",
+								"{{api_freshmanyr_student_id}}",
+								"sponsors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add_duplicate_student_sponsor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cd69606c-54f2-48bb-83a9-76c160eacb4f",
+								"exec": [
+									"pm.test(\"Status code is 500\", function () {",
+									"    pm.response.to.have.status(500);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"sponsorId\": \"{{api_freshmanyr_integration_test_sponsor_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/students/{{api_freshmanyr_student_id}}/sponsors",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"students",
+								"{{api_freshmanyr_student_id}}",
 								"sponsors"
 							]
 						}

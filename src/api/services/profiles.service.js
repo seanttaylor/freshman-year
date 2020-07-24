@@ -7,30 +7,21 @@ const libTemplatable = require('../../lib/templatable');
 const libRepository = require('../../lib/repository');
 const myMailer = new Mailable(libMailable);
 const template = new Templatable(libTemplatable);
+const emailTemplateMap = require('../../config/templates/templates.json');
 const { shortUUID, profiles } = require('../../lib/utilities');
 const eventEmitter = require('../../lib/events');
 const cache = require('../../lib/cache');
-const sponsorWelcomeEmail = '/app/src/lib/mailable/templates/sponsor-welcome.ejs';
-const studentWelcomeEmail = '/app/src/lib/mailable/templates/student-welcome.ejs';
-
 //const ServiceResponse = require('../../lib/service-response'); 
 const findOneByEmail = profiles.findOneByEmail;
-const sponsorsRepo = Object.assign(new Repository(libRepository), { findOneByEmail });
-const studentsRepo = Object.assign(new Repository(libRepository), { findOneByEmail });
-
-sponsorsRepo.connect({ host: 'http://data_service:3000', defaultPath: '/api/sponsors' });
-studentsRepo.connect({ host: 'http://data_service:3000', defaultPath: '/api/students' });
+const profilesRepo = Object.assign(new Repository(libRepository), { findOneByEmail });
+const sponsorsURI = 'http://data_service:3000/api/sponsors';
+const studentsURI = 'http://data_service:3000/api/students';
+const activationsMap = {
+    'sponsor': profilesRepo.updateOne.bind({ connectionURI: sponsorsURI }),
+    'student': profilesRepo.updateOne.bind({ connectionURI: studentsURI })
+};
 eventEmitter.on('activations.request-received', onActivationRequest);
 
-const activationsMap = {
-    'sponsor': sponsorsRepo.updateOne.bind(sponsorsRepo),
-    'student': studentsRepo.updateOne.bind(studentsRepo)
-};
-
-const welcomeEmailsMap = {
-    'sponsor': sponsorWelcomeEmail,
-    'student': studentWelcomeEmail
-};
 
 /**
  * The methods below apply formatting to records RETURNED from the data service.
@@ -53,7 +44,8 @@ const welcomeEmailsMap = {
 async function onCreateProfile({ proxyRes, proxyResData, userReq, userRes }) {
     const csrf = shortUUID();
     const { entityName, id } = userReq.body;
-    const myEmailTemplate = await template.of(welcomeEmailsMap[entityName], {
+    const welcomeEmail = emailTemplateMap[entityName]['welcomeEmail'];
+    const myEmailTemplate = await template.of(welcomeEmail, {
         data: {
             ...userReq.body,
             csrf
@@ -97,8 +89,12 @@ async function onActivationRequest({ entityName, csrf, id }) {
  * @returns {Boolean}
  */
 async function isEmailAddressAvailable(emailAddress) {
-    const sponsorEmails = await sponsorsRepo.findOneByEmail(emailAddress);
-    const studentEmails = await studentsRepo.findOneByEmail(emailAddress);
+    const sponsorEmails = await profilesRepo.findOneByEmail.call({
+        connectionURI: sponsorsURI
+    }, emailAddress);
+    const studentEmails = await profilesRepo.findOneByEmail.call({
+        connectionURI: studentsURI
+    }, emailAddress);
     return sponsorEmails.length === 0 && studentEmails.length === 0;
 }
 

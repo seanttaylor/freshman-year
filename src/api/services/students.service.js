@@ -46,7 +46,7 @@ async function addSponsor({ studentId, sponsorId }) {
 
     await myMailer.send({
         from: 'FreshmanYr Support <support@freshmanyr.io>',
-        to: [student.emailAddress],
+        to: [sponsor.emailAddress],
         subject: `You're now contributing to ${student.firstName}'s Scholar Fund!`
     });
 

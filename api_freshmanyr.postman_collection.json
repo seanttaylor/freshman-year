@@ -365,8 +365,8 @@
 							"script": {
 								"id": "8dc9fd2b-dabf-43b1-ba34-2a3f78d80103",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -504,9 +504,7 @@
 							"script": {
 								"id": "7945d963-89e4-4834-a3f3-7662b4ab3ec3",
 								"exec": [
-									"pm.test(\"Status code is 201\", function () {",
-									"    pm.response.to.have.status(201);",
-									"});"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -524,6 +522,40 @@
 								}
 							}
 						},
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/students/{{api_freshmanyr_student_id}}/sponsors",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"students",
+								"{{api_freshmanyr_student_id}}",
+								"sponsors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_student_sponsors_by_student_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c49b107-4352-4b99-86fd-cbb0c3cb3aa6",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
 						"url": {
 							"raw": "{{api_freshmanyr_host}}/api/students/{{api_freshmanyr_student_id}}/sponsors",
 							"host": [
@@ -638,8 +670,8 @@
 							"script": {
 								"id": "b60a40be-c7e5-4ea5-a772-f18e9e2556b3",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1014,6 +1046,32 @@
 							"body": "{\n    \"entries\": 1,\n    \"data\": [\n        {\n            \"id\": \"2a1acb10-8d2b-4248-a74e-a8418f941dd9\",\n            \"href\": \"/api/sponsors/2a1acb10-8d2b-4248-a74e-a8418f941dd9\"\n        }\n    ]\n}"
 						}
 					]
+				},
+				{
+					"name": "get_sponsored_students_by_sponsor_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/api/sponsors/:id/students",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"api",
+								"sponsors",
+								":id",
+								"students"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{api_freshmanyr_sponsor_id}}"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}

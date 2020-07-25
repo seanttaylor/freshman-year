@@ -28,8 +28,8 @@
 							"script": {
 								"id": "4e59dee7-19c6-4da1-b530-82c38a338c3a",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
 									"});",
 									"",
 									"pm.test(\"API response contains an `entries` property\", function () {",
@@ -203,8 +203,8 @@
 							"script": {
 								"id": "da28bf41-e5d8-46b5-af21-59da8e63f270",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
 									"});",
 									"",
 									"pm.test(\"API response contains an `entries` property\", function () {",
@@ -494,8 +494,8 @@
 							"script": {
 								"id": "8ffbda10-1566-42c1-9d59-66b6330cfc8b",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
 									"});",
 									"",
 									"pm.test(\"API response contains an `entries` property\", function () {",

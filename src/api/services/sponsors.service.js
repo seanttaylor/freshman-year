@@ -1,7 +1,6 @@
 const Repository = require('../interfaces/Repository');
 const libRepository = require('../../lib/repository');
-const { sponsors } = require('../../lib/utilities');
-const getAllStudentsBySponsorId = sponsors.getAllStudentsBySponsorId;
+const { getAllStudentsBySponsorId } = require('../../lib/extensions');
 const repo = Object.assign(new Repository(libRepository), { getAllStudentsBySponsorId });
 repo.connect({
     host: 'http://data_service:3000',

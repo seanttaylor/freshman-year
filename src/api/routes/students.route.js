@@ -84,6 +84,24 @@ router.post('/:id/sponsors', async (req, res, next) => {
     }
 });
 
+/**
+ * Get all registered Sponsors for a Student
+ */
+router.get('/:id/sponsors', async (req, res, next) => {
+    const studentId = req.params.id;
+
+    try {
+        const data = await StudentService.getAllStudentSponsors(studentId);
+        res.status(200).send({
+            entries: data.length,
+            data
+        });
+
+    } catch (err) {
+        next(err);
+    }
+});
+
 
 
 module.exports = router;

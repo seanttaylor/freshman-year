@@ -7,10 +7,11 @@ const libRepository = require('../../lib/repository');
 const emailTemplateMap = require('../../config/templates/templates.json');
 const { entityURI, defaults } = require('../../config/main.json');
 const newSponsorshipTemplate = emailTemplateMap['sponsor']['newStudentSponsorship'];
-const { profiles } = require('../../lib/utilities');
+const { profiles, students } = require('../../lib/utilities');
+const getAllSponsorsByStudentId = students.getAllSponsorsByStudentId;
 const myMailer = new Mailable(libMailable);
 const template = new Templatable(libTemplatable);
-const repo = new Repository(libRepository);
+const repo = Object.assign(new Repository(libRepository), { getAllSponsorsByStudentId });
 const studentsURI = `${defaults.host.development}${entityURI['student']}`;
 const sponsorsURI = `${defaults.host.development}${entityURI['sponsor']}`;
 repo.connect({
@@ -62,7 +63,21 @@ async function updateStudent(id, update) {
     return [{ id, href: `${studentsURI}/${id}` }]
 }
 
+/** Get all sponsors contributing to a specified student
+ * @param {String} id - uuid of the student fetch sponsors of
+ * @return {Object}
+ */
+
+async function getAllStudentSponsors(id) {
+    const data = await repo.getAllSponsorsByStudentId.call({
+        connectionURI: 'http://data_service:3000/api/xjoin'
+    }, id);
+    return data;
+}
+
+
 module.exports = {
     addSponsor,
-    updateStudent
+    updateStudent,
+    getAllStudentSponsors
 }

@@ -84,6 +84,7 @@ async function onActivationRequest({ entityName, csrf, id }) {
  * @param {String} emailAddress - an email address
  * @returns {Boolean}
  */
+
 async function isEmailAddressAvailable(emailAddress) {
     const sponsorEmails = await repo.findOneByEmail.call({
         connectionURI: sponsorsURI

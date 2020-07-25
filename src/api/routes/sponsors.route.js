@@ -66,4 +66,22 @@ router.patch('/:id', checkEmailExists, validateRequestBySchema(patchSchema), asy
     }
 });
 
+/**
+ * Get all Students receiving sponsorship from a specified sponsor
+ */
+router.get('/:id/students', async (req, res, next) => {
+    const sponsorId = req.params.id;
+
+    try {
+        const data = await SponsorService.getAllSponsoredStudents(sponsorId);
+        res.status(200).send({
+            entries: data.length,
+            data
+        });
+
+    } catch (err) {
+        next(err);
+    }
+});
+
 module.exports = router;

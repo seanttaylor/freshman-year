@@ -1,6 +1,8 @@
 const Repository = require('../interfaces/Repository');
 const libRepository = require('../../lib/repository');
-const repo = new Repository(libRepository);
+const { sponsors } = require('../../lib/utilities');
+const getAllStudentsBySponsorId = sponsors.getAllStudentsBySponsorId;
+const repo = Object.assign(new Repository(libRepository), { getAllStudentsBySponsorId });
 repo.connect({
     host: 'http://data_service:3000',
     defaultPath: '/api/sponsors'
@@ -17,6 +19,20 @@ async function updateSponsor(id, update) {
     return [{ id, href: `/api/sponsors/${id}` }]
 }
 
+
+/** Get all students receiving contributions from a specified sponsor
+ * @param {String} id - uuid of the sponsor to fetch students of
+ * @return {Object}
+ */
+
+async function getAllSponsoredStudents(id) {
+    const data = await repo.getAllStudentsBySponsorId.call({
+        connectionURI: 'http://data_service:3000/api/xjoin'
+    }, id);
+    return data;
+}
+
 module.exports = {
-    updateSponsor
+    updateSponsor,
+    getAllSponsoredStudents
 }

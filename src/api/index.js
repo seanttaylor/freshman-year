@@ -11,6 +11,8 @@ const app = express();
 const serverPort = process.env.SERVER_PORT || 3001;
 const DATA_SERVICE_URL = process.env.DATA_SERVICE_URL || 'http://data_service:3000';
 
+app.use(express.static(__dirname + '/www'));
+
 app.use(helmet());
 app.use(cors());
 app.use(morgan('combined'));

@@ -1,6 +1,6 @@
 const Repository = require('../interfaces/Repository');
 const libRepository = require('../../lib/repository');
-const { getAllStudentsBySponsorId } = require('../../lib/extensions');
+const { getAllStudentsBySponsorId } = require('../../lib/mixins');
 const repo = Object.assign(new Repository(libRepository), { getAllStudentsBySponsorId });
 repo.connect({
     host: 'http://data_service:3000',

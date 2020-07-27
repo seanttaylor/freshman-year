@@ -3,7 +3,13 @@
 <script type="text/javascript">
     (async function ({ document }) {
         const fetchLinkToken = async () => {
-            const response = await fetch('/create_link_token', { method: 'POST' });
+            const response = await fetch('/auth/tokens', {
+                method: 'POST',
+                body: JSON.stringify({
+                    type: 'vender.plaid.link',
+                    id: '2a1acb10-8d2b-4248-a74e-a8418f941dd9'
+                })
+            });
             const responseJSON = await response.json();
             return responseJSON.link_token;
         };

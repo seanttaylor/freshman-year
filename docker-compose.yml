@@ -30,12 +30,13 @@ services:
       - data_service
     volumes:
       - ./:/app
+    env_file:
+      - .env
     image: api-freshman-yr:0.0.1
     command: npm start
     environment:
       OUTBOUND_DEV_EMAIL_USERNAME: jennings89@ethereal.email
       OUTBOUND_DEV_EMAIL_PASSWORD: 1BMXkCKv28SD3yTZAh
-      DATA_SERVICE_HOST: http://data_service:3000
     networks:
       - shared_network
     ports:

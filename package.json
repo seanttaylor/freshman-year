@@ -24,6 +24,7 @@
     "morgan": "1.9.1",
     "node-fetch": "2.6.0",
     "nodemailer": "^6.4.10",
+    "plaid": "^6.0.0",
     "url-matcher": "^0.2.2",
     "uuidv4": "^6.1.1"
   }

@@ -4,14 +4,17 @@
     (async function ({ document }) {
         const fetchLinkToken = async () => {
             const response = await fetch('/auth/tokens', {
+                headers: {
+                    'content-type': 'application/json'
+                },
                 method: 'POST',
                 body: JSON.stringify({
                     type: 'vender.plaid.link',
                     id: '2a1acb10-8d2b-4248-a74e-a8418f941dd9'
                 })
             });
-            const responseJSON = await response.json();
-            return responseJSON.link_token;
+            const myResponse = await response.json();
+            return myResponse['data'][0]['token']['link_token'];
         };
         const $ = document.querySelector.bind(document);
         const configs = {
@@ -26,9 +29,9 @@
                 // The metadata object contains info about the institution the
                 // user selected and the account ID or IDs, if the
                 // Select Account view is enabled.
-                await fetch('/get_access_Token', {
-                    method: 'POST',
-                    body: JSON.stringify({ public_token: public_token }),
+                await fetch(`/auth/tokens/vendor.plaid?public_token=${public_token}`, {
+                    //method: 'POST',
+                    //body: JSON.stringify({ public_token: public_token }),
                 });
             },
             onExit: async function (err, metadata) {
@@ -65,7 +68,7 @@
         };
         let handler = Plaid.create(configs);
 
-        $('#link-button').on('click', function (e) {
+        $('#link-button').addEventListener('click', function (e) {
             handler.open();
         });
     })(window);

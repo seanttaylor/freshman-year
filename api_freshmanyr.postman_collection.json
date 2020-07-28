@@ -1077,122 +1077,6 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "transactions",
-			"item": [
-				{
-					"name": "get_transactions",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "79356793-b6b4-4dd9-9ab9-d5c8bb082d30",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{api_freshmanyr_host}}/api/transactions",
-							"host": [
-								"{{api_freshmanyr_host}}"
-							],
-							"path": [
-								"api",
-								"transactions"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "get_transactions",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{api_freshmanyr_host}}/api/{{api_freshmanyr_proxy_path}}/transactions",
-									"host": [
-										"{{api_freshmanyr_host}}"
-									],
-									"path": [
-										"api",
-										"{{api_freshmanyr_proxy_path}}",
-										"transactions"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "X-DNS-Prefetch-Control",
-									"value": "off"
-								},
-								{
-									"key": "X-Frame-Options",
-									"value": "SAMEORIGIN"
-								},
-								{
-									"key": "Strict-Transport-Security",
-									"value": "max-age=15552000; includeSubDomains"
-								},
-								{
-									"key": "X-Download-Options",
-									"value": "noopen"
-								},
-								{
-									"key": "X-Content-Type-Options",
-									"value": "nosniff"
-								},
-								{
-									"key": "X-XSS-Protection",
-									"value": "1; mode=block"
-								},
-								{
-									"key": "access-control-allow-origin",
-									"value": "*"
-								},
-								{
-									"key": "x-powered-by",
-									"value": "Express"
-								},
-								{
-									"key": "content-type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "content-length",
-									"value": "321"
-								},
-								{
-									"key": "etag",
-									"value": "W/\"141-o5Iq5hUnCqyMT5715V7iM8uLUE8\""
-								},
-								{
-									"key": "date",
-									"value": "Thu, 16 Jul 2020 18:24:40 GMT"
-								},
-								{
-									"key": "connection",
-									"value": "close"
-								}
-							],
-							"cookie": [],
-							"body": "[\n    {\n        \"id\": \"a71169e0-9d70-4aaa-a639-d9d04fbb11bf\",\n        \"amount\": 0.53,\n        \"createdAt\": \"1000-01-01T00:00:00.000Z\",\n        \"cardNumber\": 1987,\n        \"cardType\": \"visa\",\n        \"cardExpiryDate\": \"07/24\"\n    },\n    {\n        \"id\": \"6c2f3e3d-2fe1-4acb-8033-6356eb4f64bb\",\n        \"amount\": 0.47,\n        \"createdAt\": \"1000-01-01T00:00:00.000Z\",\n        \"cardNumber\": 1987,\n        \"cardType\": \"visa\",\n        \"cardExpiryDate\": \"07/24\"\n    }\n]"
-						}
-					]
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
 			"name": "accounts",
 			"item": [
 				{
@@ -1513,6 +1397,189 @@
 							"body": null
 						}
 					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "authorizations",
+			"item": [
+				{
+					"name": "create_auth_token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"vendor.plaid.link\",\n    \"id\": \"{{api_freshmanyr_sponsor_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/auth/tokens",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"auth",
+								"tokens"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "create_auth_token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"type\": \"vendor.plaid.link\",\n    \"id\": \"{{api_freshmanyr_sponsor_id}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_freshmanyr_host}}/auth/tokens",
+									"host": [
+										"{{api_freshmanyr_host}}"
+									],
+									"path": [
+										"auth",
+										"tokens"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "216"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"d8-PUBf8jycGhRDsjul3JIalT7oV90\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Jul 2020 18:45:29 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"entries\": 1,\n    \"data\": [\n        {\n            \"tokenType\": \"vendor.plaid.link\",\n            \"token\": {\n                \"expiration\": \"2020-07-28T18:45:29Z\",\n                \"link_token\": \"link-sandbox-406b7b99-799f-401f-8a89-5b47e97d7f2b\",\n                \"request_id\": \"Q6plvvlPMOPA8ig\",\n                \"status_code\": 200\n            }\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "get_vendor_access_token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/auth/tokens/:vendorId?public_token=link-sandbox-406b7b99-799f-401f-8a89-5b47e97d7f2b&ref={{api_freshmanyr_sponsor_id}}",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"auth",
+								"tokens",
+								":vendorId"
+							],
+							"query": [
+								{
+									"key": "public_token",
+									"value": "link-sandbox-406b7b99-799f-401f-8a89-5b47e97d7f2b"
+								},
+								{
+									"key": "ref",
+									"value": "{{api_freshmanyr_sponsor_id}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "vendorId",
+									"value": "vendor.plaid"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "webhooks",
+			"item": [
+				{
+					"name": "request_new_transaction_data",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"webhook_type\": \"TRANSACTIONS\",\n  \"webhook_code\": \"DEFAULT_UPDATE\",\n  \"item_id\": \"{{api_freshmanyr_plaid_item_id}}\",\n  \"error\": null,\n  \"new_transactions\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_freshmanyr_host}}/webhooks/plaid",
+							"host": [
+								"{{api_freshmanyr_host}}"
+							],
+							"path": [
+								"webhooks",
+								"plaid"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}

@@ -18,12 +18,25 @@ repo.connect({
 async function getUpdatedTransactions(itemId) {
     const [record] = await repo.findOneBy('item_id', itemId);
     const plaidAccessToken = record.access_token;
-    const transactions = await libPlaid.client.getTransactions(plaidAccessToken, startDate, endDate);
+    const { transactions } = await libPlaid.client.getTransactions(plaidAccessToken, startDate, endDate);
 
-    console.log(transactions);
+    return transactions;
 }
 
+/** Returns the amount of the roundups for a list of transactions.
+ * @param {String} txList - A list of Plaid `transaction` objects
+ * @return
+ */
+
+async function getTransactionRoundups(txList) {
+    const roundUps = txList.map(({ amount }) => amount.toString())
+        .filter((value) => !value.includes('-') && value.includes('.'))
+        .map((value) => 100 - (value.slice(value.lastIndexOf('.') + 1)));
+
+    return roundUps;
+}
 
 module.exports = {
-    getUpdatedTransactions
+    getUpdatedTransactions,
+    getTransactionRoundups
 }

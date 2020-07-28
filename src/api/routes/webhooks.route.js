@@ -12,7 +12,12 @@ router.post('/plaid', async (req, res, next) => {
 
     try {
         res.status(200).send();
-        await TransactionService.getUpdatedTransactions(item_id);
+        const transactions = await TransactionService.getUpdatedTransactions(item_id);
+        const roundUps = await TransactionService.getTransactionRoundups(transactions);
+        //Create Stripe charges for each amount in the list
+        //roundUps.map((amt)=> new Chargeable(amt))
+        //Promise.all(roundUps);
+
     } catch (err) {
         next(err);
     }

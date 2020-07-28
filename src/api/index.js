@@ -26,6 +26,7 @@ app.use(requestContext);
  */
 app.use('/auth', require('./routes/authorization.route'));
 app.use('/status', require('./routes/status.route'));
+app.use('/webhooks', require('./routes/webhooks.route'));
 app.use('/api/activations', require('./routes/activations.route'));
 app.use('/api/sponsors', require('./routes/sponsors.route'));
 app.use('/api/students', require('./routes/students.route'));

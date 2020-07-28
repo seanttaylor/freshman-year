@@ -31,12 +31,6 @@ async function findOne(_id) {
     return data;
 }
 
-async function findOneByEmail(emailAddress) {
-    const response = await fetch(`${this.connectionURI}/findOne?_where=(emailAddress,eq,${emailAddress})`);
-    const data = await response.json();
-    return data;
-}
-
 async function updateOne(_id, doc) {
     const response = await fetch(`${this.connectionURI}/${_id}`, {
         headers: config.defaultHTTPHeaders,

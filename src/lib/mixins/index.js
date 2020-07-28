@@ -38,8 +38,15 @@ async function findOneByEmail(emailAddress) {
     return data;
 }
 
+async function findOneBy(fieldName, fieldValue) {
+    const response = await fetch(`${this.connectionURI}/findOne?_where=(${fieldName},eq,${fieldValue})`);
+    const data = await response.json();
+    return data;
+}
+
 module.exports = {
     getAllSponsorsByStudentId,
     getAllStudentsBySponsorId,
-    findOneByEmail
+    findOneByEmail,
+    findOneBy
 }

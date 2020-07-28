@@ -16,6 +16,10 @@ tags:
     description: Endpoints for accessing `Sponsors` business entities.
   - name: system
     description: "Endpoints for accessing specified system features (e.g. WebSockets, Server-Sent Events, system status)."
+  - name: auth
+    description: Endpoints for accessing authorization and authentication features
+  - name: activations
+    description: Endpoints for accessing activation-related features (e.g. accounts)
 servers:
   - url: "http://localhost:3000"
     description: development
@@ -299,23 +303,32 @@ paths:
           name: Authorization
           description: JWT Authorization
           required: true
-  "/accounts/activate/{ref}":
+  "/activations/{csrf}":
     post:
       summary: activate _account
       responses:
-        "200":
-          description: OK
+        "204":
+          description: No Content
+        "403":
+          description: Forbidden
       operationId: activate_account
-      tags:
-        - accounts
       description: Activate a new user account
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: JWT Authorization
+          required: true
+      tags:
+        - activations
     parameters:
       - schema:
           type: string
-        name: ref
+        name: csrf
         in: path
         required: true
-        description: Reference number for pending activation
+        description: CRSF token
   /sponsors:
     get:
       summary: get_sponsors
@@ -465,43 +478,7 @@ paths:
           name: Authorization
           description: JWT Authorization
           required: true
-  "/sponsors/{id}/accounts":
-    parameters:
-      - schema:
-          type: string
-        name: id
-        in: path
-        required: true
-        description: UUID of sponsor
-    get:
-      summary: get_accounts_by_sponsor_id
-      tags:
-        - accounts
-        - sponsors
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties: {}
-        "401":
-          description: Unauthorized
-        "404":
-          description: Not Found
-        "500":
-          description: Internal Server Error
-      operationId: get_accounts_by_sponsor_id
-      description: Get list of accounts linked to a specifed sponsor
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: Authorization
-          description: JWT Authorization
-          required: true
-  "/sponsors/{sponsor_id}/accounts/{account_id}":
+  "/sponsors/{sponsor_id}/students":
     parameters:
       - schema:
           type: string
@@ -509,14 +486,8 @@ paths:
         in: path
         required: true
         description: UUID of sponsor
-      - schema:
-          type: string
-        name: account_id
-        in: path
-        required: true
-        description: UUID of account
     get:
-      summary: get_sponsor_account_by_id
+      summary: get_sponsored_students_by_sponsor_id
       tags:
         - accounts
         - sponsors
@@ -534,8 +505,8 @@ paths:
           description: Not Found
         "500":
           description: Internal Server Error
-      operationId: get_sponsor_account_by_id
-      description: Get a specified sponsor account on the platform
+      operationId: get_sponsored_students_by_sponsor_id
+      description: Get all students receiving contributions from a specified sponsor
       parameters:
         - schema:
             type: string
@@ -543,5 +514,58 @@ paths:
           name: Authorization
           description: JWT Authorization
           required: true
+  "/auth/tokens/{vendorId}":
+    post:
+      summary: get_
+      operationId: create-auth-token
+      responses:
+        "200":
+          description: OK
+      description: Get a specified authentication token for a specific user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Type of token being requested
+                id:
+                  type: string
+                  description: UUID of the user requesting the token
+              required:
+                - type
+                - id
+        description: ""
+      tags:
+        - auth
+    get:
+      summary: get_vendor_access_token
+      operationId: get_vendor_access_token
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      description: Get a vendor access token
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: public_token
+          required: true
+          description: Public token to exchange for a vendor access token
+      tags:
+        - auth
+    parameters:
+      - schema:
+          type: string
+        name: vendorId
+        in: path
+        required: true
+        description: Vendor API that issues the access token
 components:
   schemas: {}

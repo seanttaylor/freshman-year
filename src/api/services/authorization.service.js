@@ -1,9 +1,4 @@
-const plaid = require('plaid');
-const client = new plaid.Client({
-    clientID: process.env.PLAID_CLIENT_ID,
-    secret: process.env.PLAID_SECRET,
-    env: plaid.environments.sandbox
-});
+const libPlaid = require('../../lib/plaid');
 
 
 /**
@@ -14,7 +9,7 @@ const client = new plaid.Client({
 
 async function createAuthToken(options) {
     const { id } = options;
-    const plaidLinkToken = await client.createLinkToken({
+    const plaidLinkToken = await libPlaid.client.createLinkToken({
         user: {
             client_user_id: id,
         },
@@ -22,7 +17,7 @@ async function createAuthToken(options) {
         products: ['auth', 'transactions'],
         country_codes: ['US'],
         language: 'en',
-        // webhook: 'https://sample.webhook.com',
+        webhook: 'http://localhost:3001/webhooks/plaid',
     });
 
     return [{
@@ -39,10 +34,10 @@ async function createAuthToken(options) {
 
 async function getAccessToken(options) {
     const { publicToken } = options;
-    const data = await client.exchangePublicToken(publicToken);
+    const data = await libPlaid.client.exchangePublicToken(publicToken);
     const { access_token, item_id } = data;
     console.log({ access_token, item_id });
-
+    //await authRepo.addOne({sponsorId, acccess_token, item_id});
     return [];
 };
 

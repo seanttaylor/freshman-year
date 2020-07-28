@@ -1,10 +1,18 @@
 const libPlaid = require('../../lib/plaid');
+const Repository = require('../interfaces/Repository');
+const libRepository = require('../../lib/repository');
+const repo = new Repository(libRepository);
+repo.connect({
+    host: 'http://data_service:3000',
+    defaultPath: '/api/sponsor_plaid_credentials'
+});
 
 
 /**
+ * Creates a Plaid Link token
  * @param {Object} options
  * @throws {Error}
- * @return {Promise}
+ * @return {Object}
  */
 
 async function createAuthToken(options) {
@@ -27,17 +35,17 @@ async function createAuthToken(options) {
 };
 
 /**
+ * Exchanges a Plaid-issued public token for an access token used for Plaid API services
  * @param {Object} options
  * @throws {Error}
- * @return {Promise}
+ * @return {Object}
  */
 
 async function getAccessToken(options) {
     const { publicToken } = options;
     const data = await libPlaid.client.exchangePublicToken(publicToken);
     const { access_token, item_id } = data;
-    console.log({ access_token, item_id });
-    //await authRepo.addOne({sponsorId, acccess_token, item_id});
+    await repo.addOne({ sponsor_id, acccess_token, item_id });
     return [];
 };
 

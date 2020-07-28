@@ -10,10 +10,10 @@ const template = new Templatable(libTemplatable);
 const emailTemplateMap = require('../../config/templates/templates.json');
 const { entityURI, defaults } = require('../../config/main.json');
 const { shortUUID } = require('../../lib/utilities');
-const { findOneByEmail } = require('../../lib/mixins');
+const { findOneBy } = require('../../lib/mixins');
 const eventEmitter = require('../../lib/events');
 const cache = require('../../lib/cache');
-const repo = Object.assign(new Repository(libRepository), { findOneByEmail });
+const repo = Object.assign(new Repository(libRepository), { findOneBy });
 const studentsURI = `${defaults.host.development}${entityURI['student']}`;
 const sponsorsURI = `${defaults.host.development}${entityURI['sponsor']}`;
 const activationsMap = {
@@ -86,12 +86,12 @@ async function onActivationRequest({ entityName, csrf, id }) {
  */
 
 async function isEmailAddressAvailable(emailAddress) {
-    const sponsorEmails = await repo.findOneByEmail.call({
+    const sponsorEmails = await repo.findOneBy.call({
         connectionURI: sponsorsURI
-    }, emailAddress);
-    const studentEmails = await repo.findOneByEmail.call({
+    }, 'emailAddress', emailAddress);
+    const studentEmails = await repo.findOneBy.call({
         connectionURI: studentsURI
-    }, emailAddress);
+    }, 'emailAddress', emailAddress);
     return sponsorEmails.length === 0 && studentEmails.length === 0;
 }
 

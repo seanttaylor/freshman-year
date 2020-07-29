@@ -1,4 +1,5 @@
 const express = require('express');
+const eventEmitter = require('../../lib/events');
 const router = new express.Router();
 const cache = require('../../lib/cache');
 const TransactionService = require('../services/transactions.service');
@@ -12,12 +13,7 @@ router.post('/plaid', async (req, res, next) => {
 
     try {
         res.status(200).send();
-        const transactions = await TransactionService.getUpdatedTransactions(item_id);
-        const roundUps = await TransactionService.getTransactionRoundups(transactions);
-        //Create Stripe charges for each amount in the list
-        //roundUps.map((amt)=> new Chargeable(amt))
-        //Promise.all(roundUps);
-
+        eventEmitter.emit('webhooks.transactionsUpdateAvailable', item_id);
     } catch (err) {
         next(err);
     }

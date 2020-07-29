@@ -11,7 +11,7 @@ const startDate = '2020-05-01';
 const endDate = '2020-07-01';
 const repo = Object.assign(new Repository(libRepository), { findOneBy });
 repo.connect({
-    host: 'http://data_service:3000',
+    host: process.env.DATA_SERVICE_HOST,
     defaultPath: '/api/sponsor_plaid_credentials'
 })
 
@@ -19,7 +19,6 @@ eventEmitter.on('webhooks.transactionsUpdateAvailable', onTransactionsUpdateAvai
 
 /** Handles the `webhooks.transactionsUpdateAvailable` event
  * @param {String} itemId - itemId associated with the transaction from Plaid
- * @return
  */
 
 async function onTransactionsUpdateAvailable(itemId) {
@@ -37,19 +36,21 @@ async function onTransactionsUpdateAvailable(itemId) {
         source: myStripeToken
     });*/
 
-    const chargeList = roundUps.map((amt) => {
+    const pendingChargesList = roundUps.map((amt) => {
         return chargeable.of({ amount: Number(`.${amt}`) }).createCharge()
     });
-    const res = await Promise.all(chargeList);
+    const completedCharges = await Promise.all(pendingChargesList);
+    const recordedCharges = completedCharges.map((tx) => {
+        const { transactionId, transactionTime, transactionAmount } = tx;
+        return repo.addOne.call({ connectionURI: 'http://data_service:3000/api/transactions' }, { transactionId, transactionTime, transactionAmount });
+    });
 
-
-    //Promise.all(charges);
+    await Promise.all(recordedCharges);
 
 }
 
 /** Fetches the latest transactions for a specified 
  * @param {String} itemId - itemId associated with the transaction from Plaid
- * @return
  */
 
 async function getUpdatedTransactions(itemId) {

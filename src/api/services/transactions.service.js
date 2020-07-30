@@ -24,8 +24,15 @@ eventEmitter.on('webhooks.transactionsUpdateAvailable', onTransactionsUpdateAvai
 async function onTransactionsUpdateAvailable(itemId) {
     const transactions = await getUpdatedTransactions(itemId);
     const roundUps = await getTransactionRoundups(transactions);
+    const [record] = await repo.findOneBy('item_id', itemId);
+    const { sponsor_id } = record;
+
     //**ENABLING STRIPE INTEGRATION IN PLAID API REQUIRED TO COMPLETE PAYMENT FLOW**
-    //const [record] = await repo.findOneBy('item_id', itemId);
+    /*See docs: https://stripe.com/docs/ach
+        https://stackoverflow.com/questions/46112761/error-in-plaid-api
+        https://fin.plaid.com/articles/inside-ach-payments-with-stripe-and-plaid
+        https://stripe.com/docs/api
+    */
     //const result = await libPlaid.client.getAccounts(record.access_token);
     //const myAccountId = result.accounts[0]['account_id'];
     //const myStripeToken = await libPlaid.client.createStripeToken(record.access_token, myAccountId);
@@ -41,8 +48,8 @@ async function onTransactionsUpdateAvailable(itemId) {
     });
     const completedCharges = await Promise.all(pendingChargesList);
     const recordedCharges = completedCharges.map((tx) => {
-        const { transactionId, transactionTime, transactionAmount } = tx;
-        return repo.addOne.call({ connectionURI: 'http://data_service:3000/api/transactions' }, { transactionId, transactionTime, transactionAmount });
+        const { id, amount, createdAt, } = tx;
+        return repo.addOne.call({ connectionURI: `${process.env.DATA_SERVICE_HOST}/api/sponsor_transactions` }, { id, amount, createdAt, sponsor_id });
     });
 
     await Promise.all(recordedCharges);

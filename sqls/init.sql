@@ -2,6 +2,10 @@ CREATE DATABASE IF NOT EXISTS fontina;
 
 USE fontina;
 
+#CREATE DATABASE IF NOT EXISTS fontina;
+
+#USE fontina;
+
 -- ****************** SqlDBM: MySQL ******************;
 -- ***************************************************;
 
@@ -117,6 +121,22 @@ CONSTRAINT `FK_90` FOREIGN KEY `fkIdx_90` (`account_id`) REFERENCES `accounts` (
 
 
 
+-- ************************************** `sponsor_transactions`
+
+CREATE TABLE IF NOT EXISTS `sponsor_transactions`
+(
+ `id`         varchar(64) NOT NULL ,
+ `createdAt`  mediumtext NOT NULL ,
+ `amount`     decimal(10,2) NOT NULL ,
+ `sponsor_id` varchar(64) NOT NULL ,
+
+PRIMARY KEY (`id`),
+KEY `fkIdx_124` (`sponsor_id`),
+CONSTRAINT `FK_124` FOREIGN KEY `fkIdx_124` (`sponsor_id`) REFERENCES `sponsors` (`id`)
+);
+
+
+
 -- ************************************** `sponsor_plaid_credentials`
 
 CREATE TABLE IF NOT EXISTS `sponsor_plaid_credentials`
@@ -128,7 +148,6 @@ CREATE TABLE IF NOT EXISTS `sponsor_plaid_credentials`
 KEY `fkIdx_116` (`sponsor_id`),
 CONSTRAINT `FK_116` FOREIGN KEY `fkIdx_116` (`sponsor_id`) REFERENCES `sponsors` (`id`)
 );
-
 
 
 
@@ -177,3 +196,4 @@ INSERT INTO student_accounts (student_id, account_id) VALUES('1d2b3f93-804b-4e02
 #Steve Rogers 
 INSERT INTO sponsor_plaid_credentials (sponsor_id, item_id, access_token) VALUES('2a1acb10-8d2b-4248-a74e-a8418f941dd9', '7KK8mlxrp1IAdzl3ZZEKSo9eZla5o7hgLgr4a', 'access-sandbox-f9e9dcf6-5ddf-4fe7-9ee4-6c11d1e7b4c6');
 
+INSERT INTO sponsor_transactions (sponsor_id, id, amount, createdAt) VALUES('2a1acb10-8d2b-4248-a74e-a8418f941dd9', '5a4a06e1-decb-41b2-a9cd-f47fdcfd2375', 0.67, '1000-01-01 00:00:00');

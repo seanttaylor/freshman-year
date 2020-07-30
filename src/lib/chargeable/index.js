@@ -27,9 +27,9 @@ function of({ amount, currency = 'usd', source = shortUUID() }) {
 async function createCharge() {
     return Promise.resolve({
         status: "ok",
-        transactionId: shortUUID(),
-        transactionTime: new Date().toISOString(),
-        transactionAmount: this.__amount,
+        id: shortUUID(),
+        createdAt: new Date().toISOString(),
+        amount: this.__amount,
         currency: this.__currency,
         source: this.__source
     });

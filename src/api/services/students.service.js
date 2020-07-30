@@ -29,6 +29,7 @@ async function addSponsor({ studentId, sponsorId }) {
         student_id: studentId,
         sponsor_id: sponsorId
     });
+    console.log(sponsorAddedOk)
 
     if (!sponsorAddedOk) {
         throw 'Sponsor registration [FAILED]. See `data_service` logs for details.'

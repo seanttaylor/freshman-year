@@ -1,6 +1,10 @@
 const Repository = require('../interfaces/Repository');
 const libRepository = require('../../lib/repository');
+const libTransformable = require('../../lib/transformable');
+const Transformable = require('../interfaces/Transformable');
+const transformable = new Transformable(libTransformable);
 const { getAllStudentsBySponsorId } = require('../../lib/mixins');
+const { entityURI, defaults } = require('../../config/main.json');
 const repo = Object.assign(new Repository(libRepository), { getAllStudentsBySponsorId });
 repo.connect({
     host: 'http://data_service:3000',
@@ -26,12 +30,39 @@ async function updateSponsor(id, update) {
 
 async function getAllSponsoredStudents(id) {
     const data = await repo.getAllStudentsBySponsorId.call({
-        connectionURI: 'http://data_service:3000/api/xjoin'
+        connectionURI: `${process.env.DATA_SERVICE_HOST}/api/xjoin`
     }, id);
+    return data.map((record) => transformable.of({ type: 'profile' }, record));
+}
+
+/** Get all Sponsors
+ * @return {Object}
+ */
+
+async function getAllSponsors() {
+    const data = await repo.findAll.call({
+        connectionURI: `${process.env.DATA_SERVICE_HOST}${entityURI['sponsor']}`
+    });
+
+    return data;
+}
+
+/** Get Sponsor by id
+ * @param {String} id - uuid of the Sponsor
+ * @return {Object}
+ */
+
+async function getSponsorById(id) {
+    const data = await repo.findOne.call({
+        connectionURI: `${process.env.DATA_SERVICE_HOST}${entityURI['sponsor']}`
+    }, id);
+
     return data;
 }
 
 module.exports = {
     updateSponsor,
-    getAllSponsoredStudents
+    getAllSponsoredStudents,
+    getSponsorById,
+    getAllSponsors
 }

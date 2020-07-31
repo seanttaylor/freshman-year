@@ -5,6 +5,7 @@ const validateRequestBySchema = require('../../lib/middleware/validate.middlewar
 const Entity = require('../../api/interfaces/Entity');
 const ProfileService = require('../services/profiles.service');
 const SponsorService = require('../services/sponsors.service');
+const TransactionService = require('../services/transactions.service');
 const router = new express.Router();
 const entityName = 'sponsor';
 
@@ -46,6 +47,38 @@ router.post('/', checkEmailExists, validateRequestBySchema(schema), async (req, 
 });
 
 /**
+ * Get all Sponsor entities.
+ */
+router.get('/', async (req, res, next) => {
+    try {
+        const data = await SponsorService.getAllSponsors();
+        res.status(200).send({
+            entries: data.length,
+            data
+        });
+    } catch (err) {
+        next(err);
+    }
+});
+
+/**
+ * Get all Sponsor entity by id.
+ */
+router.get('/:id', async (req, res, next) => {
+    const { id } = req.params;
+
+    try {
+        const data = await SponsorService.getSponsorById(id);
+        res.status(200).send({
+            entries: data.length,
+            data
+        });
+    } catch (err) {
+        next(err);
+    }
+});
+
+/**
  * Update an existing Sponsor entity.
  */
 router.patch('/:id', checkEmailExists, validateRequestBySchema(patchSchema), async (req, res, next) => {
@@ -74,6 +107,24 @@ router.get('/:id/students', async (req, res, next) => {
 
     try {
         const data = await SponsorService.getAllSponsoredStudents(sponsorId);
+        res.status(200).send({
+            entries: data.length,
+            data
+        });
+
+    } catch (err) {
+        next(err);
+    }
+});
+
+/**
+ * Get all transactions executed on behalf of a specified sponsor
+ */
+router.get('/:id/transactions', async (req, res, next) => {
+    const sponsorId = req.params.id;
+
+    try {
+        const data = await TransactionService.getTransactionsBySponsorId(sponsorId);
         res.status(200).send({
             entries: data.length,
             data

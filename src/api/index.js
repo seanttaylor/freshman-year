@@ -6,10 +6,8 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 const requestContext = require('../lib/middleware/request-context.middleware');
-const proxy = require('../lib/middleware/proxy');
 const app = express();
 const serverPort = process.env.SERVER_PORT || 3001;
-const DATA_SERVICE_URL = process.env.DATA_SERVICE_URL || 'http://data_service:3000';
 
 app.use(express.static(__dirname + '/www'));
 
@@ -30,7 +28,6 @@ app.use('/webhooks', require('./routes/webhooks.route'));
 app.use('/api/activations', require('./routes/activations.route'));
 app.use('/api/sponsors', require('./routes/sponsors.route'));
 app.use('/api/students', require('./routes/students.route'));
-app.use(proxy.configuration(DATA_SERVICE_URL));
 
 // catch 404
 app.use((req, res, next) => {

@@ -45,6 +45,38 @@ router.post('/', checkEmailExists, validateRequestBySchema(schema), async (req, 
 });
 
 /**
+ * Get all Student entities.
+ */
+router.get('/', async (req, res, next) => {
+    try {
+        const data = await StudentService.getAllStudents();
+        res.status(200).send({
+            entries: data.length,
+            data
+        });
+    } catch (err) {
+        next(err);
+    }
+});
+
+/**
+ * Get all Student entity by id.
+ */
+router.get('/:id', async (req, res, next) => {
+    const { id } = req.params;
+
+    try {
+        const data = await StudentService.getStudentById(id);
+        res.status(200).send({
+            entries: data.length,
+            data
+        });
+    } catch (err) {
+        next(err);
+    }
+});
+
+/**
  * Update an existing Student entity.
  */
 router.patch('/:id', checkEmailExists, validateRequestBySchema(patchSchema), async (req, res, next) => {

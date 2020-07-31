@@ -4,17 +4,20 @@ const Repository = require('../interfaces/Repository');
 const libMailable = require('../../lib/mailable');
 const libTemplatable = require('../../lib/templatable');
 const libRepository = require('../../lib/repository');
+const libTransformable = require('../../lib/transformable');
 const emailTemplateMap = require('../../config/templates/templates.json');
 const { entityURI, defaults } = require('../../config/main.json');
 const newSponsorshipTemplate = emailTemplateMap['sponsor']['newStudentSponsorship'];
 const { getAllSponsorsByStudentId } = require('../../lib/mixins');
+const Transformable = require('../interfaces/Transformable');
 const myMailer = new Mailable(libMailable);
 const template = new Templatable(libTemplatable);
+const transformable = new Transformable(libTransformable);
 const repo = Object.assign(new Repository(libRepository), { getAllSponsorsByStudentId });
 const studentsURI = `${defaults.host.development}${entityURI['student']}`;
 const sponsorsURI = `${defaults.host.development}${entityURI['sponsor']}`;
 repo.connect({
-    host: 'http://data_service:3000',
+    host: `${process.env.DATA_SERVICE_HOST}`,
     defaultPath: entityURI['student_sponsor']
 });
 
@@ -29,7 +32,6 @@ async function addSponsor({ studentId, sponsorId }) {
         student_id: studentId,
         sponsor_id: sponsorId
     });
-    console.log(sponsorAddedOk)
 
     if (!sponsorAddedOk) {
         throw 'Sponsor registration [FAILED]. See `data_service` logs for details.'
@@ -64,14 +66,41 @@ async function updateStudent(id, update) {
 }
 
 /** Get all sponsors contributing to a specified student
- * @param {String} id - uuid of the student fetch sponsors of
+ * @param {String} id - uuid of the student fetch sponsors for
  * @return {Object}
  */
 
 async function getAllStudentSponsors(id) {
     const data = await repo.getAllSponsorsByStudentId.call({
-        connectionURI: 'http://data_service:3000/api/xjoin'
+        connectionURI: `${process.env.DATA_SERVICE_HOST}/api/xjoin`
     }, id);
+
+    return data.map((record) => transformable.of({ type: 'profile' }, record));
+    //return data;
+}
+
+/** Get all Students
+ * @return {Object}
+ */
+
+async function getAllStudents() {
+    const data = await repo.findAll.call({
+        connectionURI: `${process.env.DATA_SERVICE_HOST}${entityURI['student']}`
+    });
+
+    return data;
+}
+
+/** Get Student by id
+ * @param {String} id - uuid of the Student
+ * @return {Object}
+ */
+
+async function getStudentById(id) {
+    const data = await repo.findOne.call({
+        connectionURI: `${process.env.DATA_SERVICE_HOST}${entityURI['student']}`
+    }, id);
+
     return data;
 }
 
@@ -79,5 +108,7 @@ async function getAllStudentSponsors(id) {
 module.exports = {
     addSponsor,
     updateStudent,
-    getAllStudentSponsors
+    getAllStudentSponsors,
+    getAllStudents,
+    getStudentById
 }

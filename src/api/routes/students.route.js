@@ -30,6 +30,9 @@ async function checkEmailExists(req, res, next) {
 
 /**
  * Create new Student entity.
+ * @param {Object} req - Express Request object
+ * @param {Object} res - Express Response object
+ * @param {Function} next - Express `next` function
  */
 router.post('/', checkEmailExists, validateRequestBySchema(schema), async (req, res, next) => {
     try {
@@ -46,6 +49,9 @@ router.post('/', checkEmailExists, validateRequestBySchema(schema), async (req, 
 
 /**
  * Get all Student entities.
+ * @param {Object} req - Express Request object
+ * @param {Object} res - Express Response object
+ * @param {Function} next - Express `next` function
  */
 router.get('/', async (req, res, next) => {
     try {
@@ -61,6 +67,9 @@ router.get('/', async (req, res, next) => {
 
 /**
  * Get all Student entity by id.
+ * @param {Object} req - Express Request object
+ * @param {Object} res - Express Response object
+ * @param {Function} next - Express `next` function
  */
 router.get('/:id', async (req, res, next) => {
     const { id } = req.params;
@@ -78,6 +87,9 @@ router.get('/:id', async (req, res, next) => {
 
 /**
  * Update an existing Student entity.
+ * @param {Object} req - Express Request object
+ * @param {Object} res - Express Response object
+ * @param {Function} next - Express `next` function
  */
 router.patch('/:id', checkEmailExists, validateRequestBySchema(patchSchema), async (req, res, next) => {
     const { id } = req.params;
@@ -99,6 +111,9 @@ router.patch('/:id', checkEmailExists, validateRequestBySchema(patchSchema), asy
 
 /**
  * Add a Sponsor for an existing Student
+ * @param {Object} req - Express Request object
+ * @param {Object} res - Express Response object
+ * @param {Function} next - Express `next` function
  */
 router.post('/:id/sponsors', async (req, res, next) => {
     const studentId = req.params.id;
@@ -118,6 +133,9 @@ router.post('/:id/sponsors', async (req, res, next) => {
 
 /**
  * Get all registered Sponsors for a Student
+ * @param {Object} req - Express Request object
+ * @param {Object} res - Express Response object
+ * @param {Function} next - Express `next` function
  */
 router.get('/:id/sponsors', async (req, res, next) => {
     const studentId = req.params.id;

@@ -3,7 +3,7 @@ const Repository = require('../interfaces/Repository');
 const libRepository = require('../../lib/repository');
 const repo = new Repository(libRepository);
 repo.connect({
-    host: 'http://data_service:3000',
+    host: `${process.env.DATA_SERVICE_HOST}`,
     defaultPath: '/api/sponsor_plaid_credentials'
 });
 

@@ -31,6 +31,9 @@ async function checkEmailExists(req, res, next) {
 
 /**
  * Create new Sponsor entity.
+ * @param {Object} req - Express Request object
+ * @param {Object} res - Express Response object
+ * @param {Function} next - Express `next` function
  */
 router.post('/', checkEmailExists, validateRequestBySchema(schema), async (req, res, next) => {
 
@@ -48,6 +51,9 @@ router.post('/', checkEmailExists, validateRequestBySchema(schema), async (req, 
 
 /**
  * Get all Sponsor entities.
+ * @param {Object} req - Express Request object
+ * @param {Object} res - Express Response object
+ * @param {Function} next - Express `next` function
  */
 router.get('/', async (req, res, next) => {
     try {
@@ -63,6 +69,9 @@ router.get('/', async (req, res, next) => {
 
 /**
  * Get all Sponsor entity by id.
+ * @param {Object} req - Express Request object
+ * @param {Object} res - Express Response object
+ * @param {Function} next - Express `next` function
  */
 router.get('/:id', async (req, res, next) => {
     const { id } = req.params;
@@ -80,6 +89,9 @@ router.get('/:id', async (req, res, next) => {
 
 /**
  * Update an existing Sponsor entity.
+ * @param {Object} req - Express Request object
+ * @param {Object} res - Express Response object
+ * @param {Function} next - Express `next` function
  */
 router.patch('/:id', checkEmailExists, validateRequestBySchema(patchSchema), async (req, res, next) => {
 
@@ -101,6 +113,9 @@ router.patch('/:id', checkEmailExists, validateRequestBySchema(patchSchema), asy
 
 /**
  * Get all Students receiving sponsorship from a specified sponsor
+ * @param {Object} req - Express Request object
+ * @param {Object} res - Express Response object
+ * @param {Function} next - Express `next` function
  */
 router.get('/:id/students', async (req, res, next) => {
     const sponsorId = req.params.id;
@@ -119,7 +134,11 @@ router.get('/:id/students', async (req, res, next) => {
 
 /**
  * Get all transactions executed on behalf of a specified sponsor
+ * @param {Object} req - Express Request object
+ * @param {Object} res - Express Response object
+ * @param {Function} next - Express `next` function
  */
+
 router.get('/:id/transactions', async (req, res, next) => {
     const sponsorId = req.params.id;
 

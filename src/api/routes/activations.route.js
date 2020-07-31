@@ -6,6 +6,9 @@ const cache = require('../../lib/cache');
 
 /**
  * Complete a pending activation.
+ * @param {Object} req - Express Request object
+ * @param {Object} res - Express Response object
+ * @param {Function} next - Express `next` function
  */
 router.post('/:csrf', async (req, res, next) => {
     const { csrf } = req.params;

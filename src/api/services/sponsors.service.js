@@ -7,7 +7,7 @@ const { getAllStudentsBySponsorId } = require('../../lib/mixins');
 const { entityURI, defaults } = require('../../config/main.json');
 const repo = Object.assign(new Repository(libRepository), { getAllStudentsBySponsorId });
 repo.connect({
-    host: 'http://data_service:3000',
+    host: process.env.DATA_SERVICE_HOST,
     defaultPath: '/api/sponsors'
 });
 

@@ -4,6 +4,9 @@ const AuthorizationService = require('../services/authorization.service');
 
 /**
  * Create an authorization token.
+ * @param {Object} req - Express Request object
+ * @param {Object} res - Express Response object
+ * @param {Function} next - Express `next` function
  */
 router.post('/tokens', async (req, res, next) => {
     const options = {
@@ -24,6 +27,9 @@ router.post('/tokens', async (req, res, next) => {
 
 /**
  * Exchange a public token for an access token corresponding to a specified vendor API.
+ * @param {Object} req - Express Request object
+ * @param {Object} res - Express Response object
+ * @param {Function} next - Express `next` function
  */
 router.get('/tokens/:id', async (req, res, next) => {
     const options = {

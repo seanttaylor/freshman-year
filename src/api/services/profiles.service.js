@@ -14,8 +14,8 @@ const { findOneBy } = require('../../lib/mixins');
 const eventEmitter = require('../../lib/events');
 const cache = require('../../lib/cache');
 const repo = Object.assign(new Repository(libRepository), { findOneBy });
-const studentsURI = `${defaults.host.development}${entityURI['student']}`;
-const sponsorsURI = `${defaults.host.development}${entityURI['sponsor']}`;
+const studentsURI = `${process.env.DATA_SERVICE_HOST}${entityURI['student']}`;
+const sponsorsURI = `${process.env.DATA_SERVICE_HOST}${entityURI['sponsor']}`;
 const activationsMap = {
     'sponsor': repo.updateOne.bind({ connectionURI: sponsorsURI }),
     'student': repo.updateOne.bind({ connectionURI: studentsURI })
@@ -24,12 +24,12 @@ eventEmitter.on('activations.request-received', onActivationRequest);
 
 
 /** 
- * Create a new user profile
- * @param {Object} profile - profile object containing user data
+ * Create a new user Profile
+ * @param {Object} profile - Profile object containing user data
  */
 
 async function createProfile(profile) {
-    const connectionURI = `${defaults.host.development}${entityURI[profile.entityName]}`;
+    const connectionURI = `${process.env.DATA_SERVICE_HOST}${entityURI[profile.entityName]}`;
     await repo.addOne.call({ connectionURI }, profile);
     onCreateWelcomeEmail(profile);
     const data = await repo.findOne.call({ connectionURI }, profile.id);
@@ -38,7 +38,7 @@ async function createProfile(profile) {
 
 /**
  * Send a newly created user a welcome email
- * @param {Object} profile - all user profile data
+ * @param {Object} profile - user Profile data
  *
 */
 
@@ -68,7 +68,7 @@ async function onCreateWelcomeEmail(profile) {
 
 
 /**
-* Updates the profile's activation status on the `activations.request-received` event
+* Updates the Profile's activation status on the `activations.request-received` event
 * @param {String} entity - entity type (e.g. `sponsor`, `student`)
 * @param {String} csrf - CSRF token associated with activation
 * @param {String} id - uuid of the sponsor requesting actviation

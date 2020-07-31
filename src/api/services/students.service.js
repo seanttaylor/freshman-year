@@ -14,8 +14,8 @@ const myMailer = new Mailable(libMailable);
 const template = new Templatable(libTemplatable);
 const transformable = new Transformable(libTransformable);
 const repo = Object.assign(new Repository(libRepository), { getAllSponsorsByStudentId });
-const studentsURI = `${defaults.host.development}${entityURI['student']}`;
-const sponsorsURI = `${defaults.host.development}${entityURI['sponsor']}`;
+const studentsURI = `${process.env.DATA_SERVICE_HOST}${entityURI['student']}`;
+const sponsorsURI = `${process.env.DATA_SERVICE_HOST}${entityURI['sponsor']}`;
 repo.connect({
     host: `${process.env.DATA_SERVICE_HOST}`,
     defaultPath: entityURI['student_sponsor']

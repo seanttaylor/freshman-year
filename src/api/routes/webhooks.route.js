@@ -6,7 +6,10 @@ const TransactionService = require('../services/transactions.service');
 
 
 /**
- *  Notify availability of new transaction data.
+ * Notify availability of new transaction data.
+ * @param {Object} req - Express Request object
+ * @param {Object} res - Express Response object
+ * @param {Function} next - Express `next` function
  */
 router.post('/plaid', async (req, res, next) => {
     const { item_id } = req.body;

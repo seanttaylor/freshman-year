@@ -8,7 +8,7 @@
 * An object having the Transformable API; a set of methods for transforming a source object 
 * to the shape of a specified destination
 * @typedef {Object} TransformableAPI
-* No methods currently speficied for this API 
+* No methods currently specified for this API 
 */
 
 function ITransformable(myImpl) {

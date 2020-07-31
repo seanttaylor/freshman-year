@@ -1,1 +1,0 @@
-**Gist**: Temporary folder housing draft versions of application entities for the freshman-year platform prior to creating the required service stubs.

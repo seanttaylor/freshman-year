@@ -61,8 +61,8 @@ async function addSponsor({ studentId, sponsorId }) {
  */
 
 async function updateStudent(id, update) {
-    await repo.updateOne.call({ connectionURI: studentsURI }, id, update);
-    return [{ id, href: `${studentsURI}/${id}` }]
+    const record = await repo.updateOne.call({ connectionURI: studentsURI }, id, update);
+    return [{ id, href: `${entityURI['student']}/${id}` }]
 }
 
 /** Get all sponsors contributing to a specified student

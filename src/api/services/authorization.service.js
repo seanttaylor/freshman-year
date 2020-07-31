@@ -37,6 +37,8 @@ async function createAuthToken(options) {
 /**
  * Exchanges a Plaid-issued public token for an access token used for Plaid API services
  * @param {Object} options
+ * @param {String} options.publicToken - public token issued by Plaid; used to exchange for 
+ * an Plaid API access token
  * @throws {Error}
  * @return {Object}
  */

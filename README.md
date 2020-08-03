@@ -1,6 +1,19 @@
 ## api-freshman-yr
 
+Freshman Year is a prototype crowdsource-enabled micro-financing platform targeting undergraduate tuition and related expenses.
 
+Sponsors can sign up, link their debit or credit card accounts and then direct spare change from everyday transaction to a selected scholar.
+
+Scholars can have an unlimited number of sponsors, which can mean unlimited potential to build a fund to defray the cost of college tuition and other education expenses. 
+
+
+## Third Party Integrations
+
+ * Stripe
+ * Plaid
+ * Amazon Web Services (ECR, ECS, EC2, RDS)
+ * Mailgun
+ * Redis
 
 ## Local Development
 

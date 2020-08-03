@@ -1,9 +1,11 @@
 /**
 * An object having the Cacheable API; a set of methods for managing cache entries.
 * @typedef {Object} CacheableAPI
-* @property {Function} send - send an email to specified recipients
-* @property {Function} addAttachments - add attachments to an email
-* @property {Function} useTemplate - configure the email template to send the message 
+* @property {Function} set - introduce a new entry into the cache
+* @property {Function} get - get an entry from the cache
+* @property {Function} clear - clear all entries from the cache
+* @property {Function} delete - delete a specified entry from the cache
+* @property {Function} has - check for the existence of an entry in the cache
 */
 
 /**

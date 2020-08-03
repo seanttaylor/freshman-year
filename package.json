@@ -4,7 +4,8 @@
   "description": "A crowdsourced micro-funding platform for financing undergraduate tuition expenses.",
   "scripts": {
     "start": "node src/api/index.js",
-    "test": "jest --passWithNoTests"
+    "test": "jest --passWithNoTests",
+    "local": "./node_modules/.bin/lt -h 'https://serverless.social' -p 3001"
   },
   "author": "Sean T Taylor",
   "license": "ISC",
@@ -29,5 +30,8 @@
     "stripe": "^8.80.0",
     "url-matcher": "^0.2.2",
     "uuidv4": "^6.1.1"
+  },
+  "devDependencies": {
+    "localtunnel": "^2.0.0"
   }
 }

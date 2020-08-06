@@ -42,6 +42,22 @@ data "environment_variable" "git_commit_sha" {
   normalize_file_path = true
 }
 
+data "aws_ssm_parameter" "stripe_secret_key" {
+  name = "/dev/api-freshman-yr/vendor/stripe/secret-key"
+}
+
+data "aws_ssm_parameter" "plaid_client_id" {
+  name = "/dev/api-freshman-yr/vendor/plaid/client-id"
+}
+
+data "aws_ssm_parameter" "plaid_secret" {
+  name = "/dev/api-freshman-yr/vendor/plaid/secret"
+}
+
+data "aws_ssm_parameter" "data_service_host" {
+  name = "/dev/api-freshman-yr/datasources/muenster/host"
+}
+
 output "git_branch_name" {
   value = data.environment_variable.git_branch_name.value
 }
@@ -105,6 +121,22 @@ resource "aws_ecs_task_definition" "api-freshman-yr" {
           "containerPort": 3001
         }
       ],
+      "environment": [{
+        "name": "DATA_SERVICE_HOST",
+        "value": "${data.aws_ssm_parameter.data_service_host.value}"
+      },
+      {
+        "name": "PLAID_CLIENT_ID",
+        "value": "${data.aws_ssm_parameter.plaid_client_id.value}"
+      },
+      {
+        "name": "PLAID_SECRET",
+        "value": "${data.aws_ssm_parameter.plaid_secret.value}"
+      },
+      {
+        "name": "STRIPE_SECRET_KEY",
+        "value": "${data.aws_ssm_parameter.stripe_secret_key.value}"
+      }],
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {

@@ -26,7 +26,6 @@ provider "aws" {
 
 provider "environment" {
   #Custom "utility provider REQUIRED for including local environment variables automatically #injected in Terraform Cloud workers as part of a Terraform configuration.
-  #See README.md for more details.
 }
 
 data "environment_variable" "git_branch_name" {
@@ -49,20 +48,20 @@ output "git_commit_sha" {
   value = data.environment_variable.git_commit_sha.value
 }
 
-resource "aws_ecs_cluster" "{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}" {
-  name = "{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}"
+resource "aws_ecs_cluster" "api-freshman-yr" {
+  name = "api-freshman-yr"
 }
 
 # Configuration for Cloudwatch Logs
-resource "aws_cloudwatch_log_group" "{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}" {
-  name = "/ecs/{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}"
+resource "aws_cloudwatch_log_group" "api-freshman-yr" {
+  name = "/ecs/api-freshman-yr"
 }
 
 # ecs.tf
-resource "aws_ecs_service" "{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}" {
-  name            = "{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}"
-  task_definition = "${aws_ecs_task_definition.{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}.family}:${aws_ecs_task_definition.{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}.revision}"
-  cluster         = "${aws_ecs_cluster.{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}.id}"
+resource "aws_ecs_service" "api-freshman-yr" {
+  name            = "api-freshman-yr"
+  task_definition = "${aws_ecs_task_definition.api-freshman-yr.family}:${aws_ecs_task_definition.api-freshman-yr.revision}"
+  cluster         = "${aws_ecs_cluster.api-freshman-yr.id}"
   launch_type     = "FARGATE"
   desired_count   = 1
 
@@ -80,9 +79,9 @@ resource "aws_ecs_service" "{{@root.swagger.info.x-application-config.aws.ecs-se
   }
 
   load_balancer {
-    target_group_arn = "${aws_lb_target_group.{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}.arn}"
-    container_name   = "{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}"
-    container_port   = "8080"
+    target_group_arn = "${aws_lb_target_group.api-freshman-yr.arn}"
+    container_name   = "api-freshman-yr"
+    container_port   = "3001"
   }
 }
 
@@ -90,25 +89,25 @@ resource "aws_ecs_service" "{{@root.swagger.info.x-application-config.aws.ecs-se
 # If the service decides it needs more capacity,
 # this task definition provides a blueprint for building an identical container.
 #
-resource "aws_ecs_task_definition" "{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}" {
-  family = "{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}"
-  execution_role_arn = "${aws_iam_role.{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}-task-execution-role.arn}"
+resource "aws_ecs_task_definition" "api-freshman-yr" {
+  family = "api-freshman-yr"
+  execution_role_arn = "${aws_iam_role.api-freshman-yr-task-execution-role.arn}"
 
   container_definitions = <<EOF
   [
     {
-      "name": "{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}",
-      "image": "${var.aws_ecr_id}.dkr.ecr.us-east-1.amazonaws.com/{{@root.swagger.info.x-application-config.aws.ecr-repository-name}}:${substr(data.environment_variable.git_commit_sha.value, 0, 7)}",
+      "name": "api-freshman-yr",
+      "image": "${var.aws_ecr_id}.dkr.ecr.us-east-1.amazonaws.com/simple-microblog-service:${substr(data.environment_variable.git_commit_sha.value, 0, 7)}",
       "portMappings": [
         {
-          "containerPort": 8080
+          "containerPort": 3001
         }
       ],
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
           "awslogs-region": "us-east-1",
-          "awslogs-group": "/ecs/{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}",
+          "awslogs-group": "/ecs/api-freshman-yr",
           "awslogs-stream-prefix": "ecs"
         }
       }
@@ -125,25 +124,25 @@ resource "aws_ecs_task_definition" "{{@root.swagger.info.x-application-config.aw
   network_mode = "awsvpc"
 }
 
-resource "aws_lb_target_group" "{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}" {
-  name = "{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}"
-  port = 8080
+resource "aws_lb_target_group" "api-freshman-yr" {
+  name = "api-freshman-yr"
+  port = 3001
   protocol = "HTTP"
   target_type = "ip"
   vpc_id = "${aws_vpc.app-vpc.id}"
 
   health_check {
     enabled = true
-    path = "/health"
+    path = "/status"
   }
 
   depends_on = [
-    "aws_alb.{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}"
+    "aws_alb.api-freshman-yr"
   ]
 }
 
-resource "aws_alb" "{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}" {
-  name = "{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}-lb"
+resource "aws_alb" "api-freshman-yr" {
+  name = "api-freshman-yr-lb"
   internal = false
   load_balancer_type = "application"
 
@@ -161,19 +160,19 @@ resource "aws_alb" "{{@root.swagger.info.x-application-config.aws.ecs-service-sl
   depends_on = ["aws_internet_gateway.igw"]
 }
 
-resource "aws_alb_listener" "{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}-http" {
-  load_balancer_arn = "${aws_alb.{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}.arn}"
+resource "aws_alb_listener" "api-freshman-yr-http" {
+  load_balancer_arn = "${aws_alb.api-freshman-yr.arn}"
   port = "80"
   protocol = "HTTP"
 
   default_action {
     type = "forward"
-    target_group_arn = "${aws_lb_target_group.{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}.arn}"
+    target_group_arn = "${aws_lb_target_group.api-freshman-yr.arn}"
   }
 }
 
 output "alb_url" {
-  value = "http://${aws_alb.{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}.dns_name}"
+  value = "http://${aws_alb.api-freshman-yr.dns_name}"
 }
 
 # This is the role under which ECS will execute our task. This role becomes more important
@@ -181,8 +180,8 @@ output "alb_url" {
 
 # The assume_role_policy field works with the following aws_iam_policy_document to allow
 # ECS tasks to assume this role we're creating.
-resource "aws_iam_role" "{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}-task-execution-role" {
-  name = "{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}-task-execution-role"
+resource "aws_iam_role" "api-freshman-yr-task-execution-role" {
+  name = "api-freshman-yr-task-execution-role"
   assume_role_policy = "${data.aws_iam_policy_document.ecs-task-assume-role.json}"
 }
 
@@ -205,8 +204,6 @@ data "aws_iam_policy" "ecs-task-execution-role" {
 
 # Attach the above policy to the execution role.
 resource "aws_iam_role_policy_attachment" "ecs-task-execution-role" {
-  role = "${aws_iam_role.{{@root.swagger.info.x-application-config.aws.ecs-service-slug}}-task-execution-role.name}"
+  role = "${aws_iam_role.api-freshman-yr-task-execution-role.name}"
   policy_arn = "${data.aws_iam_policy.ecs-task-execution-role.arn}"
 }
-  
-

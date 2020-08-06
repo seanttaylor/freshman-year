@@ -23,3 +23,5 @@ Scholars can have an unlimited number of sponsors, which can mean unlimited pote
 2. When the logs indicate that the database is ready for incoming connections, do `docker-restart` on the `data_service` container. This flow is only required on the first startup. Subsequently you can just do `docker-compose up` once to set up the project.
 
 ## Notes
+
+* Use the localTunnel package to expose the localhost interface publicly using `npm run localtunnel`

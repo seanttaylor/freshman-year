@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node src/api/index.js",
     "test": "jest --passWithNoTests",
-    "local": "./node_modules/.bin/lt -h 'https://serverless.social' -p 3001"
+    "localtunnel": "./node_modules/.bin/lt -h 'https://serverless.social' -p 3001"
   },
   "author": "Sean T Taylor",
   "license": "ISC",

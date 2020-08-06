@@ -10,9 +10,9 @@ variable "secret_key" {
   description = "AWS Secret Access Key" 
 }
 
-variable "aws_ecr_id" {
+variable "account_id" {
   type        = string
-  description = "AWS Elastic Container Registry identifier"
+  description = "AWS Account ID"
   default     = ""
 }
 
@@ -97,7 +97,7 @@ resource "aws_ecs_task_definition" "api-freshman-yr" {
   [
     {
       "name": "api-freshman-yr",
-      "image": "${var.aws_ecr_id}.dkr.ecr.us-east-1.amazonaws.com/simple-microblog-service:${substr(data.environment_variable.git_commit_sha.value, 0, 7)}",
+      "image": "${var.account_id}.dkr.ecr.us-east-1.amazonaws.com/simple-microblog-service:${substr(data.environment_variable.git_commit_sha.value, 0, 7)}",
       "portMappings": [
         {
           "containerPort": 3001

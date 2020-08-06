@@ -1,4 +1,3 @@
-const apiResponse = require('../../lib/api-response');
 const Mailable = require('../interfaces/Mailable');
 const Templatable = require('../interfaces/Templatable');
 const Repository = require('../interfaces/Repository');

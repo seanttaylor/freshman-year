@@ -99,7 +99,7 @@ resource "aws_ecs_task_definition" "api-freshman-yr" {
   [
     {
       "name": "api-freshman-yr",
-      "image": "${var.account_id}.dkr.ecr.us-east-1.amazonaws.com/simple-microblog-service:${substr(data.environment_variable.git_commit_sha.value, 0, 7)}",
+      "image": "${var.account_id}.dkr.ecr.us-east-1.amazonaws.com/api-freshman-yr:${substr(data.environment_variable.git_commit_sha.value, 0, 7)}",
       "portMappings": [
         {
           "containerPort": 3001

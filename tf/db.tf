@@ -31,7 +31,7 @@ module "db" {
   storage_encrypted = false
 
   # kms_key_id        = "arm:aws:kms:<region>:<accound id>:key/<kms key id>"
-  name     = "demodb"
+  name     = "muenster"
   username = "user"
   password = "YourPwdShouldBeLongAndSecure!"
   port     = "3306"
@@ -63,7 +63,7 @@ module "db" {
   major_engine_version = "5.7"
 
   # Snapshot name upon DB deletion
-  final_snapshot_identifier = "demodb"
+  final_snapshot_identifier = "muenster"
 
   # Database Deletion Protection
   deletion_protection = false

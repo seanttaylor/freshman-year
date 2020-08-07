@@ -1,16 +1,16 @@
 ##############################################################
 # Data sources to get VPC, subnets and security group details
 ##############################################################
-data "aws_vpc" "default" {
-  default = true
-}
+#data "aws_vpc" "default" {
+#  default = true
+#}
 
 data "aws_subnet_ids" "all" {
-  vpc_id = data.aws_vpc.default.id
+  vpc_id = data.aws_vpc.app-vpc.id
 }
 
 data "aws_security_group" "default" {
-  vpc_id = data.aws_vpc.default.id
+  vpc_id = data.aws_vpc.app-vpc.id
   name   = "default"
 }
 
@@ -54,11 +54,7 @@ module "db" {
   enabled_cloudwatch_logs_exports = ["audit", "general"]
 
   # DB subnet group
-  # subnet_ids = data.aws_subnet_ids.all.ids
-  subnet_ids = [ 
-    "${aws_subnet.public.id}",
-    "${aws_subnet.private.id}"
-  ]
+  subnet_ids = data.aws_subnet_ids.all.ids
 
   # DB parameter group
   family = "mysql5.7"

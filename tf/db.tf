@@ -6,11 +6,11 @@
 #}
 
 data "aws_subnet_ids" "all" {
-  vpc_id = ${aws_vpc.app-vpc.id}
+  vpc_id = "${aws_vpc.app-vpc.id}"
 }
 
 data "aws_security_group" "default" {
-  vpc_id = ${aws_vpc.app-vpc.id}
+  vpc_id = "${aws_vpc.app-vpc.id}"
   name   = "default"
 }
 

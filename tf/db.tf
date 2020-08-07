@@ -54,7 +54,11 @@ module "db" {
   enabled_cloudwatch_logs_exports = ["audit", "general"]
 
   # DB subnet group
-  subnet_ids = data.aws_subnet_ids.all.ids
+  # subnet_ids = data.aws_subnet_ids.all.ids
+  subnet_ids = [ 
+    "${aws_subnet.public.id}",
+    "${aws_subnet.private.id}"
+  ]
 
   # DB parameter group
   family = "mysql5.7"

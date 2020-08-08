@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS fontina;
+CREATE DATABASE IF NOT EXISTS muenster;
 
-USE fontina;
+USE muenster;
 
 #CREATE DATABASE IF NOT EXISTS fontina;
 

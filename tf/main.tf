@@ -54,6 +54,18 @@ data "aws_ssm_parameter" "plaid_secret" {
   name = "/dev/api-freshman-yr/vendor/plaid/secret"
 }
 
+data "aws_ssm_parameter" "datasource_muenster_username" {
+  name = "/dev/api-freshman-yr/datasources/muenster/username"
+}
+
+data "aws_ssm_parameter" "datasource_muenster_password" {
+  name = "/dev/api-freshman-yr/datasources/muenster/password"
+}
+
+data "aws_ssm_parameter" "datasource_muenster_connection_uri" {
+  name = "/dev/api-freshman-yr/datasources/muenster/connection-uri"
+}
+
 output "git_branch_name" {
   value = data.environment_variable.git_branch_name.value
 }
@@ -119,7 +131,7 @@ resource "aws_ecs_task_definition" "api-freshman-yr" {
       ],
       "environment": [{
         "name": "DATA_SERVICE_HOST",
-        "value": "https://\${module.db.this_db_instance_username}:\${module.db.this_db_instance_password}@\${module.db.this_db_instance_endpoint}"
+        "value": "https://\${data.aws_ssm_parameter.datasource_muenster_username}:\${data.aws_ssm_parameter.datasource_muenster_password}@\${data.aws_ssm_parameter.datasource_muenster_connection_uri}"
       },
       {
         "name": "PLAID_CLIENT_ID",

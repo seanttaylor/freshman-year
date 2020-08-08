@@ -54,10 +54,6 @@ data "aws_ssm_parameter" "plaid_secret" {
   name = "/dev/api-freshman-yr/vendor/plaid/secret"
 }
 
-data "aws_ssm_parameter" "plaid_secret" {
-  name = "/dev/api-freshman-yr/vendor/plaid/secret"
-}
-
 output "git_branch_name" {
   value = data.environment_variable.git_branch_name.value
 }

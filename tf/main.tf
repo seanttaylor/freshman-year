@@ -54,6 +54,9 @@ data "aws_ssm_parameter" "plaid_secret" {
   name = "/dev/api-freshman-yr/vendor/plaid/secret"
 }
 
+data "aws_ssm_parameter" "plaid_secret" {
+  name = "/dev/api-freshman-yr/vendor/plaid/secret"
+}
 
 output "git_branch_name" {
   value = data.environment_variable.git_branch_name.value
@@ -120,7 +123,7 @@ resource "aws_ecs_task_definition" "api-freshman-yr" {
       ],
       "environment": [{
         "name": "DATA_SERVICE_HOST",
-        "value": "foo"
+        "value": "https://\${module.this_db_instance_username}:\${module.this_db_instance_password}@\${module.this_db_instance_endpoint}"
       },
       {
         "name": "PLAID_CLIENT_ID",

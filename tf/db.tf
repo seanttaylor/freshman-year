@@ -105,7 +105,7 @@ resource "aws_ssm_parameter" "datasource_muenster_connection_uri" {
   name         = "/dev/api-freshman-yr/datasources/muenster/connection-uri"
   type         = "String"
   description  = "Datasource connection URI"
-  value        = "${module.db.this_db_instance_endpoint}:${module.db.this_db_instance_port}"
+  value        = "${module.db.this_db_instance_endpoint}"
 }
 
 resource "aws_ssm_parameter" "datasource_muenster_username" {

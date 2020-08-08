@@ -104,7 +104,7 @@ module "db" {
 resource "aws_ssm_parameter" "datasource_muenster_connection_uri" {
   name         = "/dev/api-freshman-yr/datasources/muenster/connection-uri"
   type         = "String"
-  description  = "Datasource connection URI"
+  description  = "Datasource connection URI (e.g. MySQL connection string)"
   value        = "${module.db.this_db_instance_endpoint}"
 }
 

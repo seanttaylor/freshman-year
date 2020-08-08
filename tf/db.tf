@@ -96,3 +96,28 @@ module "db" {
     },
   ]
 }
+
+#####
+# SSM
+#####
+
+resource "aws_ssm_parameter" "datasource_muenster_connection_uri" {
+  name         = "/dev/api-freshman-yr/datasources/muenster/connection-uri"
+  type         = "String"
+  description  = "Datasource connection URI"
+  value        = "${module.db.this_db_instance_endpoint}:${module.db.this_db_instance_port}"
+}
+
+resource "aws_ssm_parameter" "datasource_muenster_username" {
+  name         = "/dev/api-freshman-yr/datasources/muenster/username"
+  type         = "String"
+  description  = "Datasource username"
+  value        = "${module.db.this_db_instance_username}"
+}
+
+resource "aws_ssm_parameter" "datasource_muenster_password" {
+  name         = "/dev/api-freshman-yr/datasources/muenster/password"
+  type         = "String"
+  description  = "Datasource password"
+  value        = "${module.db.this_db_instance_password}"
+}

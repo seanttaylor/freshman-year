@@ -41,7 +41,7 @@ resource "aws_security_group" "sg_mysql_aurora" {
 }
 
 resource "aws_db_subnet_group" "muenster" {
-    name        = "${local.databaseNam}"
+    name        = "${local.databaseName}"
     subnet_ids  = [
       "${aws_subnet.subnet_us_east_1a_pub.id}", 
       "${aws_subnet.subnet_us_east_1a_pub.id}"

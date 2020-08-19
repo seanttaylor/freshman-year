@@ -1,5 +1,5 @@
 
-resource "aws_vpc" "app-vpc" {
+resource "aws_vpc" "app_vpc" {
   cidr_block = "10.0.0.0/16"
   tags = {
     slug = "${local.vpcSlug}"
@@ -8,7 +8,7 @@ resource "aws_vpc" "app-vpc" {
 }
 
 resource "aws_subnet" "subnet_us_east_1a_pub" {
-  vpc_id     = "${aws_vpc.app-vpc.id}"
+  vpc_id     = "${aws_vpc.app_vpc.id}"
   cidr_block = "10.0.1.0/24"
   availability_zone = "us-east-1a"
   tags = {
@@ -17,7 +17,7 @@ resource "aws_subnet" "subnet_us_east_1a_pub" {
 }
 
 resource "aws_subnet" "subnet_us_east_1b_priv" {
-  vpc_id     = "${aws_vpc.app-vpc.id}"
+  vpc_id     = "${aws_vpc.app_vpc.id}"
   cidr_block = "10.0.2.0/24"
   availability_zone = "us-east-1b"
   tags = {
@@ -26,14 +26,14 @@ resource "aws_subnet" "subnet_us_east_1b_priv" {
 }
 
 resource "aws_route_table" "rt_pub" {
-  vpc_id = "${aws_vpc.app-vpc.id}"
+  vpc_id = "${aws_vpc.app_vpc.id}"
   tags = {
     categoryId = "${local.categoryId}"
   }
 }
 
 resource "aws_route_table" "rt_priv" {
-  vpc_id = "${aws_vpc.app-vpc.id}"
+  vpc_id = "${aws_vpc.app_vpc.id}"
   tags = {
     categoryId = "${local.categoryId}"
   }
@@ -54,7 +54,7 @@ resource "aws_eip" "nat" {
 }
 
 resource "aws_internet_gateway" "igw" {
-  vpc_id = "${aws_vpc.app-vpc.id}"
+  vpc_id = "${aws_vpc.app_vpc.id}"
 }
 
 resource "aws_nat_gateway" "ngw" {
@@ -81,7 +81,7 @@ resource "aws_route" "private_ngw" {
 resource "aws_security_group" "http" {
   name        = "http"
   description = "HTTP traffic"
-  vpc_id      = "${aws_vpc.app-vpc.id}"
+  vpc_id      = "${aws_vpc.app_vpc.id}"
 
   ingress {
     from_port   = 80
@@ -94,7 +94,7 @@ resource "aws_security_group" "http" {
 resource "aws_security_group" "https" {
   name        = "https"
   description = "HTTPS traffic"
-  vpc_id      = "${aws_vpc.app-vpc.id}"
+  vpc_id      = "${aws_vpc.app_vpc.id}"
 
   ingress {
     from_port   = 443
@@ -107,7 +107,7 @@ resource "aws_security_group" "https" {
 resource "aws_security_group" "egress-all" {
   name        = "egress_all"
   description = "Allow all outbound traffic"
-  vpc_id      = "${aws_vpc.app-vpc.id}"
+  vpc_id      = "${aws_vpc.app_vpc.id}"
 
   egress {
     from_port   = 0
@@ -120,7 +120,7 @@ resource "aws_security_group" "egress-all" {
 resource "aws_security_group" "api-ingress" {
   name        = "api_ingress"
   description = "Allow ingress to API"
-  vpc_id      = "${aws_vpc.app-vpc.id}"
+  vpc_id      = "${aws_vpc.app_vpc.id}"
 
   ingress {
     from_port   = 3001
@@ -131,7 +131,7 @@ resource "aws_security_group" "api-ingress" {
 }
 
 output "vpc_id" {
-  value = "${aws_vpc.app-vpc.id}"
+  value = "${aws_vpc.app_vpc.id}"
 }
 
 output "public_subnet_id" {

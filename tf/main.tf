@@ -62,7 +62,7 @@ data "aws_ssm_parameter" "plaid_secret" {
 }
 
 data "aws_ssm_parameter" "data_service_host" {
-  name = "/dev/api-freshman-yr/services/muenster/host"
+  name = "/dev/api-freshman-yr/services/muenster/hostname"
 }
 
 output "git_branch_name" {

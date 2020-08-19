@@ -182,7 +182,7 @@ resource "aws_lb_target_group" "api-freshman-yr" {
   }
 
   depends_on = [
-    "aws_alb.api-freshman-yr"
+    aws_alb.api-freshman-yr
   ]
 }
 

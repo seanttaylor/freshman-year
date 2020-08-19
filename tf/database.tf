@@ -68,3 +68,9 @@ resource "aws_ssm_parameter" "muenster_datasource_password" {
   type  = "String"
   value = "${local.databasePassword}"
 }
+
+resource "aws_ssm_parameter" "muenster_data_service_host" {
+  name  = "/dev/api-freshman-yr/services/muenster/hostname"
+  type  = "String"
+  value = "known-after-api-wrapper-service-is-instantiated"
+}

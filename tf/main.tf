@@ -128,7 +128,7 @@ resource "aws_ecs_task_definition" "api-freshman-yr" {
       ],
       "environment": [{
         "name": "DATA_SERVICE_HOST",
-        "value": "${data.aws_ssm_parameter.data_service_host}"
+        "value": "${data.aws_ssm_parameter.data_service_host.value}"
       },
       {
         "name": "PLAID_CLIENT_ID",

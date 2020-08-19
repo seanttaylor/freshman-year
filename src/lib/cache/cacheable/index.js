@@ -4,7 +4,6 @@ const DEFAULT_TTL = 300000;
 
 
 /**
-* An object having the Mailable API; a set of methods for sending emails.
 * @typedef {Object} CacheEntry
 * @property {String} key - the key of a specified cache entry
 * @property {String} value - the value of a cache entry

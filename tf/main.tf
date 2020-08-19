@@ -1,5 +1,10 @@
 # Find out more about this configuration in the following Fargate/Terraform tutorial: https://section411.com/2019/07/hello-world/
 
+locals {
+  vpcSlug = "platform-vpc"
+  categoryId = "services.core.app"
+}
+
 variable "access_key" {
   type        = string
   description = "AWS Access Key ID"
@@ -55,7 +60,7 @@ data "aws_ssm_parameter" "plaid_secret" {
 }
 
 data "aws_ssm_parameter" "data_service_host" {
-  name = "/dev/api-freshman-yr/datasources/muenster/service-endpoint"
+  name = "/dev/api-freshman-yr/data-services/muenster/host"
 }
 
 output "git_branch_name" {
@@ -123,7 +128,7 @@ resource "aws_ecs_task_definition" "api-freshman-yr" {
       ],
       "environment": [{
         "name": "DATA_SERVICE_HOST",
-        "value": "foo"
+        "value": "${data.aws_ssm_parameter.data_service_host}"
       },
       {
         "name": "PLAID_CLIENT_ID",
@@ -156,6 +161,10 @@ resource "aws_ecs_task_definition" "api-freshman-yr" {
 
   # This is required for Fargate containers.
   network_mode = "awsvpc"
+
+  tags {
+    categoryId = "${local.categoryId}"
+  }
 }
 
 resource "aws_lb_target_group" "api-freshman-yr" {
@@ -192,6 +201,10 @@ resource "aws_alb" "api-freshman-yr" {
   ]
 
   depends_on = ["aws_internet_gateway.igw"]
+
+  tags {
+    categoryId = "${local.categoryId}"
+  }
 }
 
 resource "aws_alb_listener" "api-freshman-yr-http" {

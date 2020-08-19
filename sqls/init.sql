@@ -2,10 +2,6 @@ CREATE DATABASE IF NOT EXISTS muenster;
 
 USE muenster;
 
-#CREATE DATABASE IF NOT EXISTS fontina;
-
-#USE fontina;
-
 -- ****************** SqlDBM: MySQL ******************;
 -- ***************************************************;
 

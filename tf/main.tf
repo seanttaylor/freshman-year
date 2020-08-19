@@ -174,7 +174,7 @@ resource "aws_lb_target_group" "api-freshman-yr" {
   port = 3001
   protocol = "HTTP"
   target_type = "ip"
-  vpc_id = "${aws_vpc.app-vpc.id}"
+  vpc_id = "${aws_vpc.app_vpc.id}"
 
   health_check {
     enabled = true

@@ -97,7 +97,7 @@ resource "aws_ecs_service" "api-freshman-yr" {
     ]
 
     subnets = [
-      "${aws_subnet.private.id}"
+      "${aws_subnet.subnet_us_east_1b_priv.id}"
     ]
   }
 
@@ -190,8 +190,8 @@ resource "aws_alb" "api-freshman-yr" {
   load_balancer_type = "application"
 
   subnets = [
-    "${aws_subnet.public.id}",
-    "${aws_subnet.private.id}",
+    "${aws_subnet.subnet_us_east_1a_pub.id}",
+    "${aws_subnet.subnet_us_east_1b_priv.id}",
   ]
 
   security_groups = [

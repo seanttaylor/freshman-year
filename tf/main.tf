@@ -162,7 +162,7 @@ resource "aws_ecs_task_definition" "api-freshman-yr" {
   # This is required for Fargate containers.
   network_mode = "awsvpc"
 
-  tags {
+  tags = {
     categoryId = "${local.categoryId}"
   }
 }
@@ -202,7 +202,7 @@ resource "aws_alb" "api-freshman-yr" {
 
   depends_on = ["aws_internet_gateway.igw"]
 
-  tags {
+  tags = {
     categoryId = "${local.categoryId}"
   }
 }

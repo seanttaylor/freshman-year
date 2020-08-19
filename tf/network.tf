@@ -1,7 +1,7 @@
 
 resource "aws_vpc" "app-vpc" {
   cidr_block = "10.0.0.0/16"
-  tags {
+  tags = {
     slug = "${local.vpcSlug}"
     categoryId = "${local.categoryId}"
   }
@@ -11,7 +11,7 @@ resource "aws_subnet" "subnet_us_east_1a_pub" {
   vpc_id     = "${aws_vpc.app-vpc.id}"
   cidr_block = "10.0.1.0/24"
   availability_zone = "us-east-1a"
-  tags {
+  tags = {
     categoryId = "${local.categoryId}"
   }
 }
@@ -20,14 +20,14 @@ resource "aws_subnet" "subnet_us_east_1b_priv" {
   vpc_id     = "${aws_vpc.app-vpc.id}"
   cidr_block = "10.0.2.0/24"
   availability_zone = "us-east-1b"
-  tags {
+  tags = {
     categoryId = "${local.categoryId}"
   }
 }
 
 resource "aws_route_table" "rt_pub" {
   vpc_id = "${aws_vpc.app-vpc.id}"
-  tags {
+  tags = {
     categoryId = "${local.categoryId}"
   }
 }

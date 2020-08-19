@@ -1,0 +1,1 @@
+INSERT INTO sponsor_transactions (sponsor_id, id, amount, createdAt) VALUES('2a1acb10-8d2b-4248-a74e-a8418f941dd9', '5a4a06e1-decb-41b2-a9cd-f47fdcfd2375', 0.67, '1000-01-01 00:00:00');

@@ -1,0 +1,2 @@
+INSERT INTO students (id, firstName, lastName, dateOfBirth, emailAddress, createdAt, lastModifiedAt, profileImageURL, anticipatedGraduationDate, enrolledAt, isAccountActivated, entityName, entityVersion, entitySchema, status)
+VALUES ('2294a21b-ba63-4e5e-b537-d61ba40e4a65', 'Peter', 'Parker', '1000-01-01', 'pparker@avengers.io', '1000-01-01 00:00:00', NULL, 'https://via.placeholder.com/150', '1004-05-30', 'P.S. 118', false, 'student', '0.0.1', '/api/schemas/student/v0.0.1.json', NULL);

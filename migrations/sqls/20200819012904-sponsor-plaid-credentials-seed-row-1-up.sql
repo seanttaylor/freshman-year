@@ -1,0 +1,1 @@
+INSERT INTO sponsor_plaid_credentials (sponsor_id, item_id, access_token) VALUES('2a1acb10-8d2b-4248-a74e-a8418f941dd9', '7KK8mlxrp1IAdzl3ZZEKSo9eZla5o7hgLgr4a', 'access-sandbox-f9e9dcf6-5ddf-4fe7-9ee4-6c11d1e7b4c6');

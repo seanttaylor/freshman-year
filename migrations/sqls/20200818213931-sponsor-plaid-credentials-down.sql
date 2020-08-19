@@ -1,0 +1,1 @@
+DROP TABLE `sponsor_plaid_credentials`;

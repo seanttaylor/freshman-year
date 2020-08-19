@@ -34,6 +34,9 @@ resource "aws_route_table" "rt_pub" {
 
 resource "aws_route_table" "rt_priv" {
   vpc_id = "${aws_vpc.app-vpc.id}"
+  tags = {
+    categoryId = "${local.categoryId}"
+  }
 }
 
 resource "aws_route_table_association" "public_subnet" {

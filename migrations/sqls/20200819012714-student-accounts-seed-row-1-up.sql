@@ -1,0 +1,1 @@
+INSERT INTO student_accounts (student_id, account_id) VALUES('1d2b3f93-804b-4e02-94ad-2eec6b90997d' ,'c7d63189-07f8-4ea8-9a62-37a7b8cfe973');

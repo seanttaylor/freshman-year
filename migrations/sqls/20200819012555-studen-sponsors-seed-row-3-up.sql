@@ -1,0 +1,1 @@
+INSERT INTO student_sponsors (student_id, sponsor_id) VALUES('2294a21b-ba63-4e5e-b537-d61ba40e4a65' ,'f50ef714-5a51-4a0b-a3e5-99529ba41fce');

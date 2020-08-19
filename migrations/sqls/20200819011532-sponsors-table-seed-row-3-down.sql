@@ -1,0 +1,1 @@
+DELETE FROM `sponsors` WHERE id = 'b20cdf59-b121-4b00-9e43-d2c48e2cf98f';

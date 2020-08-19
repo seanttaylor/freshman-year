@@ -1,8 +1,10 @@
 # Find out more about this configuration in the following Fargate/Terraform tutorial: https://section411.com/2019/07/hello-world/
 
 locals {
-  vpcSlug = "platform-vpc"
+  appOwner   = "api-freshman-yr"
   categoryId = "services.core.app"
+  team       = "platform"
+  vpcSlug    = "platform-vpc"
 }
 
 variable "access_key" {

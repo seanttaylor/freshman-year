@@ -1,0 +1,1 @@
+DELETE FROM `sponsor_transactions` WHERE id = '5a4a06e1-decb-41b2-a9cd-f47fdcfd2375';

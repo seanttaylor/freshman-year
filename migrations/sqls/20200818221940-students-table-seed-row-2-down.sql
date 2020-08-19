@@ -1,0 +1,1 @@
+DELETE FROM `students` WHERE id = '2294a21b-ba63-4e5e-b537-d61ba40e4a65';

@@ -1,0 +1,2 @@
+INSERT INTO sponsors (id, firstName, lastName, emailAddress, createdAt, lastModifiedAt, profileImageURL, isAccountActivated, entityName, entityVersion, entitySchema, status)
+VALUES ('f50ef714-5a51-4a0b-a3e5-99529ba41fce', 'Natasha', 'Romanoff', 'nromanoff@avengers.io', '1000-01-01 00:00:00', NULL, 'https://via.placeholder.com/150', false , 'sponsor', '0.0.1', '/api/schemas/sponsor/v0.0.1.json' , NULL);

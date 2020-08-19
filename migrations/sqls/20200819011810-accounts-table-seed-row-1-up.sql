@@ -1,0 +1,1 @@
+INSERT INTO accounts (id, value, currency, createdAt, entityName, entityVersion, entitySchema, status) VALUES('c7d63189-07f8-4ea8-9a62-37a7b8cfe973', 1000.00, 'USD', '1000-01-01 00:00:00', 'account', '0.0.1', '/api/schemas/account/v0.0.1.json', NULL);

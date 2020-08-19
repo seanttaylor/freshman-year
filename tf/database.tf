@@ -58,13 +58,15 @@ resource "aws_ssm_parameter" "muenster_datasource_address" {
 }
 
 resource "aws_ssm_parameter" "muenster_datasource_username" {
-  name  = "/dev/api-freshman-yr/datasources/muenster/username"
-  type  = "String"
-  value = "${local.databaseUser}"
+  name      = "/dev/api-freshman-yr/datasources/muenster/username"
+  type      = "String"
+  value     = "${local.databaseUser}"
+  overwrite = true
 }
 
 resource "aws_ssm_parameter" "muenster_datasource_password" {
-  name  = "/dev/api-freshman-yr/datasources/muenster/username"
-  type  = "String"
-  value = "${local.databasePassword}"
+  name      = "/dev/api-freshman-yr/datasources/muenster/username"
+  type      = "String"
+  value     = "${local.databasePassword}"
+  overwrite = true 
 }

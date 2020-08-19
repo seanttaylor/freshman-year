@@ -1,5 +1,7 @@
 locals {
-    databaseName = "muenster"
+    databaseName     = "muenster"
+    databaseUser     = "user"
+    databasePassword = "YourPwdShouldBeLongAndSecure!"
 }
 
 resource "aws_db_instance" "muenster" {
@@ -14,8 +16,8 @@ resource "aws_db_instance" "muenster" {
     instance_class         = "db.t2.micro"
     identifier             = "api-freshman-yr-db"
     name                   = "${local.databaseName}"
-    username               = "user"
-    password               = "YourPwdShouldBeLongAndSecure!"
+    username               = "${local.databaseUser}"
+    password               = "${local.databasePassword}"
     parameter_group_name   = "default.mysql5.7"
     multi_az               = true
     tags =  {
@@ -47,4 +49,22 @@ resource "aws_db_subnet_group" "muenster" {
       "${aws_subnet.subnet_us_east_1b_priv.id}"
     ]
     description = "Muenster database subnet group"
+}
+
+resource "aws_ssm_parameter" "muenster_datasource_address" {
+  name  = "/dev/api-freshman-yr/datasources/muenster/hostname"
+  type  = "String"
+  value = "${aws_db_instance.muenster.address}"
+}
+
+resource "aws_ssm_parameter" "muenster_datasource_username" {
+  name  = "/dev/api-freshman-yr/datasources/muenster/username"
+  type  = "String"
+  value = "${local.databaseUser}"
+}
+
+resource "aws_ssm_parameter" "muenster_datasource_password" {
+  name  = "/dev/api-freshman-yr/datasources/muenster/username"
+  type  = "String"
+  value = "${local.databasePassword}"
 }

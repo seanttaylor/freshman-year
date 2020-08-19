@@ -62,7 +62,6 @@ data "aws_ssm_parameter" "plaid_secret" {
 }
 
 data "aws_ssm_parameter" "data_service_host" {
-  depends_on = [aws_ssm_parameter.muenster_data_service_host]
   name = "/dev/api-freshman-yr/datasources/muenster/host"
 }
 

@@ -204,7 +204,7 @@ resource "aws_ecs_task_definition" "api-freshman-yr" {
 }
 
 resource "aws_ecs_service" "api-freshman-yr-core-data-serivce" {
-  name            = "api-freshman-yr"
+  name            = "api-freshman-yr-core-data-service"
   task_definition = "${aws_ecs_task_definition.api-freshman-yr-core-data-service.family}:${aws_ecs_task_definition.api-freshman-yr-core-data-service.revision}"
   cluster         = "${aws_ecs_cluster.api-freshman-yr.id}"
   launch_type     = "FARGATE"

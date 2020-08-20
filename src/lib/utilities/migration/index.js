@@ -1,0 +1,14 @@
+const Migrateable = require('../../../api/interfaces/Migrateable');
+const libMigrate = require('./tool');
+const environment = process.NODE_ENV || 'local';
+
+console.info('#####################################################');
+console.info(` Preparing migration on [${environment}] environment `);
+console.info('#####################################################');
+const MigrationTool = new Migrateable(libMigrate).of({
+    environment,
+    configFilePath: './database.json',
+    targetDirectory: './migrations'
+});
+
+module.exports = MigrationTool;

@@ -6,8 +6,11 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 const requestContext = require('../lib/middleware/request-context.middleware');
+const MigrationTool = require('./../lib/utilities/migration');
 const app = express();
 const serverPort = process.env.SERVER_PORT || 3001;
+
+MigrationTool.up();
 
 app.use(express.static(__dirname + '/www'));
 

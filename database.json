@@ -1,0 +1,42 @@
+{
+    "defaultEnv": {
+        "ENV": "NODE_ENV"
+    },
+    "prod": {
+        "driver": "mysql",
+        "port": "3306",
+        "database": "muenster",
+        "user": {
+            "ENV": "MUENSTER_DATASOURCE_USERNAME"
+        },
+        "password": {
+            "ENV": "MUENSTER_DATASOURCE_PASSWORD"
+        },
+        "host": {
+            "ENV": "MUENSTER_DATASOURCE_HOST"
+        }
+    },
+    "dev": {
+        "driver": "mysql",
+        "port": "3306",
+        "database": "muenster",
+        "user": {
+            "ENV": "MUENSTER_DATASOURCE_USERNAME"
+        },
+        "password": {
+            "ENV": "MUENSTER_DATASOURCE_PASSWORD"
+        },
+        "host": {
+            "ENV": "MUENSTER_DATASOURCE_HOST"
+        }
+    },
+    "local": {
+        "driver": "mysql",
+        "host": "db",
+        "port": "3306",
+        "database": "muenster",
+        "user": "root",
+        "password": "root"
+    },
+    "sql-file": true
+}

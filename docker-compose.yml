@@ -2,13 +2,14 @@ version: "3.1"
 
 services:
   db:
+    container_name: db
     image: mysql:5.7
-    command: --init-file /docker-entrypoint.initdb.d/init.sql
+    #command: --init-file /docker-entrypoint.initdb.d/init.sql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: root
-      MYSQL_DATABASE: fontina
+      MYSQL_DATABASE: muenster
     volumes:
       - ./sqls:/docker-entrypoint.initdb.d
     networks:
@@ -16,16 +17,18 @@ services:
     ports:
       - "3306:3306"
   data_service:
+    container_name: data_service
     depends_on:
       - db
     image: rest-o-matic:mysql-5.7
-    command: xmysql -h db -u root -p root -d fontina -r 0.0.0.0
+    command: xmysql -h db -u root -p root -d muenster -r 0.0.0.0
     restart: always
     networks:
       - shared_network
     ports:
       - "3000:3000"
   edge_service_proxy:
+    container_name: edge_service_proxy
     depends_on:
       - data_service
     volumes:

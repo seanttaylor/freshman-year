@@ -62,12 +62,10 @@ data "aws_ssm_parameter" "plaid_secret" {
 }
 
 data "aws_ssm_parameter" "muenster_datasource_username" {
-  depends_on = [aws_ssm_parameter.muenster_datasource_username]
   name = "/dev/api-freshman-yr/datasources/muenster/username"
 }
 
 data "aws_ssm_parameter" "muenster_datasource_password" {
-  depends_on = [aws_ssm_parameter.muenster_datasource_password]
   name = "/dev/api-freshman-yr/datasources/muenster/password"
 }
 

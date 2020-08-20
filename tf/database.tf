@@ -1,6 +1,6 @@
 locals {
     databaseName     = "muenster"
-    databaseUsername     = "user"
+    databaseUsername = "user"
     databasePassword = "YourPwdShouldBeLongAndSecure!"
 }
 
@@ -16,7 +16,7 @@ resource "aws_db_instance" "muenster" {
     instance_class         = "db.t2.micro"
     identifier             = "api-freshman-yr-db"
     name                   = "${local.databaseName}"
-    username               = "${local.databaseUser}"
+    username               = "${local.databaseUsername}"
     password               = "${local.databasePassword}"
     parameter_group_name   = "default.mysql5.7"
     multi_az               = true

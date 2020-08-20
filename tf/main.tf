@@ -95,9 +95,8 @@ resource "aws_cloudwatch_log_group" "api-freshman-yr" {
 }
 
 resource "aws_cloudwatch_log_group" "api-freshman-yr-core-data-service" {
-  name = "/ecs/api-freshman-yr-core-data-service"
+  name = "/ecs/api-freshman-yr/data-service"
 }
-
 
 
 # ecs.tf
@@ -291,6 +290,23 @@ resource "aws_lb_target_group" "api-freshman-yr" {
   health_check {
     enabled = true
     path = "/status"
+  }
+
+  depends_on = [
+    aws_alb.api-freshman-yr
+  ]
+}
+
+resource "aws_lb_target_group" "api-freshman-yr-core-data-service" {
+  name = "api-freshman-yr-core-data-service"
+  port = 3000
+  protocol = "HTTP"
+  target_type = "ip"
+  vpc_id = "${aws_vpc.app_vpc.id}"
+
+  health_check {
+    enabled = true
+    path = "/_health"
   }
 
   depends_on = [

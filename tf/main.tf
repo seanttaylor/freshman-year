@@ -246,15 +246,15 @@ resource "aws_ecs_task_definition" "api-freshman-yr-core-data-service" {
       ],
       "environment": [{
         "name": "DATABASE_HOST",
-        "value": "${data.aws_ssm_parameter.datasource_muenster_hostname.value}"
+        "value": "${data.aws_ssm_parameter.muenster_datasource_hostname.value}"
       },
       {
         "name": "DATABASE_USER",
-        "value": "${data.aws_ssm_parameter.datasource_muenster_username.value}"
+        "value": "${data.aws_ssm_parameter.muenster_datasource_username.value}"
       },
       {
         "name": "DATABASE_PASSWORD",
-        "value": "${data.aws_ssm_parameter.datasource_muenster_password.value}"
+        "value": "${data.aws_ssm_parameter.muenster_datasource_password.value}"
       },
       {
         "name": "DATABASE_NAME",

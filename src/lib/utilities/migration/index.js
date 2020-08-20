@@ -1,6 +1,6 @@
 const Migrateable = require('../../../api/interfaces/Migrateable');
 const libMigrate = require('./tool');
-const environment = process.NODE_ENV || 'local';
+const environment = process.env.NODE_ENV || 'local';
 
 console.info('#####################################################');
 console.info(` Preparing migration on [${environment}] environment `);

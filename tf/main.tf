@@ -297,8 +297,8 @@ resource "aws_lb_target_group" "api-freshman-yr" {
   ]
 }
 
-resource "aws_lb_target_group" "api-freshman-yr-core-data-service" {
-  name = "api-freshman-yr-core-data-service"
+resource "aws_lb_target_group" "core-data-service" {
+  name = "core-data-service"
   port = 3000
   protocol = "HTTP"
   target_type = "ip"
@@ -348,14 +348,14 @@ resource "aws_alb_listener" "api-freshman-yr-http" {
   }
 }
 
-resource "aws_alb_listener" "api-freshman-yr-core-data-service-ttp" {
+resource "aws_alb_listener" "core-data-service-http" {
   load_balancer_arn = "${aws_alb.api-freshman-yr.arn}"
   port = "80"
   protocol = "HTTP"
 
   default_action {
     type = "forward"
-    target_group_arn = "${aws_lb_target_group.api-freshman-yr-core-data-service.arn}"
+    target_group_arn = "${aws_lb_target_group.core-data-service.arn}"
   }
 }
 

@@ -61,6 +61,18 @@ data "aws_ssm_parameter" "plaid_secret" {
   name = "/dev/api-freshman-yr/vendor/plaid/secret"
 }
 
+data "aws_ssm_parameter" "muenster_datasource_username" {
+  name = "/dev/api-freshman-yr/datasources/muenster/username"
+}
+
+data "aws_ssm_parameter" "muenster_datasource_password" {
+  name = "/dev/api-freshman-yr/datasources/muenster/password"
+}
+
+data "aws_ssm_parameter" "muenster_datasource_hostname" {
+  name = "/dev/api-freshman-yr/datasources/muenster/hostname"
+}
+
 data "aws_ssm_parameter" "data_service_host" {
   name = "/dev/api-freshman-yr/services/core-data/hostname"
 }
@@ -129,6 +141,22 @@ resource "aws_ecs_task_definition" "api-freshman-yr" {
         }
       ],
       "environment": [{
+        "name": "NODE_ENV",
+        "value": "dev"
+      },
+      {
+        "name": "MUENSTER_DATASOURCE_USERNAME",
+        "value": "${data.aws_ssm_parameter.muenster_datasource_username.value}"
+      },
+      {
+        "name": "MUENSTER_DATASOURCE_PASSWORD",
+        "value": "${data.aws_ssm_parameter.muenster_datasource_password.value}"
+      },
+      {
+        "name": "MUENSTER_DATASOURCE_HOST",
+        "value": "${data.aws_ssm_parameter.muenster_datasource_hostname.value}"
+      },
+      {
         "name": "DATA_SERVICE_HOST",
         "value": "${data.aws_ssm_parameter.data_service_host.value}"
       },

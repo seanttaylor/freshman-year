@@ -13,7 +13,6 @@ const serverPort = process.env.SERVER_PORT || 3001;
 MigrationTool.up();
 
 app.use(express.static(__dirname + '/www'));
-
 app.use(helmet());
 app.use(cors());
 app.use(morgan('combined'));

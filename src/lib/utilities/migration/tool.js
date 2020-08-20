@@ -72,7 +72,7 @@ async function up() {
             'sql-file': migrationOptions.useSQLFile
         }
     });
-
+    migration.silence(true);
     migration.up();
 }
 

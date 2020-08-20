@@ -348,6 +348,17 @@ resource "aws_alb_listener" "api-freshman-yr-http" {
   }
 }
 
+resource "aws_alb_listener" "api-freshman-yr-core-data-service-ttp" {
+  load_balancer_arn = "${aws_alb.api-freshman-yr.arn}"
+  port = "80"
+  protocol = "HTTP"
+
+  default_action {
+    type = "forward"
+    target_group_arn = "${aws_lb_target_group.api-freshman-yr-core-data-service.arn}"
+  }
+}
+
 output "alb_url" {
   value = "http://${aws_alb.api-freshman-yr.dns_name}"
 }

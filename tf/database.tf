@@ -1,6 +1,6 @@
 locals {
     databaseName     = "muenster"
-    databaseUser     = "user"
+    databaseUsername     = "user"
     databasePassword = "YourPwdShouldBeLongAndSecure!"
 }
 

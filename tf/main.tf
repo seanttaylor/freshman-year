@@ -95,7 +95,7 @@ resource "aws_cloudwatch_log_group" "api-freshman-yr" {
 }
 
 resource "aws_cloudwatch_log_group" "api-freshman-yr-core-data-service" {
-  name = "/ecs/api-freshman-yr/core-data-service"
+  name = "/ecs/api-freshman-yr-core-data-service"
 }
 
 

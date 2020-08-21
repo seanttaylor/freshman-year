@@ -51,7 +51,7 @@ resource "aws_db_subnet_group" "muenster" {
     description = "Muenster database subnet group"
 }
 
-resource "aws_ssm_parameter" "muenster_datasource_address" {
+resource "aws_ssm_parameter" "muenster_datasource_hostname" {
   name  = "/dev/api-freshman-yr/datasources/muenster/hostname"
   type  = "String"
   value = "${aws_db_instance.muenster.address}"

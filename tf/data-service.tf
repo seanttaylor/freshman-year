@@ -22,11 +22,11 @@ resource "aws_ecs_service" "data_serivce" {
     ]
   }
 
-  load_balancer {
+  /*load_balancer {
     target_group_arn = "${aws_lb_target_group.api-freshman-yr.arn}"
     container_name   = "data-service"
     container_port   = "80"
-  }
+  }*/
 }
 
 resource "aws_ecs_task_definition" "data_service" {
@@ -40,7 +40,7 @@ resource "aws_ecs_task_definition" "data_service" {
       "image": "${var.account_id}.dkr.ecr.us-east-1.amazonaws.com/api-freshman-yr-data-service:${substr(data.environment_variable.git_commit_sha.value, 0, 7)}",
       "portMappings": [
         {
-          "containerPort": 80
+          "containerPort": "80"
         }
       ],
       "environment": [{

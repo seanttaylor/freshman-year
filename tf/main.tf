@@ -7,6 +7,10 @@ locals {
   vpcSlug    = "platform-vpc"
 }
 
+locals {
+   
+}
+
 variable "access_key" {
   type        = string
   description = "AWS Access Key ID"
@@ -62,6 +66,7 @@ data "aws_ssm_parameter" "plaid_secret" {
 }
 
 data "aws_ssm_parameter" "muenster_datasource_username" {
+  depends_on = [aws_ssm_parameter.muenster_datasource_username]
   name = "/dev/api-freshman-yr/datasources/muenster/username"
 }
 

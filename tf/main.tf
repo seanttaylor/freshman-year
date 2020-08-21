@@ -313,7 +313,7 @@ resource "aws_alb" "api-freshman-yr" {
     "${aws_security_group.egress-all.id}",
   ]
 
-  depends_on = ["aws_internet_gateway.igw"]
+  depends_on = [aws_internet_gateway.igw]
 
   tags = {
     categoryId = "${local.categoryId}"

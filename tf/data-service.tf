@@ -29,7 +29,7 @@ resource "aws_ecs_service" "data_serivce" {
   }
 }
 
-resource "aws_ecs_task_definition" "data-service" {
+resource "aws_ecs_task_definition" "data_service" {
   family = "data-service"
   execution_role_arn = "${aws_iam_role.api-freshman-yr-task-execution-role.arn}"
 

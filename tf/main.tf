@@ -263,7 +263,7 @@ resource "aws_alb" "api-freshman-yr" {
 
 resource "aws_alb_listener" "api-freshman-yr-http" {
   load_balancer_arn = "${aws_alb.api-freshman-yr.arn}"
-  port = "80"
+  port = "3001"
   protocol = "HTTP"
 
   default_action {

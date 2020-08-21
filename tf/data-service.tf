@@ -23,7 +23,7 @@ resource "aws_ecs_service" "data_serivce" {
   }
 
   load_balancer {
-    target_group_arn = "${aws_lb_target_group.data_service.arn}"
+    target_group_arn = aws_lb_target_group.data_service.arn
     container_name   = "data-service"
     container_port   = "80"
   }

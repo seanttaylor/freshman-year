@@ -1,4 +1,6 @@
-
+resource "aws_cloudwatch_log_group" "app_vpc" {
+  name = "/ecs/platform-vpc"
+}
 resource "aws_vpc" "app_vpc" {
   cidr_block = "10.0.0.0/16"
   enable_dns_support = true
@@ -7,6 +9,12 @@ resource "aws_vpc" "app_vpc" {
     slug = "${local.vpcSlug}"
     categoryId = "${local.categoryId}"
   }
+}
+
+resource "aws_flow_log" "example" {
+  log_destination = aws_cloudwatch_log_group.app_vpc.arn
+  traffic_type    = "ALL"
+  vpc_id          = aws_vpc.app_vpc.id
 }
 
 resource "aws_subnet" "subnet_us_east_1a_pub" {

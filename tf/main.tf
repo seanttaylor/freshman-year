@@ -94,9 +94,9 @@ resource "aws_cloudwatch_log_group" "api-freshman-yr" {
   name = "/ecs/api-freshman-yr"
 }
 
-resource "aws_cloudwatch_log_group" "api-freshman-yr-core-data-service" {
+/*resource "aws_cloudwatch_log_group" "api-freshman-yr-core-data-service" {
   name = "/ecs/api-freshman-yr-core-data-service"
-}
+}*/
 
 
 # ecs.tf
@@ -202,7 +202,7 @@ resource "aws_ecs_task_definition" "api-freshman-yr" {
   }
 }
 
-resource "aws_ecs_service" "api-freshman-yr-core-data-serivce" {
+/*resource "aws_ecs_service" "api-freshman-yr-core-data-serivce" {
   name            = "api-freshman-yr-core-data-service"
   task_definition = "${aws_ecs_task_definition.api-freshman-yr-core-data-service.family}:${aws_ecs_task_definition.api-freshman-yr-core-data-service.revision}"
   cluster         = "${aws_ecs_cluster.api-freshman-yr.id}"
@@ -227,9 +227,9 @@ resource "aws_ecs_service" "api-freshman-yr-core-data-serivce" {
     container_name   = "api-freshman-yr-core-data-service"
     container_port   = "3000"
   }
-}
+}*/
 
-resource "aws_ecs_task_definition" "api-freshman-yr-core-data-service" {
+/*resource "aws_ecs_task_definition" "api-freshman-yr-core-data-service" {
   family = "api-freshman-yr-core-data-service"
   execution_role_arn = "${aws_iam_role.api-freshman-yr-task-execution-role.arn}"
 
@@ -278,7 +278,7 @@ resource "aws_ecs_task_definition" "api-freshman-yr-core-data-service" {
 
   # This is required for Fargate containers.
   network_mode = "awsvpc"
-}
+}*/
 
 resource "aws_lb_target_group" "api-freshman-yr" {
   name = "api-freshman-yr"

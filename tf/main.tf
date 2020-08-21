@@ -95,7 +95,7 @@ resource "aws_cloudwatch_log_group" "api-freshman-yr" {
 }
 
 resource "aws_cloudwatch_log_group" "api-freshman-yr-core-data-service" {
-  name = "/ecs/api-freshman-yr/data-service"
+  name = "/ecs/api-freshman-yr/core-data-service"
 }
 
 
@@ -297,23 +297,6 @@ resource "aws_lb_target_group" "api-freshman-yr" {
   ]
 }
 
-resource "aws_lb_target_group" "core-data-service" {
-  name = "core-data-service"
-  port = 3000
-  protocol = "HTTP"
-  target_type = "ip"
-  vpc_id = "${aws_vpc.app_vpc.id}"
-
-  health_check {
-    enabled = true
-    path = "/_health"
-  }
-
-  depends_on = [
-    aws_alb.api-freshman-yr
-  ]
-}
-
 resource "aws_alb" "api-freshman-yr" {
   name = "api-freshman-yr-lb"
   internal = false
@@ -348,16 +331,6 @@ resource "aws_alb_listener" "api-freshman-yr-http" {
   }
 }
 
-resource "aws_alb_listener" "core-data-service-http" {
-  load_balancer_arn = "${aws_alb.api-freshman-yr.arn}"
-  port = "80"
-  protocol = "HTTP"
-
-  default_action {
-    type = "forward"
-    target_group_arn = "${aws_lb_target_group.core-data-service.arn}"
-  }
-}
 
 output "alb_url" {
   value = "http://${aws_alb.api-freshman-yr.dns_name}"

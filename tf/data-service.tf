@@ -82,7 +82,7 @@ resource "aws_ecs_task_definition" "data_service" {
 
 resource "aws_lb_target_group" "data_service" {
   name = "data-service"
-  port = 3000
+  port = 80
   protocol = "HTTP"
   target_type = "ip"
   vpc_id = "${aws_vpc.app_vpc.id}"

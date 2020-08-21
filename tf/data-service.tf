@@ -5,7 +5,7 @@ resource "aws_cloudwatch_log_group" "data_service" {
 resource "aws_ecs_service" "data_serivce" {
   name            = "data-service"
   task_definition = "${aws_ecs_task_definition.data_service.family}:${aws_ecs_task_definition.data_service.revision}"
-  cluster         = "${aws_ecs_cluster.api-freshman-yr.id}"
+  cluster         =  aws_ecs_cluster.api-freshman-yr.id
   launch_type     = "FARGATE"
   desired_count   = 1
 

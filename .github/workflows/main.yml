@@ -44,7 +44,7 @@ jobs:
       - name: "[STEP] Build Docker image and push to Amazon ECR [data_service]"
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: api-freshman-yr-core-data-service
+          ECR_REPOSITORY: api-freshman-yr-data-service
           IMAGE_TAG: ${{ github.sha }}
         run: |
           echo "::set-env name=ECR_REGISTRY::$ECR_REGISTRY"

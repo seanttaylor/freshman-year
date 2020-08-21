@@ -110,7 +110,7 @@ resource "aws_ecs_service" "api-freshman-yr" {
   desired_count   = 1
 
   network_configuration {
-     assign_public_ip = true
+     assign_public_ip = false
 
     security_groups = [
       "${aws_security_group.egress-all.id}",

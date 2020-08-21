@@ -59,14 +59,14 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = "${aws_vpc.app_vpc.id}"
 }
 
-/*resource "aws_nat_gateway" "ngw" {
+resource "aws_nat_gateway" "ngw" {
   subnet_id     = "${aws_subnet.subnet_us_east_1a_pub.id}"
   allocation_id = "${aws_eip.nat.id}"
 
   depends_on = [
     "aws_internet_gateway.igw"
   ]
-}*/
+}
 
 resource "aws_route" "public_igw" {
   route_table_id         = "${aws_route_table.rt_pub.id}"
@@ -74,11 +74,11 @@ resource "aws_route" "public_igw" {
   gateway_id             = "${aws_internet_gateway.igw.id}"
 }
 
-/*resource "aws_route" "private_ngw" {
+resource "aws_route" "private_ngw" {
   route_table_id         = "${aws_route_table.rt_priv.id}"
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id         = "${aws_nat_gateway.ngw.id}"
-}*/
+}
 
 resource "aws_security_group" "http" {
   name        = "http"

@@ -97,7 +97,7 @@ resource "aws_ecs_cluster" "api-freshman-yr" {
 }
 
 # Configuration for Cloudwatch Logs
-resource "aws_cloudwatch_log_group" "api-freshman-yr" {
+/*resource "aws_cloudwatch_log_group" "api-freshman-yr" {
   name = "/ecs/api-freshman-yr"
 }
 
@@ -257,7 +257,7 @@ resource "aws_alb_listener" "api-freshman-yr-http" {
 
 output "api_freshman_yr_public_alb_url" {
   value = "http://${aws_alb.api-freshman-yr.dns_name}"
-}
+}*/
 
 # This is the role under which ECS will execute our task. This role becomes more important
 # as we add integrations with other AWS services later on.

@@ -79,3 +79,58 @@ resource "aws_ecs_task_definition" "data_service" {
   # This is required for Fargate containers.
   network_mode = "awsvpc"
 }
+
+resource "aws_lb_target_group" "data_service" {
+  name = "data-service"
+  port = 3000
+  protocol = "HTTP"
+  target_type = "ip"
+  vpc_id = "${aws_vpc.app_vpc.id}"
+
+  health_check {
+    enabled = true
+    path = "/_health"
+  }
+
+  depends_on = [
+    aws_alb.data_service
+  ]
+}
+
+resource "aws_alb" "data_service" {
+  name = "api-freshman-yr-data-service-lb"
+  internal = true
+  load_balancer_type = "application"
+
+  subnets = [
+    "${aws_subnet.subnet_us_east_1a_pub.id}",
+    "${aws_subnet.subnet_us_east_1b_priv.id}",
+  ]
+
+  security_groups = [
+    "${aws_security_group.http.id}",
+    "${aws_security_group.https.id}",
+    "${aws_security_group.egress-all.id}",
+  ]
+
+  depends_on = [aws_internet_gateway.igw]
+
+  tags = {
+    categoryId = "${local.categoryId}"
+  }
+}
+
+resource "aws_alb_listener" "data_service" {
+  load_balancer_arn = "${aws_alb.data_service.arn}"
+  port = "80"
+  protocol = "HTTP"
+
+  default_action {
+    type = "forward"
+    target_group_arn = "${aws_lb_target_group.data_service.arn}"
+  }
+}
+
+output "data_service_internal_alb_url" {
+  value = "http://${aws_alb.data_service.dns_name}"
+}

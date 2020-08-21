@@ -221,6 +221,23 @@ resource "aws_lb_target_group" "api-freshman-yr" {
   ]
 }
 
+resource "aws_lb_target_group" "data-service" {
+  name = "data-service"
+  port = 80
+  protocol = "HTTP"
+  target_type = "ip"
+  vpc_id = "${aws_vpc.app_vpc.id}"
+
+  health_check {
+    enabled = true
+    path = "/_health"
+  }
+
+  depends_on = [
+    aws_alb.api-freshman-yr
+  ]
+}
+
 resource "aws_alb" "api-freshman-yr" {
   name = "api-freshman-yr-lb"
   internal = false

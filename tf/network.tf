@@ -64,7 +64,7 @@ resource "aws_nat_gateway" "ngw" {
   allocation_id = "${aws_eip.nat.id}"
 
   depends_on = [
-    "aws_internet_gateway.igw"
+    aws_internet_gateway.igw
   ]
 }
 

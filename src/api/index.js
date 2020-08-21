@@ -24,8 +24,8 @@ app.use(requestContext);
 /*
  * Routes
  */
+app.use('/_health', require('./routes/status.route'));
 app.use('/auth', require('./routes/authorization.route'));
-app.use('/status', require('./routes/status.route'));
 app.use('/webhooks', require('./routes/webhooks.route'));
 app.use('/api/activations', require('./routes/activations.route'));
 app.use('/api/sponsors', require('./routes/sponsors.route'));

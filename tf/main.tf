@@ -213,7 +213,7 @@ resource "aws_lb_target_group" "api-freshman-yr" {
 
   health_check {
     enabled = true
-    path = "/status"
+    path = "/_health"
   }
 
   depends_on = [

@@ -22,11 +22,11 @@ resource "aws_ecs_service" "data_serivce" {
     ]
   }
 
-  /*load_balancer {
-    target_group_arn = "${aws_lb_target_group.api-freshman-yr.arn}"
+  load_balancer {
+    target_group_arn = "${aws_lb_target_group.data-service.arn}"
     container_name   = "data-service"
     container_port   = "80"
-  }*/
+  }
 }
 
 resource "aws_ecs_task_definition" "data_service" {

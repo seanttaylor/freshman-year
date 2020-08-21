@@ -74,6 +74,9 @@ async function up() {
     });
     migration.silence(true);
     migration.up();
+    console.info('#####################################################');
+    console.info(`# Migration completed at ${new Date().toISOString()} #`);
+    console.info('#####################################################');
 }
 
 /**

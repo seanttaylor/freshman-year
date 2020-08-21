@@ -7,8 +7,4 @@ const MigrationTool = require('./index');
 
 (function up(migrationTool) {
     migrationTool.up();
-
-    console.info('#####################################################');
-    console.info(`# Migration completed at ${new Date().toISOString()} #`);
-    console.info('#####################################################');
 }(MigrationTool));

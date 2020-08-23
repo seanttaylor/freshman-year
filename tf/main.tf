@@ -102,7 +102,7 @@ resource "aws_cloudwatch_log_group" "api-freshman-yr" {
 resource "aws_ecs_service" "api-freshman-yr" {
   name            = "api-freshman-yr"
   task_definition = "${aws_ecs_task_definition.api-freshman-yr.family}:${aws_ecs_task_definition.api-freshman-yr.revision}"
-  cluster         = "${aws_ecs_cluster.api-freshman-yr.id}"
+  cluster         = aws_ecs_cluster.api-freshman-yr.id
   launch_type     = "FARGATE"
   desired_count   = 1
 

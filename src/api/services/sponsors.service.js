@@ -7,7 +7,7 @@ const { getAllStudentsBySponsorId } = require('../../lib/mixins');
 const { entityURI, defaults } = require('../../config/main.json');
 const repo = Object.assign(new Repository(libRepository), { getAllStudentsBySponsorId });
 repo.connect({
-    host: process.env.DATA_SERVICE_HOST,
+    host: `${process.env.DATA_SERVICE_HOST}:3000`,
     defaultPath: '/api/sponsors'
 });
 
@@ -41,7 +41,7 @@ async function getAllSponsoredStudents(id) {
 
 async function getAllSponsors() {
     const data = await repo.findAll.call({
-        connectionURI: `${process.env.DATA_SERVICE_HOST}${entityURI['sponsor']}`
+        connectionURI: `${process.env.DATA_SERVICE_HOST}:3000${entityURI['sponsor']}`
     });
 
     return data;

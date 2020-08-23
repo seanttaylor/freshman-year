@@ -28,7 +28,7 @@ resource "aws_db_instance" "muenster" {
 resource "aws_security_group" "sg_mysql_aurora" {
     name        = "sg_mysql_aurora"
     description = "MySQL/Aurora Security Group definition"
-    vpc_id      = "${aws_vpc.app_vpc.id}"
+    vpc_id      = aws_vpc.app_vpc.id
 
     ingress {
         from_port   = 3306

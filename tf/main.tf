@@ -120,7 +120,7 @@ resource "aws_ecs_service" "api-freshman-yr" {
   }
 
   load_balancer {
-    target_group_arn = "${aws_lb_target_group.api-freshman-yr.arn}"
+    target_group_arn = aws_lb_target_group.api-freshman-yr.arn
     container_name   = "api-freshman-yr"
     container_port   = "3001"
   }

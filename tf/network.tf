@@ -1,6 +1,3 @@
-/*resource "aws_cloudwatch_log_group" "app_vpc" {
-  name = "/ecs/platform-vpc"
-}*/
 
 resource "aws_vpc" "app_vpc" {
   cidr_block = "10.0.0.0/16"
@@ -11,12 +8,6 @@ resource "aws_vpc" "app_vpc" {
     categoryId = local.categoryId
   }
 }
-
-/*resource "aws_flow_log" "example" {
-  log_destination = aws_cloudwatch_log_group.app_vpc.arn
-  traffic_type    = "ALL"
-  vpc_id          = aws_vpc.app_vpc.id
-}*/
 
 resource "aws_subnet" "subnet_us_east_1a_pub" {
   vpc_id     = aws_vpc.app_vpc.id
@@ -131,7 +122,7 @@ resource "aws_security_group" "egress-all" {
 resource "aws_security_group" "api-ingress" {
   name        = "api_ingress"
   description = "Allow ingress to API"
-  vpc_id      = "${aws_vpc.app_vpc.id}"
+  vpc_id      = aws_vpc.app_vpc.id
 
   ingress {
     from_port   = 80

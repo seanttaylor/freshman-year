@@ -124,6 +124,7 @@ resource "aws_alb" "data_service" {
     "${aws_security_group.http.id}",
     "${aws_security_group.https.id}",
     "${aws_security_group.egress-all.id}",
+    "${aws_security_group.api-ingress.id}"
   ]
 
   depends_on = [aws_internet_gateway.igw]

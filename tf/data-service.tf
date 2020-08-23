@@ -67,6 +67,8 @@ resource "aws_ecs_task_definition" "data_service" {
         "user", 
         "-p", 
         "${data.aws_ssm_parameter.muenster_datasource_password.value}",
+        "-d",
+        "muenster",
         "-r",
         "0.0.0.0"
         ],

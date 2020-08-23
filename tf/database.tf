@@ -15,9 +15,9 @@ resource "aws_db_instance" "muenster" {
     engine_version         = "5.7"
     instance_class         = "db.t2.micro"
     identifier             = "api-freshman-yr-db"
-    name                   = "${local.databaseName}"
-    username               = "${local.databaseUsername}"
-    password               = "${local.databasePassword}"
+    name                   = local.databaseName
+    username               = local.databaseUsername
+    password               = local.databasePassword
     parameter_group_name   = "default.mysql5.7"
     multi_az               = true
     tags =  {

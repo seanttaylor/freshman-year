@@ -25,7 +25,7 @@ resource "aws_ecs_service" "data_serivce" {
   load_balancer {
     target_group_arn = aws_lb_target_group.data_service.arn
     container_name   = "data-service"
-    container_port   = "80"
+    container_port   = "3000"
   }
 }
 
@@ -95,7 +95,7 @@ resource "aws_ecs_task_definition" "data_service" {
 
 resource "aws_lb_target_group" "data_service" {
   name = "data-service"
-  port = 80
+  port = 3000
   protocol = "HTTP"
   target_type = "ip"
   vpc_id = aws_vpc.app_vpc.id
@@ -135,7 +135,7 @@ resource "aws_alb" "data_service" {
 
 resource "aws_alb_listener" "data_service" {
   load_balancer_arn = aws_alb.data_service.arn
-  port = "80"
+  port = "3000"
   protocol = "HTTP"
 
   default_action {

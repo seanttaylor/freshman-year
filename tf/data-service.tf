@@ -89,7 +89,7 @@ resource "aws_lb_target_group" "data_service" {
 
   health_check {
     enabled = true
-    path = "/"
+    path = "/_version"
   }
 
   depends_on = [
@@ -127,7 +127,7 @@ resource "aws_alb_listener" "data_service" {
 
   default_action {
     type = "forward"
-    target_group_arn = "${aws_lb_target_group.data_service.arn}"
+    target_group_arn = aws_lb_target_group.data_service.arn
   }
 }
 

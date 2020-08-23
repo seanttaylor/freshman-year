@@ -266,7 +266,7 @@ output "api_freshman_yr_public_alb_url" {
 # ECS tasks to assume this role we're creating.
 resource "aws_iam_role" "api-freshman-yr-task-execution-role" {
   name = "api-freshman-yr-task-execution-role"
-  assume_role_policy = "${data.aws_iam_policy_document.ecs-task-assume-role.json}"
+  assume_role_policy = data.aws_iam_policy_document.ecs-task-assume-role.json
 }
 
 data "aws_iam_policy_document" "ecs-task-assume-role" {

@@ -7,7 +7,7 @@ locals {
 resource "aws_db_instance" "muenster" {
     depends_on             = [aws_db_subnet_group.muenster]
     vpc_security_group_ids = [aws_security_group.sg_mysql_aurora.id]
-    db_subnet_group_name   = "${local.databaseName}"
+    db_subnet_group_name   = local.databaseName
     allocated_storage      = 20
     publicly_accessible    = true
     storage_type           = "gp2"

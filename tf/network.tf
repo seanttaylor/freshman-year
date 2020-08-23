@@ -7,8 +7,8 @@ resource "aws_vpc" "app_vpc" {
   enable_dns_support = true
   enable_dns_hostnames = true
   tags = {
-    slug = "${local.vpcSlug}"
-    categoryId = "${local.categoryId}"
+    slug = local.vpcSlug
+    categoryId = local.categoryId
   }
 }
 

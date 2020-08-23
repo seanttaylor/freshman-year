@@ -59,6 +59,17 @@ resource "aws_ecs_task_definition" "data_service" {
         "name": "DATABASE_NAME",
         "value": "muenster"
       }],
+      "command": [
+        "xmysql", 
+        "-h", 
+        "${data.aws_ssm_parameter.muenster_datasource_hostname.value}", 
+        "-u", 
+        "user", 
+        "-p", 
+        "${data.aws_ssm_parameter.muenster_datasource_password.value}",
+        "-r",
+        "0.0.0.0"
+        ],
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
@@ -89,7 +100,7 @@ resource "aws_lb_target_group" "data_service" {
 
   health_check {
     enabled = true
-    path = "/_version"
+    path = "/_health"
   }
 
   depends_on = [

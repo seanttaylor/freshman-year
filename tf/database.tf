@@ -54,19 +54,19 @@ resource "aws_db_subnet_group" "muenster" {
 resource "aws_ssm_parameter" "muenster_datasource_hostname" {
   name  = "/dev/api-freshman-yr/datasources/muenster/hostname"
   type  = "String"
-  value = "${aws_db_instance.muenster.address}"
+  value = aws_db_instance.muenster.address
 }
 
 resource "aws_ssm_parameter" "muenster_datasource_username" {
   name      = "/dev/api-freshman-yr/datasources/muenster/username"
   type      = "String"
-  value     = "${local.databaseUsername}"
+  value     = local.databaseUsername
   overwrite = true
 }
 
 resource "aws_ssm_parameter" "muenster_datasource_password" {
   name      = "/dev/api-freshman-yr/datasources/muenster/password"
   type      = "String"
-  value     = "${local.databasePassword}"
+  value     = local.databasePassword
   overwrite = true 
 }

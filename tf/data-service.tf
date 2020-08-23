@@ -68,7 +68,9 @@ resource "aws_ecs_task_definition" "data_service" {
         "-p", 
         "${data.aws_ssm_parameter.muenster_datasource_password.value}",
         "-d",
-        "muenster"
+        "muenster",
+        "-r",
+        "0.0.0.0"
         ],
       "logConfiguration": {
         "logDriver": "awslogs",

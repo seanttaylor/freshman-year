@@ -89,7 +89,7 @@ resource "aws_lb_target_group" "data_service" {
 
   health_check {
     enabled = true
-    path = "/_health"
+    path = "/"
   }
 
   depends_on = [
@@ -116,12 +116,12 @@ resource "aws_alb" "data_service" {
   depends_on = [aws_internet_gateway.igw]
 
   tags = {
-    categoryId = "${local.categoryId}"
+    categoryId = local.categoryId
   }
 }
 
 resource "aws_alb_listener" "data_service" {
-  load_balancer_arn = "${aws_alb.data_service.arn}"
+  load_balancer_arn = aws_alb.data_service.arn
   port = "80"
   protocol = "HTTP"
 

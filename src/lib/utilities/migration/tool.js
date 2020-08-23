@@ -73,7 +73,13 @@ async function up() {
         }
     });
     migration.silence(true);
-    migration.up();
+    try {
+        await migration.up();
+    } catch (e) {
+        console.error("Migration ERROR:", e);
+        process.exit(1);
+    }
+
     console.info('#####################################################');
     console.info(`# Migration completed at ${new Date().toISOString()} #`);
     console.info('#####################################################');

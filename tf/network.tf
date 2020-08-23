@@ -19,34 +19,34 @@ resource "aws_vpc" "app_vpc" {
 }*/
 
 resource "aws_subnet" "subnet_us_east_1a_pub" {
-  vpc_id     = "${aws_vpc.app_vpc.id}"
+  vpc_id     = aws_vpc.app_vpc.id
   cidr_block = "10.0.1.0/24"
   availability_zone = "us-east-1a"
   tags = {
-    categoryId = "${local.categoryId}"
+    categoryId = local.categoryId
   }
 }
 
 resource "aws_subnet" "subnet_us_east_1b_priv" {
-  vpc_id     = "${aws_vpc.app_vpc.id}"
+  vpc_id     = aws_vpc.app_vpc.id
   cidr_block = "10.0.2.0/24"
   availability_zone = "us-east-1b"
   tags = {
-    categoryId = "${local.categoryId}"
+    categoryId = local.categoryId
   }
 }
 
 resource "aws_route_table" "rt_pub" {
-  vpc_id = "${aws_vpc.app_vpc.id}"
+  vpc_id = aws_vpc.app_vpc.id
   tags = {
-    categoryId = "${local.categoryId}"
+    categoryId = local.categoryId
   }
 }
 
 resource "aws_route_table" "rt_priv" {
-  vpc_id = "${aws_vpc.app_vpc.id}"
+  vpc_id = aws_vpc.app_vpc.id
   tags = {
-    categoryId = "${local.categoryId}"
+    categoryId = local.categoryId
   }
 }
 

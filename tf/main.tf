@@ -7,10 +7,6 @@ locals {
   vpcSlug    = "platform-vpc"
 }
 
-locals {
-   
-}
-
 variable "access_key" {
   type        = string
   description = "AWS Access Key ID"
@@ -80,8 +76,9 @@ data "aws_ssm_parameter" "muenster_datasource_hostname" {
   name       = "/dev/api-freshman-yr/datasources/muenster/hostname"
 }
 
-data "aws_ssm_parameter" "data_service_host" {
-  name = "/dev/api-freshman-yr/services/core-data/hostname"
+data "aws_ssm_parameter" "data_service_hostname" {
+  depends_on = [aws_ssm_parameter.data_service_hostname]
+  name = "/dev/api-freshman-yr/services/data/hostname"
 }
 
 output "git_branch_name" {
@@ -97,7 +94,7 @@ resource "aws_ecs_cluster" "api-freshman-yr" {
 }
 
 # Configuration for Cloudwatch Logs
-/*resource "aws_cloudwatch_log_group" "api-freshman-yr" {
+resource "aws_cloudwatch_log_group" "api-freshman-yr" {
   name = "/ecs/api-freshman-yr"
 }
 
@@ -165,7 +162,7 @@ resource "aws_ecs_task_definition" "api-freshman-yr" {
       },
       {
         "name": "DATA_SERVICE_HOST",
-        "value": "${data.aws_ssm_parameter.data_service_host.value}"
+        "value": "${data.aws_ssm_parameter.data_service_hostname.value}"
       },
       {
         "name": "PLAID_CLIENT_ID",
@@ -200,7 +197,7 @@ resource "aws_ecs_task_definition" "api-freshman-yr" {
   network_mode = "awsvpc"
 
   tags = {
-    categoryId = "${local.categoryId}"
+    categoryId = local.categoryId
   }
 }
 
@@ -240,7 +237,7 @@ resource "aws_alb" "api-freshman-yr" {
   depends_on = [aws_internet_gateway.igw]
 
   tags = {
-    categoryId = "${local.categoryId}"
+    categoryId = local.categoryId
   }
 }
 
@@ -257,7 +254,7 @@ resource "aws_alb_listener" "api-freshman-yr-http" {
 
 output "api_freshman_yr_public_alb_url" {
   value = "http://${aws_alb.api-freshman-yr.dns_name}"
-}*/
+}
 
 # This is the role under which ECS will execute our task. This role becomes more important
 # as we add integrations with other AWS services later on.

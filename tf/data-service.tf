@@ -144,6 +144,12 @@ resource "aws_alb_listener" "data_service" {
   }
 }
 
+resource "aws_ssm_parameter" "data_service_hostname" {
+  name  = "/dev/api-freshman-yr/services/data/hostname"
+  type  = "String"
+  value = aws_alb.data_serivce.dns_name
+}
+
 output "data_service_internal_alb_url" {
   value = "http://${aws_alb.data_service.dns_name}"
 }

@@ -85,7 +85,7 @@ resource "aws_lb_target_group" "data_service" {
   port = 80
   protocol = "HTTP"
   target_type = "ip"
-  vpc_id = "${aws_vpc.app_vpc.id}"
+  vpc_id = aws_vpc.app_vpc.id
 
   health_check {
     enabled = true

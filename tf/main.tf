@@ -1,12 +1,5 @@
 # Find out more about this configuration in the following Fargate/Terraform tutorial: https://section411.com/2019/07/hello-world/
 
-/*locals {
-  appOwner   = "freshman-yr"
-  categoryId = "services.core.app"
-  team       = "platform"
-  vpcSlug    = "platform-vpc"
-}*/
-
 variable "access_key" {
   type        = string
   description = "AWS Access Key ID"
@@ -81,14 +74,6 @@ data "aws_ssm_parameter" "data_service_hostname" {
   name = "/dev/api-freshman-yr/services/data/hostname"
 }
 
-/*output "git_branch_name" {
-  value = data.environment_variable.git_branch_name.value
-}
-
-output "git_commit_sha" {
-  value = data.environment_variable.git_commit_sha.value
-}*/
-
 resource "aws_ecs_cluster" "freshman-yr" {
   name = "freshman-yr"
 }
@@ -120,7 +105,7 @@ resource "aws_ecs_service" "freshman-yr" {
   }
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.edge-proxy.arn
+    target_group_arn = aws_lb_target_group.edge_proxy.arn
     container_name   = "edge-proxy"
     container_port   = "3001"
   }
@@ -201,7 +186,7 @@ resource "aws_ecs_task_definition" "edge-proxy" {
   }
 }
 
-resource "aws_lb_target_group" "edge-proxy" {
+resource "aws_lb_target_group" "edge_proxy" {
   name = "edge-proxy"
   port = 3001
   protocol = "HTTP"
@@ -243,19 +228,15 @@ resource "aws_alb" "edge_proxy" {
 }
 
 resource "aws_alb_listener" "edge-proxy-http" {
-  load_balancer_arn = aws_alb.edge-proxy.arn
+  load_balancer_arn = aws_alb.edge_proxy.arn
   port = "80"
   protocol = "HTTP"
 
   default_action {
     type = "forward"
-    target_group_arn = aws_lb_target_group.edge-proxy.arn
+    target_group_arn = aws_lb_target_group.edge_proxy.arn
   }
 }
-
-/*output "api_freshman_yr_public_alb_url" {
-  value = "http://${aws_alb.edge-service-proxy.dns_name}"
-}*/
 
 # This is the role under which ECS will execute our task. This role becomes more important
 # as we add integrations with other AWS services later on.

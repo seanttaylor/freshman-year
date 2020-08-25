@@ -102,7 +102,7 @@ resource "aws_cloudwatch_log_group" "api-freshman-yr" {
 resource "aws_ecs_service" "api-freshman-yr" {
   name            = "edge-service-proxy"
   task_definition = "${aws_ecs_task_definition.edge-service-proxy.family}:${aws_ecs_task_definition.edge-service-proxy.revision}"
-  cluster         = aws_ecs_cluster.edge-service-proxy.id
+  cluster         = aws_ecs_cluster.api-freshman-yr.id
   launch_type     = "FARGATE"
   desired_count   = 1
 

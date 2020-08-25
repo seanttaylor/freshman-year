@@ -18,7 +18,7 @@ output "private_subnet_id" {
   value = "${aws_subnet.subnet_us_east_1b_priv.id}"
 }
 
-output "api_freshman_yr_public_alb_url" {
+output "edge_proxy_public_alb_url" {
   value = "http://${aws_alb.edge_proxy.dns_name}"
 }
 

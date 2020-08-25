@@ -78,7 +78,7 @@ resource "aws_ecs_task_definition" "data_service" {
         "logDriver": "awslogs",
         "options": {
           "awslogs-region": "us-east-1",
-          "awslogs-group": "/ecs/api-freshman-yr/data-service",
+          "awslogs-group": "/ecs/freshman-yr/data-service",
           "awslogs-stream-prefix": "ecs"
         }
       }

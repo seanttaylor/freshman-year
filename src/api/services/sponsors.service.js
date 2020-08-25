@@ -41,7 +41,7 @@ async function getAllSponsoredStudents(id) {
 
 async function getAllSponsors() {
     const data = await repo.findAll.call({
-        connectionURI: `${process.env.DATA_SERVICE_HOST}:3000${entityURI['sponsor']}`
+        connectionURI: `${process.env.DATA_SERVICE_HOST}${entityURI['sponsor']}`
     });
 
     return data;

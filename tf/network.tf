@@ -131,15 +131,3 @@ resource "aws_security_group" "api-ingress" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-
-/*output "vpc_id" {
-  value = "${aws_vpc.app_vpc.id}"
-}
-
-output "public_subnet_id" {
-  value = "${aws_subnet.subnet_us_east_1a_pub.id}"
-}
-
-output "private_subnet_id" {
-  value = "${aws_subnet.subnet_us_east_1b_priv.id}"
-}*/

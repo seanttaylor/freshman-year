@@ -75,15 +75,15 @@ resource "aws_route" "public_igw" {
 }
 
 resource "aws_route" "private_ngw" {
-  route_table_id         = "${aws_route_table.rt_priv.id}"
+  route_table_id         = aws_route_table.rt_priv.id
   destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = "${aws_nat_gateway.ngw.id}"
+  nat_gateway_id         = aws_nat_gateway.ngw.id
 }
 
 resource "aws_security_group" "http" {
   name        = "http"
   description = "HTTP traffic"
-  vpc_id      = "${aws_vpc.app_vpc.id}"
+  vpc_id      = aws_vpc.app_vpc.id
 
   ingress {
     from_port   = 80
@@ -96,7 +96,7 @@ resource "aws_security_group" "http" {
 resource "aws_security_group" "https" {
   name        = "https"
   description = "HTTPS traffic"
-  vpc_id      = "${aws_vpc.app_vpc.id}"
+  vpc_id      = aws_vpc.app_vpc.id
 
   ingress {
     from_port   = 443
@@ -109,7 +109,7 @@ resource "aws_security_group" "https" {
 resource "aws_security_group" "egress-all" {
   name        = "egress_all"
   description = "Allow all outbound traffic"
-  vpc_id      = "${aws_vpc.app_vpc.id}"
+  vpc_id      = aws_vpc.app_vpc.id
 
   egress {
     from_port   = 0

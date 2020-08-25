@@ -1,7 +1,7 @@
 # Find out more about this configuration in the following Fargate/Terraform tutorial: https://section411.com/2019/07/hello-world/
 
 locals {
-  appOwner   = "api-freshman-yr"
+  appOwner   = "freshman-yr"
   categoryId = "services.core.app"
   team       = "platform"
   vpcSlug    = "platform-vpc"
@@ -89,20 +89,20 @@ output "git_commit_sha" {
   value = data.environment_variable.git_commit_sha.value
 }*/
 
-resource "aws_ecs_cluster" "api-freshman-yr" {
-  name = "api-freshman-yr"
+resource "aws_ecs_cluster" "freshman-yr" {
+  name = "freshman-yr"
 }
 
 # Configuration for Cloudwatch Logs
-resource "aws_cloudwatch_log_group" "api-freshman-yr" {
-  name = "/ecs/api-freshman-yr-edge-service-proxy"
+resource "aws_cloudwatch_log_group" "freshman-yr" {
+  name = "/ecs/freshman-yr-edge-proxy"
 }
 
 # ecs.tf
-resource "aws_ecs_service" "api-freshman-yr" {
-  name            = "edge-service-proxy"
-  task_definition = "${aws_ecs_task_definition.edge-service-proxy.family}:${aws_ecs_task_definition.edge-service-proxy.revision}"
-  cluster         = aws_ecs_cluster.api-freshman-yr.id
+resource "aws_ecs_service" "freshman-yr" {
+  name            = "edge-proxy"
+  task_definition = "${aws_ecs_task_definition.edge-proxy.family}:${aws_ecs_task_definition.edge-proxy.revision}"
+  cluster         = aws_ecs_cluster.freshman-yr.id
   launch_type     = "FARGATE"
   desired_count   = 1
 
@@ -120,8 +120,8 @@ resource "aws_ecs_service" "api-freshman-yr" {
   }
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.edge-service-proxy.arn
-    container_name   = "edge-service-proxy"
+    target_group_arn = aws_lb_target_group.edge-proxy.arn
+    container_name   = "edge-proxy"
     container_port   = "3001"
   }
 }
@@ -130,15 +130,15 @@ resource "aws_ecs_service" "api-freshman-yr" {
 # If the service decides it needs more capacity,
 # this task definition provides a blueprint for building an identical container.
 #
-resource "aws_ecs_task_definition" "edge-service-proxy" {
-  family = "edge-service-proxy"
+resource "aws_ecs_task_definition" "edge-proxy" {
+  family = "edge-proxy"
   execution_role_arn = aws_iam_role.default-task-execution-role.arn
 
   container_definitions = <<EOF
   [
     {
-      "name": "edge-service-proxy",
-      "image": "${var.account_id}.dkr.ecr.us-east-1.amazonaws.com/api-freshman-yr-edge-service-proxy:${substr(data.environment_variable.git_commit_sha.value, 0, 7)}",
+      "name": "edge-proxy",
+      "image": "${var.account_id}.dkr.ecr.us-east-1.amazonaws.com/freshman-yr/edge-proxy:${substr(data.environment_variable.git_commit_sha.value, 0, 7)}",
       "portMappings": [
         {
           "containerPort": 3001
@@ -180,7 +180,7 @@ resource "aws_ecs_task_definition" "edge-service-proxy" {
         "logDriver": "awslogs",
         "options": {
           "awslogs-region": "us-east-1",
-          "awslogs-group": "/ecs/edge-service-proxy",
+          "awslogs-group": "/ecs/freshman-yr/edge-proxy",
           "awslogs-stream-prefix": "ecs"
         }
       }
@@ -201,8 +201,8 @@ resource "aws_ecs_task_definition" "edge-service-proxy" {
   }
 }
 
-resource "aws_lb_target_group" "edge-service-proxy" {
-  name = "edge-service-proxy"
+resource "aws_lb_target_group" "edge-proxy" {
+  name = "edge-proxy"
   port = 3001
   protocol = "HTTP"
   target_type = "ip"
@@ -214,12 +214,12 @@ resource "aws_lb_target_group" "edge-service-proxy" {
   }
 
   depends_on = [
-    aws_alb.edge-service-proxy
+    aws_alb.edge-proxy
   ]
 }
 
-resource "aws_alb" "edge-service-proxy" {
-  name = "edge-service-proxy-lb"
+resource "aws_alb" "edge-proxy" {
+  name = "edge-proxy-lb"
   internal = false
   load_balancer_type = "application"
 
@@ -242,14 +242,14 @@ resource "aws_alb" "edge-service-proxy" {
   }
 }
 
-resource "aws_alb_listener" "edge-service-proxy-http" {
-  load_balancer_arn = aws_alb.edge-service-proxy.arn
+resource "aws_alb_listener" "edge-proxy-http" {
+  load_balancer_arn = aws_alb.edge-proxy.arn
   port = "80"
   protocol = "HTTP"
 
   default_action {
     type = "forward"
-    target_group_arn = aws_lb_target_group.edge-service-proxy.arn
+    target_group_arn = aws_lb_target_group.edge-proxy.arn
   }
 }
 

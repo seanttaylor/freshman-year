@@ -1,11 +1,11 @@
 resource "aws_cloudwatch_log_group" "data_service" {
-  name = "/ecs/api-freshman-yr-data-service"
+  name = "/ecs/freshman-yr/data-service"
 }
 
 resource "aws_ecs_service" "data_serivce" {
   name            = "data-service"
   task_definition = "${aws_ecs_task_definition.data_service.family}:${aws_ecs_task_definition.data_service.revision}"
-  cluster         =  aws_ecs_cluster.api-freshman-yr.id
+  cluster         =  aws_ecs_cluster.freshman-yr.id
   launch_type     = "FARGATE"
   desired_count   = 1
 
@@ -37,7 +37,7 @@ resource "aws_ecs_task_definition" "data_service" {
   [
     {
       "name": "data-service",
-      "image": "${var.account_id}.dkr.ecr.us-east-1.amazonaws.com/api-freshman-yr-data-service:${substr(data.environment_variable.git_commit_sha.value, 0, 7)}",
+      "image": "${var.account_id}.dkr.ecr.us-east-1.amazonaws.com/freshman-yr/data-service:${substr(data.environment_variable.git_commit_sha.value, 0, 7)}",
       "portMappings": [
         {
           "containerPort": 80
@@ -78,7 +78,7 @@ resource "aws_ecs_task_definition" "data_service" {
         "logDriver": "awslogs",
         "options": {
           "awslogs-region": "us-east-1",
-          "awslogs-group": "/ecs/api-freshman-yr-data-service",
+          "awslogs-group": "/ecs/api-freshman-yr/data-service",
           "awslogs-stream-prefix": "ecs"
         }
       }
@@ -113,7 +113,7 @@ resource "aws_lb_target_group" "data_service" {
 }
 
 resource "aws_alb" "data_service" {
-  name = "api-freshman-yr-data-service-lb"
+  name = "freshman-yr-data-service-lb"
   internal = true
   load_balancer_type = "application"
 

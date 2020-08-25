@@ -214,7 +214,7 @@ resource "aws_lb_target_group" "edge-proxy" {
   }
 
   depends_on = [
-    aws_alb.edge-proxy
+    aws_alb.edge_proxy
   ]
 }
 

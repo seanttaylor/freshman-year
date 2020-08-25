@@ -95,14 +95,14 @@ resource "aws_ecs_cluster" "api-freshman-yr" {
 
 # Configuration for Cloudwatch Logs
 resource "aws_cloudwatch_log_group" "api-freshman-yr" {
-  name = "/ecs/api-freshman-yr"
+  name = "/ecs/api-freshman-yr-edge-service-proxy"
 }
 
 # ecs.tf
 resource "aws_ecs_service" "api-freshman-yr" {
-  name            = "api-freshman-yr"
-  task_definition = "${aws_ecs_task_definition.api-freshman-yr.family}:${aws_ecs_task_definition.api-freshman-yr.revision}"
-  cluster         = aws_ecs_cluster.api-freshman-yr.id
+  name            = "edge-service-proxy"
+  task_definition = "${aws_ecs_task_definition.edge-service-proxy.family}:${aws_ecs_task_definition.edge-service-proxy.revision}"
+  cluster         = aws_ecs_cluster.edge-service-proxy.id
   launch_type     = "FARGATE"
   desired_count   = 1
 
@@ -120,8 +120,8 @@ resource "aws_ecs_service" "api-freshman-yr" {
   }
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.api-freshman-yr.arn
-    container_name   = "api-freshman-yr"
+    target_group_arn = aws_lb_target_group.edge-service-proxy.arn
+    container_name   = "edge-service-proxy"
     container_port   = "3001"
   }
 }
@@ -130,15 +130,15 @@ resource "aws_ecs_service" "api-freshman-yr" {
 # If the service decides it needs more capacity,
 # this task definition provides a blueprint for building an identical container.
 #
-resource "aws_ecs_task_definition" "api-freshman-yr" {
-  family = "api-freshman-yr"
-  execution_role_arn = "${aws_iam_role.api-freshman-yr-task-execution-role.arn}"
+resource "aws_ecs_task_definition" "edge-service-proxy" {
+  family = "edge-service-proxy"
+  execution_role_arn = aws_iam_role.default-task-execution-role.arn
 
   container_definitions = <<EOF
   [
     {
-      "name": "api-freshman-yr",
-      "image": "${var.account_id}.dkr.ecr.us-east-1.amazonaws.com/api-freshman-yr:${substr(data.environment_variable.git_commit_sha.value, 0, 7)}",
+      "name": "edge-service-proxy",
+      "image": "${var.account_id}.dkr.ecr.us-east-1.amazonaws.com/api-freshman-yr-edge-service-proxy:${substr(data.environment_variable.git_commit_sha.value, 0, 7)}",
       "portMappings": [
         {
           "containerPort": 3001
@@ -180,7 +180,7 @@ resource "aws_ecs_task_definition" "api-freshman-yr" {
         "logDriver": "awslogs",
         "options": {
           "awslogs-region": "us-east-1",
-          "awslogs-group": "/ecs/api-freshman-yr",
+          "awslogs-group": "/ecs/edge-service-proxy",
           "awslogs-stream-prefix": "ecs"
         }
       }
@@ -201,8 +201,8 @@ resource "aws_ecs_task_definition" "api-freshman-yr" {
   }
 }
 
-resource "aws_lb_target_group" "api-freshman-yr" {
-  name = "api-freshman-yr"
+resource "aws_lb_target_group" "edge-service-proxy" {
+  name = "edge-service-proxy"
   port = 3001
   protocol = "HTTP"
   target_type = "ip"
@@ -214,12 +214,12 @@ resource "aws_lb_target_group" "api-freshman-yr" {
   }
 
   depends_on = [
-    aws_alb.api-freshman-yr
+    aws_alb.edge-service-proxy
   ]
 }
 
-resource "aws_alb" "api-freshman-yr" {
-  name = "api-freshman-yr-lb"
+resource "aws_alb" "edge-service-proxy" {
+  name = "api-freshman-yr-edge-service-proxy-lb"
   internal = false
   load_balancer_type = "application"
 
@@ -241,19 +241,19 @@ resource "aws_alb" "api-freshman-yr" {
   }
 }
 
-resource "aws_alb_listener" "api-freshman-yr-http" {
-  load_balancer_arn = "${aws_alb.api-freshman-yr.arn}"
+resource "aws_alb_listener" "edge-service-proxy-http" {
+  load_balancer_arn = aws_alb.edge-service-proxy.arn
   port = "80"
   protocol = "HTTP"
 
   default_action {
     type = "forward"
-    target_group_arn = "${aws_lb_target_group.api-freshman-yr.arn}"
+    target_group_arn = aws_lb_target_group.edge-service-proxy.arn
   }
 }
 
 output "api_freshman_yr_public_alb_url" {
-  value = "http://${aws_alb.api-freshman-yr.dns_name}"
+  value = "http://${aws_alb.edge-service-proxy.dns_name}"
 }
 
 # This is the role under which ECS will execute our task. This role becomes more important
@@ -261,8 +261,8 @@ output "api_freshman_yr_public_alb_url" {
 
 # The assume_role_policy field works with the following aws_iam_policy_document to allow
 # ECS tasks to assume this role we're creating.
-resource "aws_iam_role" "api-freshman-yr-task-execution-role" {
-  name = "api-freshman-yr-task-execution-role"
+resource "aws_iam_role" "defaul-task-execution-role" {
+  name = "default-task-execution-role"
   assume_role_policy = data.aws_iam_policy_document.ecs-task-assume-role.json
 }
 
@@ -285,6 +285,6 @@ data "aws_iam_policy" "ecs-task-execution-role" {
 
 # Attach the above policy to the execution role.
 resource "aws_iam_role_policy_attachment" "ecs-task-execution-role" {
-  role = aws_iam_role.api-freshman-yr-task-execution-role.name
+  role = aws_iam_role.default-task-execution-role.name
   policy_arn = data.aws_iam_policy.ecs-task-execution-role.arn
 }

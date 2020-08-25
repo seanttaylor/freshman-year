@@ -25,7 +25,7 @@ resource "aws_ecs_service" "data_serivce" {
   load_balancer {
     target_group_arn = aws_lb_target_group.data_service.arn
     container_name   = "data-service"
-    container_port   = "3000"
+    container_port   = "80"
   }
 }
 
@@ -40,7 +40,7 @@ resource "aws_ecs_task_definition" "data_service" {
       "image": "${var.account_id}.dkr.ecr.us-east-1.amazonaws.com/api-freshman-yr-data-service:${substr(data.environment_variable.git_commit_sha.value, 0, 7)}",
       "portMappings": [
         {
-          "containerPort": 3000
+          "containerPort": 80
         }
       ],
       "environment": [{
@@ -69,6 +69,8 @@ resource "aws_ecs_task_definition" "data_service" {
         "${data.aws_ssm_parameter.muenster_datasource_password.value}",
         "-d",
         "muenster",
+        "-o",
+        "80",
         "-r",
         "0.0.0.0"
         ],
@@ -95,7 +97,7 @@ resource "aws_ecs_task_definition" "data_service" {
 
 resource "aws_lb_target_group" "data_service" {
   name = "data-service"
-  port = 3000
+  port = 80
   protocol = "HTTP"
   target_type = "ip"
   vpc_id = aws_vpc.app_vpc.id
@@ -136,7 +138,7 @@ resource "aws_alb" "data_service" {
 
 resource "aws_alb_listener" "data_service" {
   load_balancer_arn = aws_alb.data_service.arn
-  port = "3000"
+  port = "80"
   protocol = "HTTP"
 
   default_action {

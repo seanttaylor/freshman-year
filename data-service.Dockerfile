@@ -8,4 +8,4 @@ WORKDIR ./app
 
 RUN npm install -g xmysql
 
-EXPOSE 3000
+EXPOSE 80

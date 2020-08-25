@@ -152,7 +152,3 @@ resource "aws_ssm_parameter" "data_service_hostname" {
   type  = "String"
   value = "http://${aws_alb.data_service.dns_name}"
 }
-
-/*output "data_service_internal_alb_url" {
-  value = "http://${aws_alb.data_service.dns_name}"
-}*/

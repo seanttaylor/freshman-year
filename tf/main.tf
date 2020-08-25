@@ -1,11 +1,11 @@
 # Find out more about this configuration in the following Fargate/Terraform tutorial: https://section411.com/2019/07/hello-world/
 
-locals {
+/*locals {
   appOwner   = "freshman-yr"
   categoryId = "services.core.app"
   team       = "platform"
   vpcSlug    = "platform-vpc"
-}
+}*/
 
 variable "access_key" {
   type        = string
@@ -95,7 +95,7 @@ resource "aws_ecs_cluster" "freshman-yr" {
 
 # Configuration for Cloudwatch Logs
 resource "aws_cloudwatch_log_group" "freshman-yr" {
-  name = "/ecs/freshman-yr-edge-proxy"
+  name = "/ecs/freshman-yr/edge-proxy"
 }
 
 # ecs.tf
@@ -218,7 +218,7 @@ resource "aws_lb_target_group" "edge-proxy" {
   ]
 }
 
-resource "aws_alb" "edge-proxy" {
+resource "aws_alb" "edge_proxy" {
   name = "edge-proxy-lb"
   internal = false
   load_balancer_type = "application"

@@ -19,7 +19,7 @@ output "private_subnet_id" {
 }
 
 output "api_freshman_yr_public_alb_url" {
-  value = "http://${aws_alb.edge-service-proxy.dns_name}"
+  value = "http://${aws_alb.edge_proxy.dns_name}"
 }
 
 output "data_service_internal_alb_url" {

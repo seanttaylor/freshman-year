@@ -1,8 +1,8 @@
-locals {
+/*locals {
     databaseName     = "muenster"
     databaseUsername = "user"
     databasePassword = "YourPwdShouldBeLongAndSecure!"
-}
+}*/
 
 resource "aws_db_instance" "muenster" {
     depends_on             = [aws_db_subnet_group.muenster]
@@ -14,7 +14,7 @@ resource "aws_db_instance" "muenster" {
     engine                 = "mysql"
     engine_version         = "5.7"
     instance_class         = "db.t2.micro"
-    identifier             = "api-freshman-yr-db"
+    identifier             = "freshman-yr-db"
     name                   = local.databaseName
     username               = local.databaseUsername
     password               = local.databasePassword

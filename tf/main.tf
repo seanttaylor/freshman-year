@@ -206,7 +206,7 @@ resource "aws_lb_target_group" "edge-service-proxy" {
   port = 3001
   protocol = "HTTP"
   target_type = "ip"
-  vpc_id = "${aws_vpc.app_vpc.id}"
+  vpc_id = aws_vpc.app_vpc.id
 
   health_check {
     enabled = true
@@ -219,7 +219,7 @@ resource "aws_lb_target_group" "edge-service-proxy" {
 }
 
 resource "aws_alb" "edge-service-proxy" {
-  name = "api-freshman-yr-edge-service-proxy-lb"
+  name = "edge-service-proxy-lb"
   internal = false
   load_balancer_type = "application"
 
@@ -237,6 +237,7 @@ resource "aws_alb" "edge-service-proxy" {
   depends_on = [aws_internet_gateway.igw]
 
   tags = {
+    appOwner   = local.appOwner
     categoryId = local.categoryId
   }
 }
@@ -261,7 +262,7 @@ output "api_freshman_yr_public_alb_url" {
 
 # The assume_role_policy field works with the following aws_iam_policy_document to allow
 # ECS tasks to assume this role we're creating.
-resource "aws_iam_role" "defaul-task-execution-role" {
+resource "aws_iam_role" "default-task-execution-role" {
   name = "default-task-execution-role"
   assume_role_policy = data.aws_iam_policy_document.ecs-task-assume-role.json
 }

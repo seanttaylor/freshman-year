@@ -81,13 +81,13 @@ data "aws_ssm_parameter" "data_service_hostname" {
   name = "/dev/api-freshman-yr/services/data/hostname"
 }
 
-output "git_branch_name" {
+/*output "git_branch_name" {
   value = data.environment_variable.git_branch_name.value
 }
 
 output "git_commit_sha" {
   value = data.environment_variable.git_commit_sha.value
-}
+}*/
 
 resource "aws_ecs_cluster" "api-freshman-yr" {
   name = "api-freshman-yr"
@@ -253,9 +253,9 @@ resource "aws_alb_listener" "edge-service-proxy-http" {
   }
 }
 
-output "api_freshman_yr_public_alb_url" {
+/*output "api_freshman_yr_public_alb_url" {
   value = "http://${aws_alb.edge-service-proxy.dns_name}"
-}
+}*/
 
 # This is the role under which ECS will execute our task. This role becomes more important
 # as we add integrations with other AWS services later on.

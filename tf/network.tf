@@ -42,13 +42,13 @@ resource "aws_route_table" "rt_priv" {
 }
 
 resource "aws_route_table_association" "public_subnet" {
-  subnet_id      = "${aws_subnet.subnet_us_east_1a_pub.id}"
-  route_table_id = "${aws_route_table.rt_pub.id}"
+  subnet_id      = aws_subnet.subnet_us_east_1a_pub.id
+  route_table_id = aws_route_table.rt_pub.id
 }
 
 resource "aws_route_table_association" "private_subnet" {
-  subnet_id      = "${aws_subnet.subnet_us_east_1b_priv.id}"
-  route_table_id = "${aws_route_table.rt_priv.id}"
+  subnet_id      = aws_subnet.subnet_us_east_1b_priv.id
+  route_table_id = aws_route_table.rt_priv.id
 }
 
 resource "aws_eip" "nat" {
@@ -56,12 +56,12 @@ resource "aws_eip" "nat" {
 }
 
 resource "aws_internet_gateway" "igw" {
-  vpc_id = "${aws_vpc.app_vpc.id}"
+  vpc_id = aws_vpc.app_vpc.id
 }
 
 resource "aws_nat_gateway" "ngw" {
-  subnet_id     = "${aws_subnet.subnet_us_east_1a_pub.id}"
-  allocation_id = "${aws_eip.nat.id}"
+  subnet_id     = aws_subnet.subnet_us_east_1a_pub.id
+  allocation_id = aws_eip.nat.id
 
   depends_on = [
     aws_internet_gateway.igw
@@ -69,9 +69,9 @@ resource "aws_nat_gateway" "ngw" {
 }
 
 resource "aws_route" "public_igw" {
-  route_table_id         = "${aws_route_table.rt_pub.id}"
+  route_table_id         = aws_route_table.rt_pub.id
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = "${aws_internet_gateway.igw.id}"
+  gateway_id             = aws_internet_gateway.igw.id
 }
 
 resource "aws_route" "private_ngw" {
@@ -132,7 +132,7 @@ resource "aws_security_group" "api-ingress" {
   }
 }
 
-output "vpc_id" {
+/*output "vpc_id" {
   value = "${aws_vpc.app_vpc.id}"
 }
 
@@ -142,4 +142,4 @@ output "public_subnet_id" {
 
 output "private_subnet_id" {
   value = "${aws_subnet.subnet_us_east_1b_priv.id}"
-}
+}*/

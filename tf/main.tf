@@ -216,8 +216,8 @@ resource "aws_alb" "edge_proxy" {
   security_groups = [
     "${aws_security_group.http.id}",
     "${aws_security_group.https.id}",
-    "${aws_security_group.egress-all.id}",
-    "${aws_security_group.api-ingress.id}"
+    "${aws_security_group.egress-all.id}"
+    #"${aws_security_group.api-ingress.id}"
   ]
 
   depends_on = [aws_internet_gateway.igw]

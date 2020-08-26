@@ -150,7 +150,7 @@ resource "aws_ecs_task_definition" "edge-proxy" {
       {
         "name": "PLATFORM_OUTBOUND_EMAIL_PASSWORD",
         "value": "${data.aws_ssm_parameter.platform_outbound_email_password.value}"
-      }
+      },
       {
         "name": "MUENSTER_DATASOURCE_USERNAME",
         "value": "${data.aws_ssm_parameter.muenster_datasource_username.value}"

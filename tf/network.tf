@@ -121,11 +121,11 @@ resource "aws_security_group" "egress-all" {
 
 resource "aws_security_group" "api-ingress" {
   name        = "api_ingress"
-  description = "Allow ingress to API"
+  description = "Allow ingress to APIs (i.e. data-serivce and edge-proxy)"
   vpc_id      = aws_vpc.app_vpc.id
 
   ingress {
-    from_port   = 3001
+    from_port   = 80
     to_port     = 3001
     protocol    = "TCP"
     cidr_blocks = ["0.0.0.0/0"]

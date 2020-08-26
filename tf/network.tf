@@ -125,7 +125,7 @@ resource "aws_security_group" "api-ingress" {
   vpc_id      = aws_vpc.app_vpc.id
 
   ingress {
-    from_port   = 80
+    from_port   = 3001
     to_port     = 3001
     protocol    = "TCP"
     cidr_blocks = ["0.0.0.0/0"]

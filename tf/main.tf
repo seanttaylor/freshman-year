@@ -188,7 +188,7 @@ resource "aws_ecs_task_definition" "edge-proxy" {
 
 resource "aws_lb_target_group" "edge_proxy" {
   name = "edge-proxy"
-  port = 80
+  port = 3001
   protocol = "HTTP"
   target_type = "ip"
   vpc_id = aws_vpc.app_vpc.id
@@ -216,8 +216,8 @@ resource "aws_alb" "edge_proxy" {
   security_groups = [
     "${aws_security_group.http.id}",
     "${aws_security_group.https.id}",
-    "${aws_security_group.egress-all.id}"
-    #"${aws_security_group.api-ingress.id}"
+    "${aws_security_group.egress-all.id}",
+    "${aws_security_group.api-ingress.id}"
   ]
 
   depends_on = [aws_internet_gateway.igw]

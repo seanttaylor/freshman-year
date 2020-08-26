@@ -188,7 +188,7 @@ resource "aws_ecs_task_definition" "edge-proxy" {
 
 resource "aws_lb_target_group" "edge_proxy" {
   name = "edge-proxy"
-  port = 3001
+  port = 80
   protocol = "HTTP"
   target_type = "ip"
   vpc_id = aws_vpc.app_vpc.id

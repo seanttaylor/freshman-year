@@ -74,6 +74,16 @@ data "aws_ssm_parameter" "data_service_hostname" {
   name = "/dev/api-freshman-yr/services/data/hostname"
 }
 
+data "aws_ssm_parameter" "platform_outbound_email_username" {
+  depends_on = [aws_ssm_parameter.platform_outbound_email_username]
+  name = "/dev/api-freshman-yr/credentials/platform/outbound-email-username"
+}
+
+data "aws_ssm_parameter" "platform_outbound_email_password" {
+  depends_on = [aws_ssm_parameter.platform_outbound_email_password]
+  name = "/dev/api-freshman-yr/credentials/platform/outbound-email-password"
+}
+
 resource "aws_ecs_cluster" "freshman-yr" {
   name = "freshman-yr"
 }
@@ -133,6 +143,14 @@ resource "aws_ecs_task_definition" "edge-proxy" {
         "name": "NODE_ENV",
         "value": "dev"
       },
+      {
+        "name": "PLATFORM_OUTBOUND_EMAIL_USERNAME",
+        "value": "${data.aws_ssm_parameter.platform_outbound_email_username.value}"
+      },
+      {
+        "name": "PLATFORM_OUTBOUND_EMAIL_PASSWORD",
+        "value": "${data.aws_ssm_parameter.platform_outbound_email_password.value}"
+      }
       {
         "name": "MUENSTER_DATASOURCE_USERNAME",
         "value": "${data.aws_ssm_parameter.muenster_datasource_username.value}"
@@ -270,4 +288,16 @@ data "aws_iam_policy" "ecs-task-execution-role" {
 resource "aws_iam_role_policy_attachment" "ecs-task-execution-role" {
   role = aws_iam_role.default-task-execution-role.name
   policy_arn = data.aws_iam_policy.ecs-task-execution-role.arn
+}
+
+resource "aws_ssm_parameter" "platform_outbound_email_username" {
+  name  = "/dev/api-freshman-yr/credentials/platform/outbound-email-username"
+  type  = "String"
+  value = local.platformOutboundEmailUsername
+}
+
+resource "aws_ssm_parameter" "platform_outbound_email_password" {
+  name  = "/dev/api-freshman-yr/credentials/platform/outbound-email-password"
+  type  = "SecureString"
+  value = local.platformOutboundEmailPassword
 }

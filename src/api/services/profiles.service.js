@@ -67,7 +67,8 @@ async function onCreateWelcomeEmail(profile) {
 
 
 /**
-* Updates the Profile's activation status on the `activations.request-received` event
+* Updates the Profile's activation status on the `activations.request-received` event via 
+* the bound `repo.updateOne` method in activationsMap
 * @param {String} entity - entity type (e.g. `sponsor`, `student`)
 * @param {String} csrf - CSRF token associated with activation
 * @param {String} id - uuid of the sponsor requesting actviation

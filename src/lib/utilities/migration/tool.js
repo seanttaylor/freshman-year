@@ -81,7 +81,7 @@ async function up() {
     }
 
     console.info('#####################################################');
-    console.info(`# Migration completed at ${new Date().toISOString()} #`);
+    console.info(`# Migrations completed at ${new Date().toISOString()} #`);
     console.info('#####################################################');
 }
 

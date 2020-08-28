@@ -3,7 +3,7 @@ const libMigrate = require('./tool');
 const environment = process.env.NODE_ENV || 'local';
 
 console.info('#####################################################');
-console.info(` Preparing migration on [${environment}] environment `);
+console.info(`Checking for migrations on [${environment}] environment `);
 console.info('#####################################################');
 const MigrationTool = new Migrateable(libMigrate).of({
     environment,

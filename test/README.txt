@@ -1,0 +1,1 @@
+This folder houses configuration files for integration tests. These files are primarily used by the automated pipeline to run the integration test suite on a pull request.

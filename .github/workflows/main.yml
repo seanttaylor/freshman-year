@@ -30,7 +30,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
         id: login-ecr
 
-      - name: "[STEP] Build Docker image and push to Amazon ECR [edge_service_proxy]"
+      - name: "[STEP] Build Docker image and push to Amazon ECR (edge_proxy)"
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: freshman-yr/edge-proxy
@@ -41,7 +41,7 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$MY_GIT_SHA .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:"$MY_GIT_SHA"
 
-      - name: "[STEP] Build Docker image and push to Amazon ECR [data_service]"
+      - name: "[STEP] Build Docker image and push to Amazon ECR (data_service)"
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: freshman-yr/data-service
@@ -49,5 +49,5 @@ jobs:
         run: |
           echo "::set-env name=ECR_REGISTRY::$ECR_REGISTRY"
 
-          docker build -f data-service.Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$MY_GIT_SHA .
+          docker build -f ./docker/data-service.Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$MY_GIT_SHA .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:"$MY_GIT_SHA"

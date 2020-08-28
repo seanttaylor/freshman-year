@@ -11,6 +11,9 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+console.log(process.env.PLATFORM_OUTBOUND_EMAIL_PASSWORD,
+    process.env.PLATFORM_OUTBOUND_EMAIL_USERNAME);
+
 
 /**
 * An configuration object for send emails via the Mailable interface.

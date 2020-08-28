@@ -1,0 +1,1 @@
+This folder houses additional Dockerfiles used to build images for separte ECS tasks that are part of the family of services comprising the ECS cluster for the Freshman Year platform. 

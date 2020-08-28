@@ -1,3 +1,6 @@
+###############################################################
+#FOR RUNNING INTEGRATION TESTS IN PIPELINE VIA DOCKER COMPOSE #
+###############################################################
 version: "3.1"
 
 services:
@@ -20,23 +23,27 @@ services:
     container_name: data_service
     depends_on:
       - db
-    image: rest-o-matic:mysql-5.7
+    build:
+      context: ./docker
+      dockerfile: data-service.Dockerfile
     command: xmysql -h db -u root -p root -d muenster -r 0.0.0.0
     restart: always
     networks:
       - shared_network
     ports:
       - "3000:3000"
-  edge_service_proxy:
-    container_name: edge_service_proxy
+  edge_proxy:
+    container_name: edge_proxy
     depends_on:
       - data_service
+    build:
+      context: .
     volumes:
       - ./:/app
     env_file:
-      - .env
+      - ../.env
     image: api-freshman-yr:0.0.1
-    command: npm start
+    command: npm run test:integration
     networks:
       - shared_network
     ports:

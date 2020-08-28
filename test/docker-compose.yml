@@ -21,8 +21,8 @@ services:
   #    - "3306:3306"
   data_service:
     container_name: data_service
-    depends_on:
-      - db
+    #depends_on:
+    #  - db
     build:
       context: ../docker
       dockerfile: data-service.Dockerfile

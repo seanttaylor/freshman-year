@@ -40,8 +40,10 @@ services:
       context: ../
     volumes:
       - ./:/app
-    env_file:
-      - ../.env
+    environment:
+      - PLATFORM_OUTBOUND_EMAIL_USERNAME: jennings89@ethereal.email
+      - PLATFORM_OUTBOUND_EMAIL_PASSWORD: 1BMXkCKv28SD3yTZAh
+      - DATA_SERVICE_HOST: http://data_service:3000
     #image: api-freshman-yr:0.0.1
     command: npm run test:integration
     networks:

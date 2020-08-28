@@ -27,8 +27,8 @@ services:
       - shared_network
     ports:
       - "3000:3000"
-  edge_service_proxy:
-    container_name: edge_service_proxy
+  edge_proxy:
+    container_name: edge_proxy
     depends_on:
       - data_service
     volumes:

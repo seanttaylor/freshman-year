@@ -14,7 +14,7 @@ services:
       MYSQL_USER: root
       MYSQL_DATABASE: muenster
     volumes:
-      - ./sqls:/docker-entrypoint.initdb.d
+      - ../sqls:/docker-entrypoint.initdb.d
     networks:
       - shared_network
     ports:
@@ -24,7 +24,7 @@ services:
     depends_on:
       - db
     build:
-      context: ./docker
+      context: ../docker
       dockerfile: data-service.Dockerfile
     command: xmysql -h db -u root -p root -d muenster -r 0.0.0.0
     restart: always
@@ -37,7 +37,7 @@ services:
     depends_on:
       - data_service
     build:
-      context: ../Dockerfile
+      context: ../
     volumes:
       - ./:/app
     env_file:

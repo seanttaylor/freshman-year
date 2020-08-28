@@ -41,8 +41,6 @@ jobs:
 
       - name: "[STEP] Run Integration Tests"
         run: docker-compose -f ./test/docker-compose.yml up --exit-code-from=edge_proxy
-        env:
-          DATA_SERVICE_HOST: mysql
 
       - name: "[STEP] Configure AWS Credentials"
         uses: aws-actions/configure-aws-credentials@v1

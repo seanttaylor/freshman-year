@@ -10,6 +10,18 @@ jobs:
   build-and-push:
     name: build-and-push
     runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:5.7
+        ports:
+          - 3306
+        env:
+          MYSQL_USER: root
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: muenster
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+
     steps:
       - name: "[STEP] Checkout"
         uses: actions/checkout@v2
@@ -29,6 +41,8 @@ jobs:
 
       - name: "[STEP] Run Integration Tests"
         run: docker-compose -f ./test/docker-compose.yml up --exit-code-from=edge_proxy
+        env:
+          DATA_SERVICE_HOST: mysql
 
       - name: "[STEP] Configure AWS Credentials"
         uses: aws-actions/configure-aws-credentials@v1

@@ -42,7 +42,7 @@ services:
       - ./:/app
     env_file:
       - ../.env
-    image: api-freshman-yr:0.0.1
+    #image: api-freshman-yr:0.0.1
     command: npm run test:integration
     networks:
       - shared_network

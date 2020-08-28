@@ -37,7 +37,7 @@ services:
     depends_on:
       - data_service
     build:
-      context: ../
+      context: ../Dockerfile
     volumes:
       - ./:/app
     env_file:

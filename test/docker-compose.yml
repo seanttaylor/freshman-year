@@ -44,7 +44,7 @@ services:
       PLATFORM_OUTBOUND_EMAIL_USERNAME: jennings89@ethereal.email
       PLATFORM_OUTBOUND_EMAIL_PASSWORD: 1BMXkCKv28SD3yTZAh
       DATA_SERVICE_HOST: http://data_service:3000
-    command: npm run test:integration
+    command: npm start && npm run test:integration
     networks:
       - shared_network
     ports:

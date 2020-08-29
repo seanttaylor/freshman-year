@@ -40,7 +40,7 @@ jobs:
         run: npm install
 
       - name: "[STEP] Run Integration Tests"
-        run: docker-compose -f ./test/docker-compose.yml up --exit-code-from=edge_proxy
+        run: docker-compose -f ./test/docker-compose.yml run edge_proxy --exit-code-from=edge_proxy
 
       - name: "[STEP] Configure AWS Credentials"
         uses: aws-actions/configure-aws-credentials@v1

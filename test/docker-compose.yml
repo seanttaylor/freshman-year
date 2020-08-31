@@ -9,7 +9,7 @@ services:
     build:
       context: ../docker
       dockerfile: data-service.Dockerfile
-    command: xmysql -h 0.0.0.0:32768 -u root -p root -d muenster -r 0.0.0.0
+    command: xmysql -h 0.0.0.0:3306 -u root -p root -d muenster -r 0.0.0.0
     restart: always
     networks:
       - shared_network

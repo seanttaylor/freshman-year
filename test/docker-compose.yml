@@ -26,7 +26,7 @@ services:
     build:
       context: ../docker
       dockerfile: data-service.Dockerfile
-    command: xmysql -u root -p root -d muenster -r 0.0.0.0
+    command: xmysql -h mysql -u root -p root -d muenster -r 0.0.0.0
     restart: always
     networks:
       - shared_network

@@ -4,29 +4,12 @@
 version: "3.1"
 
 services:
-  #db:
-  #  container_name: db
-  #  image: mysql:5.7
-  #command: --init-file /docker-entrypoint.initdb.d/init.sql
-  #  restart: always
-  #  environment:
-  #    MYSQL_ROOT_PASSWORD: root
-  #    MYSQL_USER: root
-  #    MYSQL_DATABASE: muenster
-  #  volumes:
-  #    - ../sqls:/docker-entrypoint.initdb.d
-  #  networks:
-  #    - shared_network
-  #  ports:
-  #    - "3306:3306"
   data_service:
     container_name: data_service
-    #depends_on:
-    #  - db
     build:
       context: ../docker
       dockerfile: data-service.Dockerfile
-    command: xmysql -h mysql -u root -p root -d muenster -r 0.0.0.0
+    command: xmysql -h 0.0.0.0:32768 -u root -p root -d muenster -r 0.0.0.0
     restart: always
     networks:
       - shared_network
